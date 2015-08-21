@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/build/intermediates/bundles/debug/res/values/values.xml -->
+    <eat-comment/>
+    <color name="theme_primary">#a24689</color>
+    <color name="theme_primary_trans">#88a24689</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="dot_focused_height_width">12dp</dimen>
+    <dimen name="dot_left_right_margine">2dp</dimen>
+    <dimen name="dot_normal_height_width">10dp</dimen>
+    <dimen name="dot_top_bottom_margine">5dp</dimen>
+    <string name="app_name">OdooWidgets</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+</resources>
