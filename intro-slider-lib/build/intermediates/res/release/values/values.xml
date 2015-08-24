@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/src/main/res/values/colors.xml -->
+    <!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="theme_primary">#a24689</color>
     <color name="theme_primary_trans">#88a24689</color>
-    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/src/main/res/values/dimens.xml -->
+    <!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -12,10 +12,10 @@
     <dimen name="dot_left_right_margine">2dp</dimen>
     <dimen name="dot_normal_height_width">10dp</dimen>
     <dimen name="dot_top_bottom_margine">5dp</dimen>
-    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">OdooWidgets</string>
-    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

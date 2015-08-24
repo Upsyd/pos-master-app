@@ -7,9 +7,9 @@ android {
     buildToolsVersion "21.1.2"
     defaultConfig {
         //FIXME: Change application name as your requirement
-        manifestPlaceholders = [applicationName: "BrowseInfo"]
+        manifestPlaceholders = [applicationName: "POS"]
         //FIXME: Please change the application id as your requirement
-        applicationId 'com.bi'
+        applicationId 'com.bi.pos'
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1

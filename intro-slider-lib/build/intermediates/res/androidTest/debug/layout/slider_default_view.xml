@@ -18,4 +18,4 @@
         android:orientation="horizontal"
         android:padding="16dp"></LinearLayout>
 
-</RelativeLayout><!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/src/main/res/layout/slider_default_view.xml --><!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/build/intermediates/bundles/debug/res/layout/slider_default_view.xml -->
+</RelativeLayout><!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/src/main/res/layout/slider_default_view.xml --><!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/build/intermediates/bundles/debug/res/layout/slider_default_view.xml -->

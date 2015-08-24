@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/StudioWS/framework-master/intro-slider-lib/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/StudioWS/pos-master/intro-slider-lib/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="theme_primary">#a24689</color>
     <color name="theme_primary_trans">#88a24689</color>

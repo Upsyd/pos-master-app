@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="parallax-effect-lib-unspecified">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-master/parallax-effect-lib/unspecified/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/framework-master/parallax-effect-lib/unspecified/res" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/pos-master/parallax-effect-lib/unspecified/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/pos-master/parallax-effect-lib/unspecified/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
