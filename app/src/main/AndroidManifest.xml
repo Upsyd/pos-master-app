@@ -115,9 +115,77 @@
                 android:resource="@xml/customer_sync_adapter" />
         </service>
 
+        <!--<activity-->
+            <!--android:name="com.odoo.addons.customers.CustomerDetails"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <!-- For Categories // -->
+        <provider
+            android:name="com.odoo.addons.pos.providers.PosCategoryProvider"
+            android:authorities="com.odoo.addons.categories.pos_category"
+            android:label="Pos Categories"
+            android:multiprocess="true" />
+        <service android:name=".addons.pos.services.CategoriesSyncService"
+            android:exported="true"
+            android:process=":sync_tasks">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/categories_syncadapter" />
+        </service>
+
+
+
+        <!-- For Pos Product // -->
+        <provider
+            android:name="com.odoo.addons.pos.providers.PosProductProvider"
+            android:authorities="com.odoo.addons.product.product_template"
+            android:label="Pos Product"
+            android:multiprocess="true" />
+        <service android:name=".addons.pos.services.ProductSyncService"
+            android:exported="true"
+            android:process=":sync_product">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/product_sync_adapter" />
+        </service>
+
+        <!--  <provider
+              android:name="com.odoo.addons.pos.providers.ProjetTaskProvider"
+              android:authorities="com.odoo.addons.pos.project_tasks"
+              android:label="Project Tasks"
+              android:multiprocess="true" />
+          <service android:name="com.odoo.addons.pos.services.ProjectSyncService"
+              android:exported="true"
+              android:process=":sync_tasks">
+              <intent-filter>
+                  <action android:name="android.content.SyncAdapter" />
+              </intent-filter>
+
+              <meta-data
+                  android:name="android.content.SyncAdapter"
+                  android:resource="@xml/task_sync_adapter" />
+          </service>-->
+
         <activity
             android:name="com.odoo.addons.customers.CustomerDetails"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.odoo.addons.pos.CategoriesDetails"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.odoo.addons.pos.ProductList"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="com.odoo.addons.pos.Order"
+            android:windowSoftInputMode="adjustPan" />
+
     </application>
+
+
 
 </manifest>
