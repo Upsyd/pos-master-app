@@ -13,6 +13,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +36,7 @@ import com.odoo.addons.pos.models.ProductTemplate;
 
 
 import com.odoo.core.orm.ODataRow;
+import com.odoo.core.orm.annotation.Odoo;
 import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.support.addons.fragment.BaseFragment;
 import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
@@ -76,6 +78,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     MenuItem menuItem;
     public int count=0;
     public int listViewClickCounter=0;
+    TextView cartItems;
+    ImageView pro_img;
 
 
     static int mNotifCount = 0;
@@ -146,12 +150,39 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         gv.setFastScrollAlwaysVisible(false);
         myList = new ArrayList<PosOrder>();
         //producttemp = new ProductTemplate(getActivity(),null);
-        //setHasFloatingButton(view, R.id.fabButton, gv, this);
+        //setHasFloatingButton(view, R.id.fabButton, gv, this);        android:id="@+id/ic_cart"
+
         setHasSyncStatusObserver(KEY, this, db());
         getLoaderManager().initLoader(0, null, this);
         //initMenuBar();
 
+        ActionBar actionBar = ((OdooActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.action_bar_cart_icon);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView actionbarTitle = (TextView)actionBar.getCustomView().findViewById(R.id.title);
+        actionbarTitle.setText("POS");
+        cartItems = (TextView)actionBar.getCustomView().findViewById(R.id.cart_items);
+        pro_img = (ImageView)actionBar.getCustomView().findViewById(R.id.ic_cart);
+        pro_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // Intent intent = new Intent(getActivity(), .class);
+                    Intent intent = new Intent(getActivity(), Order.class);
+                     intent.putExtra("i",myList);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putSerializable("cart_details", myList);
+                    intent.putExtras(mBundle);
+                    getActivity().startActivity(intent);
+                    Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
     }
+
+
 
 
     @Override
@@ -392,13 +423,13 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         pos.setProductQntity(1);
         Log.i("SomeTag", "Persons: " + gv.getCount());
         count++;
-        String countString=String.valueOf(count);
         Toast toast = Toast.makeText(getActivity(),
                 "Item " + (position + 1),
                 Toast.LENGTH_SHORT);
 //        Toast.makeText(getActivity(),
 //                countString, Toast.LENGTH_LONG).show();
-        menuItem.setTitle(countString);
+//        menuItem.setTitle(count +"");
+        cartItems.setText(count +"");
 //        listViewClickCounter++;
 //        changeActionBarTitle();
 
@@ -442,17 +473,22 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
-        RelativeLayout badgeLayout = (RelativeLayout)menu.findItem(R.id.shopping_cart).getActionView();
-        badgeLayout.setActivated(true);
-        TextView tv = (TextView) badgeLayout.findViewById(R.id.actionbar_notifcation_textview);
-        tv.setText("12");
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
 
+        getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
+//        RelativeLayout badgeLayout = (RelativeLayout)menu.findItem(R.id.shopping_cart).getActionView();
+//        badgeLayout.setActivated(true);
+//        View view = (View)menu.findItem(R.id.shopping_cart).getActionView();
+//        menuItem = menu.findItem(R.id.shopping_cart);
+//        System.out.println("menuitem view==== " + (RelativeLayout)menuItem.getActionView());
+//        view.setActivated(true);
+//        TextView tv = (TextView) view.findViewById(R.id.actionbar_notifcation_textview);
+//        tv.setText("12");
+
 
 //        getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
-//       menuItem = menu.findItem(R.id.badge);
+
         //menuItem.setTitle("menuItem");
         //I suppose you create custom ActionBar like this
        // final View addView = getActivity().getLayoutInflater().inflate(R.layout.action_bar_cart_icon, null);

@@ -21,12 +21,12 @@
     <!--android:title="Cart"-->
     <!--app:showAsAction="always">-->
 <!--</item>-->
-    <item
-        android:id="@+id/shopping_cart"
-        android:actionLayout="@layout/actionbar_badge_layout"
-        app:showAsAction="always|collapseActionView"
-        android:title="cart"
-        android:icon="@drawable/ic_cart_custom"/>
+    <!--<item-->
+        <!--android:id="@+id/shopping_cart"-->
+        <!--android:actionLayout="@layout/action_bar_cart_icon"-->
+        <!--app:showAsAction="always|collapseActionView"-->
+        <!--android:title="cart"-->
+    <!--/>-->
 
     <!--android:icon="@drawable/ic_cart_custom"-->
         <!--android:title="Cart" />-->
