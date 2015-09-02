@@ -1,5 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="48dp"
+    android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_gravity="right">
 
@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="99"
+        android:text="roshu"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="#fff"/>
 
 </RelativeLayout>
