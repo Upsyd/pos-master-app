@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/odoo-rpc-v3/odoo-rpc-v3.iml" filepath="$PROJECT_DIR$/odoo-rpc-v3/odoo-rpc-v3.iml" />
       <module fileurl="file://$PROJECT_DIR$/parallax-effect-lib/parallax-effect-lib.iml" filepath="$PROJECT_DIR$/parallax-effect-lib/parallax-effect-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/pos-master.iml" filepath="$PROJECT_DIR$/pos-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pos-master-app.iml" filepath="$PROJECT_DIR$/pos-master-app.iml" />
     </modules>
   </component>
 </project>
+
