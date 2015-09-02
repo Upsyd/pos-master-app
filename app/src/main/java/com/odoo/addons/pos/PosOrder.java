@@ -49,4 +49,26 @@ public class PosOrder implements Serializable {
     public void setProductQntity(int productQntity) {
         this.productQntity = productQntity;
     }
+
+    float Discount;
+
+    public float getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.Discount = discount;
+    }
+
+
+    float netAmount;
+
+    public float getNetAmount() {
+        return netAmount;
+    }
+
+    public void setNetAmount(float netAmount) {
+        this.netAmount = netAmount;
+    }
 }
+
