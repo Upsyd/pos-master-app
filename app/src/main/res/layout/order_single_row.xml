@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+<TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="right"
+    android:textAppearance="?android:textAppearanceMedium"
+    android:text=""/>
+<ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:layout_gravity="left"
+    android:scaleX="1"
+    android:scaleY="1"
+    android:src="@android:drawable/ic_delete" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:text="Quantity:"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:text="Price:"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:text="Discount:"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageButton
+        android:id="@+id/Imagedelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:src="@android:drawable/ic_delete" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/Imagedelete"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/txQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/productName"
+        android:layout_below="@+id/productName"
+        android:text="Quantity: "
+        android:textAppearance="?android:textAppearanceSmall"
+        />
+    <EditText
+        android:id="@+id/prdctQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/productName"
+     android:layout_toEndOf="@+id/txQuantity"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_toRightOf="@+id/txQuantity"
+         />
+    <TextView
+        android:id="@+id/txPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/productName"
+        android:layout_below="@+id/txQuantity"
+        android:text="Price: "
+        android:textAppearance="?android:textAppearanceSmall"
+        />
+    <EditText
+        android:id="@+id/prdctPrize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txPrice"
+        android:layout_toRightOf="@+id/txQuantity"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_toEndOf="@+id/txQuantity" />
+    <TextView
+        android:id="@+id/txDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/productName"
+        android:layout_below="@+id/txPrice"
+        android:text="Discount: "
+        android:textAppearance="?android:textAppearanceSmall"
+        />
+    <EditText
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txDiscount"
+        android:layout_toRightOf="@+id/txQuantity"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_toEndOf="@+id/txQuantity" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:id="@+id/NetPrize"
+        android:layout_below="@+id/txDiscount"
+        android:layout_alignRight="@+id/Imagedelete"
+        android:layout_alignEnd="@+id/Imagedelete" />
+
+
+</RelativeLayout>
