@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -59,8 +61,15 @@ public class Order extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_listview);
-        l = (ListView) findViewById(R.id.list);
-        tvPrdctname = (TextView) findViewById(R.id.productName);
+        ActionBar actionbar = getSupportActionBar();
+        if(actionbar!=null) {
+            actionbar.setHomeButtonEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("POS");
+        }
+
+        l = (ListView) findViewById(R.id.list_order);
+       tvPrdctname = (TextView) findViewById(R.id.productName);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
         etPrdctQumtity = (EditText) findViewById(R.id.prdctQuantity);
         etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
@@ -72,6 +81,7 @@ public class Order extends AppCompatActivity {
         array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
         l.setAdapter(adapter);
+        l.setDividerHeight(0);
 
 //        PosOrder poss = new PosOrder();
 
@@ -155,6 +165,7 @@ public class Order extends AppCompatActivity {
 
                 holder.ImgDlt = (ImageButton) view.findViewById(R.id.Imagedelete);
                 holder.ImgDlt.setTag(posOrder);
+//                holder.ImgDlt.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
 
 
                 holder.PrdctName = (TextView) view.findViewById(R.id.productName);

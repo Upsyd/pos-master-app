@@ -144,7 +144,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         //  bar.setCustomView(R.layout.action_bar_cart_icon);
         setHasSwipeRefreshView(view, R.id.swipe_container, this);
         mView = view;
-        mType = Type.valueOf(getArguments().getString(EXTRA_KEY_TYPE));
+//        mType = Type.valueOf(getArguments().getString(EXTRA_KEY_TYPE));
         //mPartnersList = (ListView) mView.findViewById(R.id.listview);
         gv = (GridView) mView.findViewById(R.id.gridView1);
 //        listAdapter = new OCursorListAdapter(getActivity(), null, R.layout.categories_row_item);
@@ -179,9 +179,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                     Bundle mBundle = new Bundle();
                     mBundle.putSerializable("cart_details", myList);
                     intent.putExtras(mBundle);
-                //startActivity(intent);
-                   getActivity().startActivity(intent);
-                    Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
+                    getActivity().startActivity(intent);
+                   // Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -409,24 +408,19 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
         TextView product_name, product_price;
-
-
         //product_id;
         // final ViewHolder viewHolderFinal = holder;
         //final PosOrder finalRowItem = myList;
 
         product_name = (TextView) view.findViewById(R.id.posname);
         product_price = (TextView) view.findViewById(R.id.posprice);
-
         // product_id =  (TextView)view.findViewById(R.id.posid);
         PosOrder pos = new PosOrder();
         // pos.setProductId(product_id.getText().toString());
         //String strid = product_id.getText().toString();
         //  Integer nt=Integer.parseInt(strid);
         pos.setProductId(row.getInt(OColumn.ROW_ID));
-       /* pos.setImage(imgProduct.);
-        System.out.println("Image" + pos.getImage());
-*/
+
         //System.out.println("ID" + _id);
         pos.setProductName(product_name.getText().toString());
         String strprize = product_price.getText().toString();
@@ -438,10 +432,10 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
      ImageView imgProduct,athorProductImage;
         Bitmap bm;
         imgProduct=(ImageView)view.findViewById(R.id.productimag);
-        view.setDrawingCacheEnabled(true);
+        imgProduct.setDrawingCacheEnabled(true);
 
-        view.buildDrawingCache();
- bm = view.getDrawingCache();
+        imgProduct.buildDrawingCache();
+ bm = imgProduct.getDrawingCache();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();

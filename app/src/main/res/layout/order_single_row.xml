@@ -1,4 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_odoo_icon"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"/>
+    <RelativeLayout
+        android:id="@+id/order_item_product"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_car_roshu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal" >
+            >
+
+
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product name"
+                android:layout_weight="1"
+                android:textColor="@color/drawer_text_color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/Imagedelete"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_delete_list_second"
+                android:backgroundTint="@color/control_pressed"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_car_roshu"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txQuantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Quantity  :"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/prdctQuantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="0"
+                android:layout_weight="2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_car_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_car"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Price         : "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/prdctPrize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="0.00"
+                android:layout_weight="2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_car_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_car_color"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txDiscount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Discount :"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="0.00"
+                android:layout_weight="2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_total_amunt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/layout_car_price"
+            android:gravity="right|center_vertical">
+
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:id="@+id/rs"
+                android:layout_marginRight="2dp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_indian_rupee"
+                android:tint="@color/drawer_text_color"/>
+            <TextView
+                android:id="@+id/NetPrize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00.00"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>
+
+
+</LinearLayout>
+
 <!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -74,94 +252,270 @@
         </LinearLayout>
 
     </LinearLayout>-->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <ImageButton
-        android:id="@+id/Imagedelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@android:drawable/ic_delete" />
-
-    <TextView
-        android:id="@+id/productName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/Imagedelete"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/txQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/productName"
-        android:layout_below="@+id/productName"
-        android:text="Quantity: "
-        android:textAppearance="?android:textAppearanceSmall"
-        />
-    <EditText
-        android:id="@+id/prdctQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/productName"
-     android:layout_toEndOf="@+id/txQuantity"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:layout_toRightOf="@+id/txQuantity"
-         />
-    <TextView
-        android:id="@+id/txPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/productName"
-        android:layout_below="@+id/txQuantity"
-        android:text="Price: "
-        android:textAppearance="?android:textAppearanceSmall"
-        />
-    <EditText
-        android:id="@+id/prdctPrize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txPrice"
-        android:layout_toRightOf="@+id/txQuantity"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:layout_toEndOf="@+id/txQuantity" />
-    <TextView
-        android:id="@+id/txDiscount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/productName"
-        android:layout_below="@+id/txPrice"
-        android:text="Discount: "
-        android:textAppearance="?android:textAppearanceSmall"
-        />
-    <EditText
-        android:id="@+id/discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txDiscount"
-        android:layout_toRightOf="@+id/txQuantity"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:layout_toEndOf="@+id/txQuantity" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:id="@+id/NetPrize"
-        android:layout_below="@+id/txDiscount"
-        android:layout_alignRight="@+id/Imagedelete"
-        android:layout_alignEnd="@+id/Imagedelete" />
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" >-->
 
 
-</RelativeLayout>
+    <!--<ImageButton-->
+        <!--android:id="@+id/Imagedelete"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="#FFFFFF"-->
+        <!--android:scaleX="1"-->
+        <!--android:scaleY="1"-->
+        <!--android:src="@android:drawable/ic_delete" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/productName"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Product name"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_toLeftOf="@+id/Imagedelete"-->
+        <!--android:textAppearance="?android:textAppearanceMedium"-->
+        <!--android:textSize="20dp" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/txQuantity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@+id/productName"-->
+        <!--android:layout_below="@+id/productName"-->
+        <!--android:text="Quantity: "-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/prdctQuantity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignTop="@+id/productName"-->
+     <!--android:layout_toEndOf="@+id/txQuantity"-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--android:layout_toRightOf="@+id/txQuantity"-->
+         <!--/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/txPrice"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@+id/productName"-->
+        <!--android:layout_below="@+id/txQuantity"-->
+        <!--android:text="Price: "-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/prdctPrize"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/txPrice"-->
+        <!--android:layout_toRightOf="@+id/txQuantity"-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--android:layout_toEndOf="@+id/txQuantity" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/txDiscount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@+id/productName"-->
+        <!--android:layout_below="@+id/txPrice"-->
+        <!--android:text="Discount: "-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/discount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/txDiscount"-->
+        <!--android:layout_toRightOf="@+id/txQuantity"-->
+        <!--android:textAppearance="?android:textAppearanceSmall"-->
+        <!--android:layout_toEndOf="@+id/txQuantity" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=" "-->
+        <!--android:id="@+id/NetPrize"-->
+        <!--android:layout_below="@+id/txDiscount"-->
+        <!--android:layout_alignRight="@+id/Imagedelete"-->
+        <!--android:layout_alignEnd="@+id/Imagedelete" />-->
+
+
+<!--</RelativeLayout>-->
+    <!--************Olad Layout********-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="horizontal" android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:weightSum="1">-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="65dip"-->
+        <!--android:layout_height="65dip"-->
+        <!--android:id="@+id/productImage"-->
+        <!--android:src="@drawable/bg_image_product"-->
+        <!--android:padding="5dp"-->
+        <!--/>-->
+
+<!--<RelativeLayout-->
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:id="@+id/order_item">-->
+
+
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="New Text"-->
+        <!--android:textSize="20dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:id="@+id/productName"-->
+        <!--android:layout_alignParentTop="true"-->
+       <!--android:layout_marginLeft="33dp"-->
+        <!--android:layout_marginStart="33dp" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Quantity   :"-->
+        <!--android:id="@+id/txQuantity"-->
+        <!--android:layout_below="@+id/Imagedelete"-->
+        <!--android:layout_alignLeft="@+id/productName"-->
+        <!--android:layout_alignStart="@+id/productName" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--android:ems="10"-->
+        <!--android:text="0"-->
+        <!--android:background="@null"-->
+        <!--android:id="@+id/prdctQuantity"-->
+        <!--android:layout_alignBottom="@+id/txQuantity"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_toEndOf="@+id/productName"-->
+        <!--android:layout_toRightOf="@+id/productName" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Price          :"-->
+        <!--android:id="@+id/txPrice"-->
+        <!--android:layout_below="@+id/prdctQuantity"-->
+        <!--android:layout_alignLeft="@+id/txQuantity"-->
+        <!--android:layout_alignStart="@+id/txQuantity" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--android:text="0.00"-->
+        <!--android:background="@null"-->
+        <!--android:ems="10"-->
+        <!--android:id="@+id/prdctPrize"-->
+        <!--android:layout_alignTop="@+id/txPrice"-->
+        <!--android:layout_alignLeft="@+id/prdctQuantity"-->
+        <!--android:layout_alignStart="@+id/prdctQuantity"-->
+        <!--android:layout_toLeftOf="@+id/Imagedelete"-->
+        <!--android:layout_toStartOf="@+id/Imagedelete" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Discount   :"-->
+        <!--android:id="@+id/txDiscount"-->
+        <!--android:layout_below="@+id/prdctPrize"-->
+        <!--android:layout_alignLeft="@+id/txPrice"-->
+        <!--android:layout_alignStart="@+id/txPrice" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--android:text="0.00"-->
+        <!--android:background="@null"-->
+        <!--android:ems="10"-->
+        <!--android:id="@+id/discount"-->
+        <!--android:layout_alignTop="@+id/txDiscount"-->
+        <!--android:layout_alignLeft="@+id/prdctPrize"-->
+        <!--android:layout_alignStart="@+id/prdctPrize" />-->
+
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/Imagedelete"-->
+        <!--android:background="@android:drawable/ic_delete"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignRight="@+id/prdctQuantity"-->
+        <!--android:layout_alignEnd="@+id/prdctQuantity" />-->
+    <!--</RelativeLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="right">-->
+
+        <!--<ImageButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+
+    <!--</LinearLayout>-->
+
+
+
+
+    <!--</LinearLayout>-->
+    <!--*************OLD************-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<LinearLayout-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="00.000"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="18dp"-->
+        <!--android:id="@+id/NetPrize"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_below="@+id/discount"/>-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/rsicon"-->
+        <!--android:background="@drawable/ic_indian_rupee"-->
+        <!--android:layout_below="@id/discount"-->
+        <!--android:layout_alignLeft="@id/NetPrize"-->
+        <!--android:layout_alignStart="@id/NetPrize"-->
+        <!--android:layout_alignBottom="@id/discount"-->
+        <!--android:layout_toLeftOf="@id/NetPrize"-->
+        <!--android:layout_toStartOf="@id/NetPrize" />-->
+
+
+
+

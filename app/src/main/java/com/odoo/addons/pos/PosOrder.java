@@ -70,5 +70,15 @@ public class PosOrder implements Serializable {
     public void setNetAmount(float netAmount) {
         this.netAmount = netAmount;
     }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    byte[] image;
 }
 

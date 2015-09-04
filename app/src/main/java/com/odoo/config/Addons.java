@@ -32,7 +32,7 @@ public class Addons extends AddonsHelper {
      * Ex.:
      * OAddon partners = new OAddon(Partners.class).setDefault();
      */
-    OAddon customers = new OAddon(Customers.class).setDefault();
-    //OAddon pos = new OAddon(Categories.class);
-    OAddon product = new OAddon(Product.class);
+//    OAddon customers = new OAddon(Customers.class).setDefault();
+   ///OAddon pos = new OAddon(Categories.class);
+   OAddon product = new OAddon(Product.class).setDefault();
 }

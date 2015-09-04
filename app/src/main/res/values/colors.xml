@@ -53,6 +53,7 @@
         <item>@color/android_orange_dark</item>
     </array>
     <color name="icon_cart_green">#009A4E</color>
+    <color name="android_red_cart">#FF0000</color>
     <color name="icon_tint">#5e5e5e</color>
     <color name="actionbar_spinner_text_color">#414141</color>
 
