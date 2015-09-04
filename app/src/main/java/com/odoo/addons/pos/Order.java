@@ -3,6 +3,8 @@ package com.odoo.addons.pos;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -22,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +53,7 @@ public class Order extends AppCompatActivity {
     public EditText etPrdctQumtity;
     public EditText etPrdctPrize;
     public EditText etPrdctDiscount;
+    public ImageView Imageproduct;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,9 @@ public class Order extends AppCompatActivity {
         etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
         etPrdctDiscount = (EditText) findViewById(R.id.discount);
         tvPrize = (TextView) findViewById(R.id.NetPrize);
+        Imageproduct=(ImageView)findViewById(R.id.productImage);
         array = new ArrayList<PosOrder>();
+      //  array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
         array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
         l.setAdapter(adapter);
@@ -118,6 +124,7 @@ public class Order extends AppCompatActivity {
             EditText PrdctPrize;
             EditText PrdctDiscount;
             ImageButton ImgDlt;
+            ImageView prdctImage;
         }
 
 
@@ -139,6 +146,11 @@ public class Order extends AppCompatActivity {
                 holder.PrdctQuantity = (EditText) view.findViewById(R.id.prdctQuantity);
                 holder.PrdctQuantity.setTag(posOrder);
                 holder.PrdctQuantity.setText(String.valueOf(posOrder.getProductQntity()));
+
+                holder.prdctImage=(ImageView)view.findViewById(R.id.productImage);
+                holder.prdctImage.setTag(posOrder);
+                Bitmap bmp = BitmapFactory.decodeByteArray(posOrder.getImage(), 0, posOrder.getImage().length);
+                holder.prdctImage.setImageBitmap(bmp);
 
 
                 holder.ImgDlt = (ImageButton) view.findViewById(R.id.Imagedelete);

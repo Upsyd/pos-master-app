@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
@@ -49,6 +53,8 @@ import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OControls;
 import com.odoo.core.utils.OCursorUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,7 +179,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                     Bundle mBundle = new Bundle();
                     mBundle.putSerializable("cart_details", myList);
                     intent.putExtras(mBundle);
-                    getActivity().startActivity(intent);
+                //startActivity(intent);
+                   getActivity().startActivity(intent);
                     Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
 
             }
@@ -402,26 +409,45 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
         TextView product_name, product_price;
+
+
         //product_id;
         // final ViewHolder viewHolderFinal = holder;
         //final PosOrder finalRowItem = myList;
 
         product_name = (TextView) view.findViewById(R.id.posname);
         product_price = (TextView) view.findViewById(R.id.posprice);
+
         // product_id =  (TextView)view.findViewById(R.id.posid);
         PosOrder pos = new PosOrder();
         // pos.setProductId(product_id.getText().toString());
         //String strid = product_id.getText().toString();
         //  Integer nt=Integer.parseInt(strid);
         pos.setProductId(row.getInt(OColumn.ROW_ID));
-
+       /* pos.setImage(imgProduct.);
+        System.out.println("Image" + pos.getImage());
+*/
         //System.out.println("ID" + _id);
         pos.setProductName(product_name.getText().toString());
         String strprize = product_price.getText().toString();
         Float f = Float.parseFloat(strprize);
         pos.setProductPrize(f);
         pos.setProductQntity(1);
-        Log.i("SomeTag", "Persons: " + gv.getCount());
+
+
+     ImageView imgProduct,athorProductImage;
+        Bitmap bm;
+        imgProduct=(ImageView)view.findViewById(R.id.productimag);
+        view.setDrawingCacheEnabled(true);
+
+        view.buildDrawingCache();
+ bm = view.getDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        pos.setImage(byteArray);
+
+          Log.i("SomeTag", "Persons: " + gv.getCount());
         count++;
         Toast toast = Toast.makeText(getActivity(),
                 "Item " + (position + 1),
@@ -444,7 +470,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         // pos.setProductQntity();
 //
         boolean isFound = false;
-        for (int i = 0; i < myList.size(); i++) {
+       for (int i = 0; i < myList.size(); i++) {
             PosOrder posListItem = myList.get(i);
             if (posListItem.getProductId() == pos.getProductId()) {
                 posListItem.setProductQntity(posListItem.getProductQntity() + 1);
