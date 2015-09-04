@@ -13,4 +13,5 @@
     <string name="label_log_an_internal_note"><u>Log an internal note</u></string>
     <string name="label_no_pro_found">No Product Found !</string>
     <string name="action_settings">Settings</string>
+    <string name="delete_messege">"Are you sure you want to delete?"</string>
 </resources>
