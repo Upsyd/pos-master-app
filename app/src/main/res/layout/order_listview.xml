@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,7 +18,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="8"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,46 +36,48 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@color/android_white"
             android:showDividers="middle"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:padding="@dimen/default_8dp"
+
                 android:text="Total:"
-                android:gravity="center_vertical|right"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/grandTotal"
-                android:paddingBottom="@dimen/default_8dp"
-                android:paddingTop="@dimen/default_8dp"
-                android:layout_width="wrap_content"
-                android:gravity="center_vertical|right"
-                android:minWidth="80dp"
-                android:fontFamily="@string/font_normal"
-                android:textColor="@color/body_text_1"
+                android:gravity="center_vertical|left"
+               android:textStyle="bold"
+                android:minWidth="5dp"
+                android:textColor="@color/drawer_text_color"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/currency1"
-                android:paddingBottom="@dimen/default_8dp"
-                android:paddingTop="@dimen/default_8dp"
-                android:paddingRight="@dimen/default_16dp"
-                android:paddingLeft="@dimen/default_8dp"
+                android:id="@+id/grandTotal"
+
                 android:layout_width="wrap_content"
                 android:gravity="center_vertical"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:text="0.0"
+
+                android:fontFamily="@string/font_normal"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/currency1"
+
+                android:layout_width="15dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_indian_rupee"
+                android:tint="@color/drawer_text_color"
+                android:textColor="@color/android_grey_dark"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
@@ -84,50 +85,74 @@
 
     <LinearLayout
         android:orientation="vertical"
-
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_height="match_parent">
+            android:background="@color/android_white"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:padding="@dimen/default_8dp"
-                android:text="Taxes :"
-                android:gravity="center_vertical|right"
+
+                android:text="Taxes:"
+                android:textStyle="bold"
+                android:textColor="@color/drawer_text_color"
+
+                android:gravity="center_vertical|left"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:layout_height="match_parent" />
-
             <TextView
                 android:id="@+id/taxesTotal"
-                android:paddingBottom="@dimen/default_8dp"
-                android:paddingTop="@dimen/default_8dp"
-                android:layout_width="wrap_content"
-                android:gravity="center_vertical|right"
-                android:fontFamily="@string/font_normal"
-                android:minWidth="80dp"
-                android:textColor="@color/body_text_1"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/currency2"
-                android:paddingBottom="@dimen/default_8dp"
-                android:paddingTop="@dimen/default_8dp"
-                android:paddingRight="@dimen/default_16dp"
-                android:paddingLeft="@dimen/default_8dp"
                 android:layout_width="wrap_content"
                 android:gravity="center_vertical"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="@string/font_normal"
+                android:text="0.0"
+                android:minWidth="5dp"
+                android:textColor="@color/android_grey_dark"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/currency2"
+                android:layout_width="15dp"
+                android:tint="@color/drawer_text_color"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_indian_rupee"
+                android:textColor="@color/android_grey_dark"
+                android:layout_height="match_parent" />
+
+
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:textColor="@color/android_white"
+            android:background="@color/theme_primary"
+            android:text="Continue Shopping"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="0dp"
+            android:background="@color/Orange_colour"
+            android:layout_height="wrap_content"
+            android:textColor="@color/android_white"
+            android:gravity="center"
+            android:text="Payment"
+            android:layout_weight="1"/>
+        </LinearLayout>
 </LinearLayout>
 

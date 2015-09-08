@@ -1,8 +1,12 @@
 package com.odoo.addons.pos;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,6 +17,7 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -23,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -31,7 +37,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tagmanager.Container;
 import com.odoo.R;
+import com.odoo.addons.customers.CustomerDetails;
+import com.odoo.core.orm.ODataRow;
+import com.odoo.core.support.addons.fragment.BaseFragment;
+import com.odoo.core.utils.IntentUtils;
+import com.odoo.core.utils.OFragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +68,10 @@ public class Order extends AppCompatActivity {
     public EditText etPrdctPrize;
     public EditText etPrdctDiscount;
     public ImageView Imageproduct;
+    Button btnContinueShop;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_listview);
         ActionBar actionbar = getSupportActionBar();
@@ -72,28 +85,32 @@ public class Order extends AppCompatActivity {
        tvPrdctname = (TextView) findViewById(R.id.productName);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
         etPrdctQumtity = (EditText) findViewById(R.id.prdctQuantity);
+       btnContinueShop=(Button)findViewById(R.id.btnContinue);
         etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
         etPrdctDiscount = (EditText) findViewById(R.id.discount);
         tvPrize = (TextView) findViewById(R.id.NetPrize);
         Imageproduct=(ImageView)findViewById(R.id.productImage);
         array = new ArrayList<PosOrder>();
-      //  array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
+
         array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
         l.setAdapter(adapter);
         l.setDividerHeight(0);
 
-//        PosOrder poss = new PosOrder();
+      btnContinueShop.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
 
-        // poss=adapter.getItem(i);
+            finish();
+          }
+      });
+
+
+
         NetAmount();
-//       total=(TextView)findViewById.id.tvNetPrize);
-        TextView rs1 = (TextView) findViewById(R.id.currency1);
-        rs1.setText("Rs.");
+
         final TextView tax = (TextView) findViewById(R.id.taxesTotal);
         tax.setText("0.0");
-        TextView rs2 = (TextView) findViewById(R.id.currency2);
-        rs2.setText("Rs.");
 
     }
 
@@ -110,6 +127,7 @@ public class Order extends AppCompatActivity {
         }
         grandTotalPrize.setText(grandTotal + "");
     }
+
 
     public class OrderAdapter extends ArrayAdapter<PosOrder> {
         private List<PosOrder> orderItem;
@@ -165,10 +183,10 @@ public class Order extends AppCompatActivity {
 
                 holder.ImgDlt = (ImageButton) view.findViewById(R.id.Imagedelete);
                 holder.ImgDlt.setTag(posOrder);
-//                holder.ImgDlt.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
 
 
-                holder.PrdctName = (TextView) view.findViewById(R.id.productName);
+
+                 holder.PrdctName = (TextView) view.findViewById(R.id.productName);
                 holder.PrdctName.setText(posOrder.getProductName());
 
 
@@ -193,7 +211,7 @@ public class Order extends AppCompatActivity {
                                 Order.this);
                         alert.setTitle("Delete");
                         alert.setMessage(R.string.delete_messege);
-                        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 PosOrder ps = (PosOrder) holder.ImgDlt.getTag();
@@ -230,7 +248,7 @@ public class Order extends AppCompatActivity {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         PosOrder pos = (PosOrder) holder.PrdctQuantity.getTag();
                         System.out.println("Quantity =" + pos.getProductQntity());
-                        //  TextView     productTotal=(TextView)view.findViewById(R.id.NetPrize);
+
 
                         String Quantity = s.toString();
                         System.out.println("Qunt" + Quantity);
