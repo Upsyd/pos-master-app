@@ -121,32 +121,49 @@
         <!-- For Categories // -->
         <provider
             android:name="com.odoo.addons.pos.providers.PosCategoryProvider"
-            android:authorities="com.odoo.addons.categories.pos_category"
+            android:authorities="com.bi.pos.core.provider.content.sync.pos_category"
             android:label="Pos Categories"
             android:multiprocess="true" />
         <service android:name=".addons.pos.services.CategoriesSyncService"
             android:exported="true"
-            android:process=":sync_tasks">
+            android:process=":sync_categories">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/categories_syncadapter" />
+                android:resource="@xml/categories_sync_adapter" />
         </service>
 
+        <!-- For Session // -->
+        <provider
+            android:name="com.odoo.addons.pos.providers.PosSessionProvider"
+            android:authorities="com.bi.pos.core.provider.content.sync.pos_session_opening"
+            android:label="Pos Session"
+            android:multiprocess="true" />
 
+        <service android:name=".addons.pos.services.PosSessionSyncService"
+            android:exported="true"
+            android:process=":sync_sessions">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/session_sync_adapter" />
+        </service>
 
         <!-- For Pos Product // -->
         <provider
             android:name="com.odoo.addons.pos.providers.PosProductProvider"
-            android:authorities="com.odoo.addons.product.product_template"
+            android:authorities="com.bi.pos.core.provider.content.sync.product_template"
             android:label="Pos Product"
             android:multiprocess="true" />
         <service android:name=".addons.pos.services.ProductSyncService"
             android:exported="true"
-            android:process=":sync_product">
+            android:process=":sync_products">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

@@ -20,7 +20,7 @@ public class ProductTemplate extends OModel {
 
 
     public static final String TAG = ProductTemplate.class.getSimpleName();
-    public static final String AUTHORITY = "com.odoo.addons.product.product_template";
+    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.product_template";
 
 
      OColumn id = new OColumn("ID",Integer.class); //OVarchar.class).setSize(100);
@@ -29,9 +29,8 @@ public class ProductTemplate extends OModel {
     OColumn image = new OColumn("Image", OBlob.class);
     OColumn list_price = new OColumn("Sale Price", OFloat.class);
 
-    //OColumn product_variant_ids = new OColumn("Products",ProductTemplate.class,OColumn.RelationType.OneToMany);
-//    OColumn create_date = new OColumn("Created on", ODateTime.class);
-//    OColumn create_uid = new OColumn("Created by", ResPartner.class, OColumn.RelationType.ManyToOne);
+    OColumn create_date = new OColumn("Created on", ODateTime.class);
+    OColumn create_uid = new OColumn("Created by", ResPartner.class, OColumn.RelationType.ManyToOne);
 //    OColumn id = new OColumn("ID", OInteger.class);
       //OColumn image = new OColumn("Image", OBlob.class);
 //    OColumn image_medium = new OColumn("Medium-sized image", OBlob.class);
@@ -39,8 +38,8 @@ public class ProductTemplate extends OModel {
 //    OColumn name = new OColumn("Name", OVarchar.class).setSize(100);
 //    OColumn product_variant_ids = new OColumn("Product",PosCategory.class,OColumn.RelationType.OneToMany);
 //    OColumn sequence = new OColumn("Sequence", OInteger.class);
-//    OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
-//    OColumn write_uid = new OColumn("Last Updated by", ODateTime.class);
+    OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
+    OColumn write_uid = new OColumn("Last Updated by", ODateTime.class);
 
 
     public ProductTemplate(Context context, OUser user) {

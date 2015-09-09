@@ -22,18 +22,18 @@ public class PosCategory extends OModel {
 
 
     public static final String TAG = PosCategory.class.getSimpleName();
-    public static final String AUTHORITY = "com.odoo.addons.categories.pos_category";
+    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.pos_category";
 
 
 //    OColumn child_id = new OColumn("Children Categories", PosCategory.class, OColumn.RelationType.OneToMany); //OVarchar.class).setSize(100);
-    OColumn complete_name = new OColumn("complete_name", OVarchar.class).setSize(100);
+    OColumn complete_name = new OColumn("complete_name", OVarchar.class);
     OColumn create_date = new OColumn("Created on", ODateTime.class);
     OColumn create_uid = new OColumn("Created by", ResPartner.class, OColumn.RelationType.ManyToOne);
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn image = new OColumn("Image", OBlob.class);
     OColumn image_medium = new OColumn("Medium-sized image", OBlob.class);
-    OColumn image_small = new OColumn("Smal-sized image", OBlob.class);
-    OColumn name = new OColumn("Name", OVarchar.class).setSize(100);
+    OColumn image_small = new OColumn("Small-sized image", OBlob.class);
+    OColumn name = new OColumn("Name", OVarchar.class);
     OColumn parent_id = new OColumn("Parent Category",PosCategory.class,OColumn.RelationType.ManyToOne);
     OColumn sequence = new OColumn("Sequence", OInteger.class);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);

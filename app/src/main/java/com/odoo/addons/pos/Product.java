@@ -113,8 +113,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                 .setIcon(R.drawable.ic_pos_icon2)
                 .setExtra(extra(Type.Product))
                 .setInstance(new Product()));
-
-
         return items;
     }
 
@@ -145,6 +143,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         setHasSwipeRefreshView(view, R.id.swipe_container, this);
         mView = view;
 //        mType = Type.valueOf(getArguments().getString(EXTRA_KEY_TYPE));
+        mType = Type.Product;
         //mPartnersList = (ListView) mView.findViewById(R.id.listview);
         gv = (GridView) mView.findViewById(R.id.gridView1);
 //        listAdapter = new OCursorListAdapter(getActivity(), null, R.layout.categories_row_item);
@@ -398,13 +397,13 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         ODataRow row = OCursorUtils.toDatarow((Cursor) listAdapter.getItem(position));
 //        loadActivity(row);
         // Toast.makeText(getActivity()," Select view"+view, Toast.LENGTH_LONG).show();
-        System.out.println("View ==" + view);
+//        System.out.println("View ==" + view);
         // Toast.makeText(getActivity()," Select parent"+parent, Toast.LENGTH_LONG).show();
-        System.out.println("Parent ==" + parent);
+//        System.out.println("Parent ==" + parent);
         //Toast.makeText(getActivity()," Select position"+position, Toast.LENGTH_LONG).show();
-        System.out.println("Position==" + position);
+//        System.out.println("Position==" + position);
         //Toast.makeText(getActivity()," Select row"+row, Toast.LENGTH_LONG).show();
-        System.out.println("Parent ==" + row);
+//        System.out.println("Parent ==" + row);
 
 
         TextView product_name, product_price;
@@ -441,7 +440,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         byte[] byteArray = stream.toByteArray();
         pos.setImage(byteArray);
 
-          Log.i("SomeTag", "Persons: " + gv.getCount());
+          Log.i(KEY, "Seleted Product: " + pos.getProductName());
         count++;
         Toast toast = Toast.makeText(getActivity(),
                 "Item " + (position + 1),

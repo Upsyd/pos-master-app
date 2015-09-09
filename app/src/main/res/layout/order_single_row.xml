@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="0"
+                android:inputType="number"
                 android:layout_weight="2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="normal" />
@@ -93,7 +94,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Price         : "
+                android:text="Price       :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="normal" />
 
@@ -103,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="0.00"
+                android:inputType="numberDecimal"
                 android:layout_weight="2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="normal" />
@@ -130,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="0.00"
+                android:inputType="numberDecimal"
                 android:layout_weight="2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="normal" />

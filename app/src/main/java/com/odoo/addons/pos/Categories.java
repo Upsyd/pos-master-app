@@ -65,7 +65,7 @@ public class Categories extends BaseFragment implements  ISyncStatusObserverList
     @Override
     public List<ODrawerItem> drawerMenus(Context context) {
         List<ODrawerItem> items = new ArrayList<>();
-        items.add(new ODrawerItem(KEY).setTitle("Point Of Sales")
+        items.add(new ODrawerItem(KEY).setTitle("Categories")
                 .setIcon(R.drawable.ic_action_customers)
         .setExtra(extra(Type.Categories))
                 .setInstance(new Categories()));

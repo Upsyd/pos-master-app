@@ -38,7 +38,7 @@
     <color name="android_white">#ffffff</color>
     <color name="control_focused">#e5e5e5</color>
     <color name="control_pressed">#acacac</color>
-      <color name="Orange_colour">#FF8C00 </color>
+      <color name="orange_button">#FF8C00</color>
 
 
     <array name="letter_tile_colors">

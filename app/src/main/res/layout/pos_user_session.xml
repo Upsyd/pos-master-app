@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/android_white">
+
+    <LinearLayout
+        android:id="@+id/data_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_8dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnNewSession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_8dp"
+                    android:background="@drawable/pos_session_button"
+                    android:text="@string/pos_session_new"
+                    android:textColor="@color/android_white"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnResumeSession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_8dp"
+                    android:background="@drawable/pos_session_button"
+                    android:text="@string/pos_session_resume"
+                    android:textColor="@color/android_white"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnCloseSession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_8dp"
+                    android:background="@android:drawable/btn_default"
+                    android:backgroundTint="@color/theme_primary"
+                    android:text="@string/pos_session_close"
+                    android:textColor="@color/android_white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</RelativeLayout>
