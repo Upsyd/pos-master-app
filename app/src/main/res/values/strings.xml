@@ -17,4 +17,5 @@
     <string name="pos_session_resume">Resume Session</string>
     <string name="pos_session_close">Close Session</string>
     <string name="delete_messege">"Are you sure you want to delete?"</string>
+    <string name="cart_items">"Cart Items"</string>
 </resources>

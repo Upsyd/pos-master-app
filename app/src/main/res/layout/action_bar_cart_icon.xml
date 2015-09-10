@@ -30,43 +30,7 @@
         android:layout_alignEnd="@id/title"
         android:layout_alignRight="@id/title"
         />
-    <!--<TextView-->
-        <!--android:id="@+id/textOne"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignTop="@id/ic_cart"-->
-        <!--android:layout_alignRight="@id/ic_cart"-->
-        <!--android:text="10"-->
-        <!--android:textColor="#FFF"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:background="@drawable/icon_bg_oval_cart"/>-->
 
-    <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/cart_items"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:textSize="16sp"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="#ffffffff"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textStyle="bold"-->
-        <!--android:text="0"-->
-        <!--android:layout_alignTop="@id/ic_cart"-->
-        <!--android:layout_alignRight="@id/ic_cart"-->
-        <!--android:layout_marginRight="9dp"-->
-        <!--android:layout_marginLeft="0dp"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:paddingTop="-1dp"-->
-        <!--android:paddingBottom="-1dp"-->
-        <!--android:paddingRight="5dp"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:padding="3dp"-->
-        <!--android:background="@drawable/icon_bg_oval_orange"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignLeft="@+id/ic_cart"-->
-        <!--android:layout_alignStart="@+id/ic_cart"-->
-        <!---->
-        <!--/>-->
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cart_items"
         android:layout_width="wrap_content"
@@ -82,28 +46,9 @@
         android:paddingBottom="-1dp"
         android:paddingRight="4dp"
         android:paddingLeft="4dp"
-        android:background="@drawable/icon_bg_oval_orange"
+        android:background="@drawable/icon_bg_cart_counter"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/ic_cart"
         android:layout_alignStart="@+id/ic_cart" />
 </RelativeLayout>
 
-<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:id="@+id/cart_items"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:textSize="16sp"-->
-<!--android:textColor="#ffffffff"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:textStyle="bold"-->
-<!--android:text="0"-->
-<!--android:layout_marginRight="9dp"-->
-<!--android:layout_marginLeft="-4dp"-->
-<!--android:layout_marginBottom="2dp"-->
-<!--android:paddingTop="-1dp"-->
-<!--android:paddingBottom="-1dp"-->
-<!--android:paddingRight="3dp"-->
-<!--android:paddingLeft="3dp"-->
-<!--android:background="@drawable/icon_bg_oval_red"-->
-<!--android:layout_alignParentTop="true"-->
-<!--android:layout_alignLeft="@+id/ic_cart"-->
-<!--android:layout_alignStart="@+id/ic_cart" />-->

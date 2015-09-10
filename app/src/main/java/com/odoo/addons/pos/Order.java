@@ -1,36 +1,25 @@
 package com.odoo.addons.pos;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.NinePatchDrawable;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,19 +28,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tagmanager.Container;
 import com.odoo.R;
-import com.odoo.addons.customers.CustomerDetails;
-import com.odoo.core.orm.ODataRow;
-import com.odoo.core.support.addons.fragment.BaseFragment;
-import com.odoo.core.utils.IntentUtils;
-import com.odoo.core.utils.OFragmentUtils;
+import com.odoo.core.utils.OActionBarUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Harshad on 8/7/2015.
- */
+
 public class Order extends AppCompatActivity {
     private static final String TAG = Order.class.getName();
     public OrderAdapter adapter;
@@ -59,50 +41,60 @@ public class Order extends AppCompatActivity {
     public TextView tvPrize;
     TextView grandTotalPrize;
     private Context context;
+    PosOrder po;
+    public TextView amount;
     ArrayList<PosOrder> array;
-     ListView list;
+    float prizevalue;
+    ListView l;
     TextView total;
     public EditText etPrdctQumtity;
     public EditText etPrdctPrize;
     public EditText etPrdctDiscount;
-    public ImageView imageProduct;
+    public ImageView Imageproduct;
     Button btnContinueShop;
+    int count;
+
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_listview);
+
+        OActionBarUtils.setActionBar(this, true);
         ActionBar actionbar = getSupportActionBar();
-        if(actionbar!=null) {
+        if (actionbar != null) {
             actionbar.setHomeButtonEnabled(true);
             actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setTitle("POS");
+            actionbar.setTitle(R.string.cart_items);
         }
 
-        list = (ListView) findViewById(R.id.list_order);
-       tvPrdctname = (TextView) findViewById(R.id.productName);
+        l = (ListView) findViewById(R.id.list_order);
+        tvPrdctname = (TextView) findViewById(R.id.productName);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
         etPrdctQumtity = (EditText) findViewById(R.id.prdctQuantity);
-       btnContinueShop=(Button)findViewById(R.id.btnContinue);
+        btnContinueShop = (Button) findViewById(R.id.btnContinue);
         etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
         etPrdctDiscount = (EditText) findViewById(R.id.discount);
         tvPrize = (TextView) findViewById(R.id.NetPrize);
-        imageProduct=(ImageView)findViewById(R.id.productImage);
-        array = new ArrayList<PosOrder>();
-
+        Imageproduct = (ImageView) findViewById(R.id.productImage);
+//        array = new ArrayList<PosOrder>();
         array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
-        list.setAdapter(adapter);
-        list.setDividerHeight(0);
+        l.setAdapter(adapter);
+        l.setDividerHeight(0);
+        Bundle mBundle = getIntent().getExtras();
+        count = mBundle.getInt("items_count");
 
-      btnContinueShop.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
+        System.out.println("Total Selected Item:  " + count);
 
-            finish();
-          }
-      });
 
+        btnContinueShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
 
 
         NetAmount();
@@ -111,6 +103,32 @@ public class Order extends AppCompatActivity {
         tax.setText("0.0");
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finalcartvalue();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void finalcartvalue() {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("cart_details", array);
+        System.out.println("Delete this:" + array);
+        Intent data = getIntent();
+        // Pass relevant data back as a result
+
+        data.putExtra("items_count", count);
+        setResult(Activity.RESULT_OK, data);
+        System.out.println("value of count: " + count);
+        finish();
+
+
+    }
+
+    ;
 
     public void NetAmount() {
 
@@ -125,7 +143,6 @@ public class Order extends AppCompatActivity {
         }
         grandTotalPrize.setText(grandTotal + "");
     }
-
 
     public class OrderAdapter extends ArrayAdapter<PosOrder> {
         private List<PosOrder> orderItem;
@@ -144,18 +161,18 @@ public class Order extends AppCompatActivity {
         }
 
         public class ViewHolder {
-            TextView prdctName;
-            TextView prdctNetAmount;
-            EditText prdctQuantity;
-            EditText prdctPrize;
-            EditText prdctDiscount;
-            ImageButton imgDlt;
+            TextView PrdctName;
+            TextView PrdctNetAmount;
+            EditText PrdctQuantity;
+            EditText PrdctPrize;
+            EditText PrdctDiscount;
+            ImageButton ImgDlt;
             ImageView prdctImage;
         }
 
 
         @Override
-        public View getView( int position, View view, ViewGroup parent) {
+        public View getView(final int position, View view, ViewGroup parent) {
 
             final ViewHolder holder;
             holder = new ViewHolder();
@@ -170,191 +187,204 @@ public class Order extends AppCompatActivity {
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = vi.inflate(R.layout.order_single_row, null);
             }
-                holder.prdctQuantity = (EditText) view.findViewById(R.id.prdctQuantity);
-                holder.prdctQuantity.setTag(posOrder);
 
-                holder.prdctQuantity.setText(String.valueOf(posOrder.getProductQntity()));
+            holder.PrdctQuantity = (EditText) view.findViewById(R.id.prdctQuantity);
+            holder.PrdctQuantity.setTag(posOrder);
+            holder.PrdctQuantity.setText(String.valueOf(posOrder.getProductQntity()));
 
-                holder.prdctImage = (ImageView) view.findViewById(R.id.productImage);
-                holder.prdctImage.setTag(posOrder);
-                Bitmap bmp = BitmapFactory.decodeByteArray(posOrder.getImage(), 0, posOrder.getImage().length);
-                holder.prdctImage.setImageBitmap(bmp);
-
-
-                holder.imgDlt = (ImageButton) view.findViewById(R.id.Imagedelete);
-                holder.imgDlt.setTag(posOrder);
+            holder.prdctImage = (ImageView) view.findViewById(R.id.productImage);
+            holder.prdctImage.setTag(posOrder);
+            Bitmap bmp = BitmapFactory.decodeByteArray(posOrder.getImage(), 0, posOrder.getImage().length);
+            holder.prdctImage.setImageBitmap(bmp);
 
 
-                holder.prdctName = (TextView) view.findViewById(R.id.productName);
-                holder.prdctName.setTag(posOrder);
-                holder.prdctName.setText(posOrder.getProductName());
+            holder.ImgDlt = (ImageButton) view.findViewById(R.id.Imagedelete);
+            holder.ImgDlt.setTag(posOrder);
 
 
-                holder.prdctPrize = (EditText) view.findViewById(R.id.prdctPrize);
-                holder.prdctPrize.setTag(posOrder);
-                holder.prdctPrize.setText(String.valueOf(posOrder.getProductPrize()));
+            holder.PrdctName = (TextView) view.findViewById(R.id.productName);
+            holder.PrdctName.setText(posOrder.getProductName());
 
 
-                holder.prdctDiscount = (EditText) view.findViewById(R.id.discount);
-                holder.prdctDiscount.setTag(posOrder);
-                holder.prdctDiscount.setText(String.valueOf(posOrder.getDiscount()));
-
-                holder.prdctNetAmount = (TextView) view.findViewById(R.id.NetPrize);
-                holder.prdctNetAmount.setText(String.valueOf(posOrder.getNetAmount()));
+            holder.PrdctPrize = (EditText) view.findViewById(R.id.prdctPrize);
+            holder.PrdctPrize.setTag(posOrder);
+            holder.PrdctPrize.setText(String.valueOf(posOrder.getProductPrize()));
 
 
+            holder.PrdctDiscount = (EditText) view.findViewById(R.id.discount);
+            holder.PrdctDiscount.setTag(posOrder);
+            holder.PrdctDiscount.setText(String.valueOf(posOrder.getDiscount()));
 
-                holder.imgDlt.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(
-                                Order.this);
-                        alert.setTitle("Delete");
-                        alert.setMessage(R.string.delete_messege);
-                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                PosOrder ps = (PosOrder) holder.imgDlt.getTag();
-
-                                orderItem.remove(ps);
-                                adapter.notifyDataSetChanged();
-                                list.setAdapter(adapter);
-                                NetAmount();
-                            }
-                        });
-                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                // TODO Auto-generated method stub
-                                dialog.dismiss();
-                            }
-                        });
-
-                        alert.show();
-
-                    }
-                });
+            holder.PrdctNetAmount = (TextView) view.findViewById(R.id.NetPrize);
+            holder.PrdctNetAmount.setText(String.valueOf(posOrder.getNetAmount()));
 
 
-                holder.prdctQuantity.addTextChangedListener(new TextWatcher() {
+            holder.ImgDlt.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count,
-                                                  int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        PosOrder pos = (PosOrder) holder.prdctQuantity.getTag();
-                        System.out.println("Quantity =" + pos.getProductQntity());
+                @Override
+                public void onClick(View view) {
+//
 
 
-                        String Quantity = s.toString();
-                        System.out.println("Qunt" + Quantity);
-                        if (Quantity.matches("")) {
-                            pos.setProductQntity(0);
-
-                        } else {
-                            pos.setProductQntity(Integer.valueOf(Quantity));
-                            float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-                            float netPrice = ((pos.getProductPrize() - Discount));
-                            float productTotalAmount = pos.getProductQntity() * netPrice;
-                            pos.setNetAmount(productTotalAmount);
-                            System.out.println(pos.getNetAmount() + "Price");
-                            holder.prdctNetAmount.setText(String.valueOf(productTotalAmount));
-                            holder.prdctName.setText(pos.getProductName());
+                    AlertDialog.Builder alert = new AlertDialog.Builder(
+                            Order.this);
+                    alert.setTitle("Delete");
+                    alert.setMessage(R.string.delete_messege);
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            PosOrder ps = (PosOrder) holder.ImgDlt.getTag();
+                            count = (count - ps.productQntity);
+                            System.out.println("this value: " + count);
+                            orderItem.remove(ps);
+                            adapter.notifyDataSetChanged();
+                            l.setAdapter(adapter);
                             NetAmount();
 
+
                         }
-
-                    }
-
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-
-                    }
-
-                });
-
-                holder.prdctPrize.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count,
-                                                  int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        PosOrder pos = (PosOrder) holder.prdctPrize.getTag();
-                        String Price = holder.prdctPrize.getText().toString();
-                        System.out.println("Qunt" + Price);
-                        if (Price.matches("")) {
-                            pos.setProductPrize(0);
-
-                        } else {
-                            pos.setProductPrize(Float.valueOf(Price));
-                            float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-                            float netPrice = ((pos.getProductPrize() - Discount));
-                            float productTotalAmount = pos.getProductQntity() * netPrice;
-                            pos.setNetAmount(productTotalAmount);
-                            System.out.println(pos.getNetAmount() + "Price");
-                            holder.prdctNetAmount.setText(String.valueOf(productTotalAmount));
-                            holder.prdctName.setText(pos.getProductName());
-                            NetAmount();
+                    });
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            // TODO Auto-generated method stub
+                            dialog.dismiss();
                         }
+                    });
+
+                    alert.show();
+
+                }
+            });
+
+
+            holder.PrdctQuantity.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    PosOrder pos = (PosOrder) holder.PrdctQuantity.getTag();
+                    System.out.println("Quantity =" + pos.getProductQntity());
+
+
+                    String Quantity = s.toString();
+                    System.out.println("Qunt" + Quantity);
+                    if (Quantity.matches("")) {
+                        pos.setProductQntity(0);
+
+                    } else {
+                        pos.setProductQntity(Integer.valueOf(Quantity));
+                        float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+                        float netPrice = ((pos.getProductPrize() - Discount));
+                        float productTotalAmount = pos.getProductQntity() * netPrice;
+                        pos.setNetAmount(productTotalAmount);
+                        System.out.println(pos.getNetAmount() + "Price");
+                        holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
+                        holder.PrdctName.setText(pos.getProductName());
+                        NetAmount();
 
                     }
 
-                    @Override
-                    public void afterTextChanged(Editable s) {
+                }
 
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+
+                }
+
+            });
+
+            holder.PrdctPrize.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    PosOrder pos = (PosOrder) holder.PrdctPrize.getTag();
+                    String Price = holder.PrdctPrize.getText().toString();
+                    System.out.println("Qunt" + Price);
+                    if (Price.matches("")) {
+                        pos.setProductPrize(0);
+
+                    } else {
+                        pos.setProductPrize(Float.valueOf(Price));
+                        float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+                        float netPrice = ((pos.getProductPrize() - Discount));
+                        float productTotalAmount = pos.getProductQntity() * netPrice;
+                        pos.setNetAmount(productTotalAmount);
+                        System.out.println(pos.getNetAmount() + "Price");
+                        holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
+                        holder.PrdctName.setText(pos.getProductName());
+                        NetAmount();
                     }
-                });
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
 
 
-                holder.prdctDiscount.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count,
-                                                  int after) {
+            holder.PrdctDiscount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    PosOrder pos = (PosOrder) holder.PrdctDiscount.getTag();
+                    String discount1 = holder.PrdctDiscount.getText().toString();
+                    System.out.println("Qunt" + discount1);
+                    if (discount1.matches("")) {
+                        pos.setDiscount(0);
+
+                    } else {
+                        pos.setDiscount(Float.valueOf(discount1));
+                        float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+                        float netPrice = ((pos.getProductPrize() - Discount));
+                        float productTotalAmount = pos.getProductQntity() * netPrice;
+                        pos.setNetAmount(productTotalAmount);
+                        System.out.println(pos.getNetAmount() + "Price");
+                        holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
+                        holder.PrdctName.setText(pos.getProductName());
+                        NetAmount();
                     }
+                }
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        PosOrder pos = (PosOrder) holder.prdctDiscount.getTag();
-                        String discount1 = holder.prdctDiscount.getText().toString();
-                        System.out.println("Qunt" + discount1);
-                        if (discount1.matches("")) {
-                            pos.setDiscount(0);
+                @Override
+                public void afterTextChanged(Editable s) {
 
-                        } else {
-                            pos.setDiscount(Float.valueOf(discount1));
-                            float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-                            float netPrice = ((pos.getProductPrize() - Discount));
-                            float productTotalAmount = pos.getProductQntity() * netPrice;
-                            pos.setNetAmount(productTotalAmount);
-                            System.out.println(pos.getNetAmount() + "Price");
-                            holder.prdctNetAmount.setText(String.valueOf(productTotalAmount));
-                            holder.prdctName.setText(pos.getProductName());
-                            NetAmount();
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                    }
-                });
+                }
+            });
 
 
-            return view;
-        }
+
+        return view;
     }
+
+}
+    @Override
+    public void onBackPressed() {
+        // do something on back.
+       // super.onBackPressed();
+        finalcartvalue();
+   }
+
 }
 
 

@@ -147,7 +147,7 @@
         <Button
             android:id="@+id/btnPayment"
             android:layout_width="0dp"
-            android:background="@color/Orange_colour"
+            android:background="@color/orange_button"
             android:layout_height="wrap_content"
             android:textColor="@color/android_white"
             android:gravity="center"
