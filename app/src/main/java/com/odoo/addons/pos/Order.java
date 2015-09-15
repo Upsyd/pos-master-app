@@ -91,8 +91,7 @@ public class Order extends AppCompatActivity {
         btnContinueShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                finish();
+                finalcartvalue();
             }
         });
 
@@ -128,7 +127,6 @@ public class Order extends AppCompatActivity {
 
     }
 
-    ;
 
     public void NetAmount() {
 
@@ -270,12 +268,11 @@ public class Order extends AppCompatActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     PosOrder pos = (PosOrder) holder.PrdctQuantity.getTag();
                     System.out.println("Quantity =" + pos.getProductQntity());
+                     String Quantity = s.toString();
 
 
-                    String Quantity = s.toString();
-                    System.out.println("Qunt" + Quantity);
                     if (Quantity.matches("")) {
-                        pos.setProductQntity(0);
+                        pos.setProductQntity (0) ;
 
                     } else {
                         pos.setProductQntity(Integer.valueOf(Quantity));
@@ -290,7 +287,7 @@ public class Order extends AppCompatActivity {
 
                     }
 
-                }
+            }
 
 
                 @Override
@@ -381,7 +378,6 @@ public class Order extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // do something on back.
-       // super.onBackPressed();
         finalcartvalue();
    }
 

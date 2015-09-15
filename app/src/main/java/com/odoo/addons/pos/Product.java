@@ -63,7 +63,7 @@ import java.util.List;
 /**
  * Created by My on 8/12/2015.
  */
-public class Product extends BaseFragment implements ISyncStatusObserverListener,LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener,
+public class Product extends BaseFragment implements ISyncStatusObserverListener, LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener,
         OCursorListAdapter.OnViewBindListener, IOnSearchViewChangeListener,
         AdapterView.OnItemClickListener {
 
@@ -77,20 +77,21 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     private OCursorListAdapter listAdapter;
     private GridView gv = null;
     private ArrayList<PosOrder> myList;
-    PosOrder posOrder;
+   // PosOrder posOrder;
     int counter = 0;
     TextView cart;
     TextView hotlist_icon;
     MenuItem menuItem;
-    public int count=0;
-    public int listViewClickCounter=0;
+    public int count = 0;
+    public int listViewClickCounter = 0;
     TextView cartItems;
     ImageView pro_img;
 
 
 
-    static int mNotifCount = 0;
 
+
+    static int mNotifCount = 0;
 
 
     @Override
@@ -108,7 +109,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
     @Override
     public List<ODrawerItem> drawerMenus(Context context) {
-                List<ODrawerItem> items = new ArrayList<>();
+        List<ODrawerItem> items = new ArrayList<>();
         items.add(new ODrawerItem(KEY).setTitle("POS")
                 .setIcon(R.drawable.ic_pos_icon2)
                 .setExtra(extra(Type.Product))
@@ -140,6 +141,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         setHasSwipeRefreshView(view, R.id.swipe_container, this);
         mView = view;
         mType = Type.Product;
@@ -150,32 +152,29 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         gv.setOnItemClickListener(this);
         gv.setFastScrollAlwaysVisible(false);
         myList = new ArrayList<PosOrder>();
-
-
         setHasSyncStatusObserver(KEY, this, db());
         getLoaderManager().initLoader(0, null, this);
-
-
-        ActionBar actionBar = ((OdooActivity)getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((OdooActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.action_bar_cart_icon);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        TextView actionbarTitle = (TextView)actionBar.getCustomView().findViewById(R.id.title);
+        TextView actionbarTitle = (TextView) actionBar.getCustomView().findViewById(R.id.title);
         actionbarTitle.setText("POS");
-        cartItems = (TextView)actionBar.getCustomView().findViewById(R.id.cart_items);
-        pro_img = (ImageView)actionBar.getCustomView().findViewById(R.id.ic_cart);
+        cartItems = (TextView) actionBar.getCustomView().findViewById(R.id.cart_items);
+        pro_img = (ImageView) actionBar.getCustomView().findViewById(R.id.ic_cart);
         pro_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(), Order.class);
+                Intent intent = new Intent(getActivity(), Order.class);
 //                    intent.putExtra("i",myList);
-                    Bundle mBundle = new Bundle();
-                    mBundle.putSerializable("cart_details", myList);
-                    mBundle.putInt("items_count", count);
-                    intent.putExtras(mBundle);
-                   startActivityForResult(intent, REQUEST_CODE_CART);
-                   Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
+
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("cart_details", myList);
+                mBundle.putInt("items_count", count);
+                intent.putExtras(mBundle);
+                startActivityForResult(intent, REQUEST_CODE_CART);
+               //  Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
 //
             }
         });
@@ -197,7 +196,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         OControls.setImage(view, R.id.productimag, img);
         OControls.setText(view, R.id.posname, row.getString("name"));
         OControls.setText(view, R.id.posprice, row.getFloat("list_price").toString());
-
 
 
     }
@@ -271,8 +269,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             setSwipeRefreshing(true);
         } else {
             hideRefreshingProgress();
-           Toast.makeText(getActivity(), _s(R.string.toast_network_required), Toast.LENGTH_LONG)
-            .show();
+            Toast.makeText(getActivity(), _s(R.string.toast_network_required), Toast.LENGTH_LONG)
+                    .show();
         }
     }
 
@@ -299,17 +297,31 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
+
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CART) {
             // Extract name value from result extras
 
-           count = data.getIntExtra("items_count",0);
-           cartItems.setText(count+"");
-           System.out.println("New counter value:"+count);
-           myList =  (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
 
+//            count = data.getIntExtra("items_count", 0);
+//            cartItems.setText(count + "");
+ //           System.out.println("New counter value:" + count);
+              count = 0;
+              myList = (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
+              for ( int i = 0; i < myList.size(); i++ ) {
+                PosOrder posOrder = myList.get(i);
+                count += posOrder.getProductQntity();
+                System.out.println("Update value of cart:-"+count);
+
+
+
+
+
+            }
+            cartItems.setText(count +" ");
 
         }
 
@@ -318,9 +330,10 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
         ODataRow row = OCursorUtils.toDatarow((Cursor) listAdapter.getItem(position));
 //        loadActivity(row);
-        // Toast.makeText(getActivity()," Select view"+view, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity()," Select
 //        System.out.println("View ==" + view);
         // Toast.makeText(getActivity()," Select parent"+parent, Toast.LENGTH_LONG).show();
 //        System.out.println("Parent ==" + parent);
@@ -329,14 +342,14 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         //Toast.makeText(getActivity()," Select row"+row, Toast.LENGTH_LONG).show();
 //        System.out.println("Parent ==" + row);
 
-
+        PosOrder pos = new PosOrder();
         TextView product_name, product_price;
 
 
         product_name = (TextView) view.findViewById(R.id.posname);
         product_price = (TextView) view.findViewById(R.id.posprice);
 
-        PosOrder pos = new PosOrder();
+
 
         pos.setProductId(row.getInt(OColumn.ROW_ID));
 
@@ -346,12 +359,16 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         Float f = Float.parseFloat(strprize);
         pos.setProductPrize(f);
         pos.setProductQntity(1);
+//        count = pos.getProductQntity();
+//        System.out.println("RAM:$$**"+count);
 
-
+//        Quantity_i = pos.getProductQntity();
+//        count = Quantity_i;
+//        System.out.println("RAM:$$**"+count);
 
         ImageView imgProduct;
         Bitmap bm;
-        imgProduct=(ImageView)view.findViewById(R.id.productimag);
+        imgProduct = (ImageView) view.findViewById(R.id.productimag);
         imgProduct.setDrawingCacheEnabled(true);
 
         imgProduct.buildDrawingCache();
@@ -361,38 +378,20 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         byte[] byteArray = stream.toByteArray();
         pos.setImage(byteArray);
 
-          Log.i(KEY, "Seleted Product: " + pos.getProductName());
+        Log.i(KEY, "Seleted Product: " + pos.getProductName());
         count++;
         Toast toast = Toast.makeText(getActivity(),
                 "Item " + (position + 1),
                 Toast.LENGTH_SHORT);
 
 
-
-        cartItems.setText(count +"");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        cartItems.setText(count + "");
 
         boolean isFound = false;
-       for (int i = 0; i < myList.size(); i++) {
+        for (int i = 0; i < myList.size(); i++) {
             PosOrder posListItem = myList.get(i);
             if (posListItem.getProductId() == pos.getProductId()) {
                 posListItem.setProductQntity(posListItem.getProductQntity() + 1);
-
                 System.out.println("item found.");
                 isFound = true;
                 break;
@@ -402,15 +401,16 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         if (!isFound) {
             System.out.println("Not found");
             myList.add(pos);
-        }
 
+
+        }
 
 
     }
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
 
@@ -422,10 +422,10 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     }
 
 
-        @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            // Toast.makeText(getActivity()," No select itemt", Toast.LENGTH_LONG).show();
- //           switch (item.getItemId()) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Toast.makeText(getActivity()," No select itemt", Toast.LENGTH_LONG).show();
+        //           switch (item.getItemId()) {
 //                case R.id.badge:
 //                    //Intent intent = new Intent(getActivity(), .class);
 //                    Intent intent = new Intent(getActivity(), Order.class);
@@ -438,23 +438,23 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 //                    return true;
 //                default:
 
-           // }
-            return super.onOptionsItemSelected(item);
-        }
-
-        @Override
-        public boolean onSearchViewTextChange (String newFilter){
-            mCurFilter = newFilter;
-            getLoaderManager().restartLoader(0, null, this);
-
-            return true;
-        }
-
-        @Override
-        public void onSearchViewClose () {
-            // nothing to do
-        }
-
+        // }
+        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onSearchViewTextChange(String newFilter) {
+        mCurFilter = newFilter;
+        getLoaderManager().restartLoader(0, null, this);
+
+        return true;
+    }
+
+    @Override
+    public void onSearchViewClose() {
+        // nothing to do
+    }
+
+}
 
 
