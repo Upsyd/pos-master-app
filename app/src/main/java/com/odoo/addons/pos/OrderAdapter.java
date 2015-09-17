@@ -65,15 +65,13 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
                 holder = new ViewHolder();
                 LayoutInflater vi = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = vi.inflate(R.layout.order_row_list, null);
+                view = vi.inflate(R.layout.order_single_row, null);
 
                 holder.PrdctQuantity = (EditText) view.findViewById(R.id.prdctQuantity);
                 holder.PrdctQuantity.setTag(posOrder);
                 holder.PrdctQuantity.setText(String.valueOf(posOrder.getProductQntity()));
-
-
-                Rs = (TextView) view.findViewById(R.id.currency_symbol);
-                Rs.setText("Rs.");
+//                Rs = (TextView) view.findViewById(R.id.currency_symbol);
+//                Rs.setText("Rs.");
 
 
                 holder.PrdctName = (TextView) view.findViewById(R.id.productName);

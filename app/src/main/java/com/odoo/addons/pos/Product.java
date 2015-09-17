@@ -359,12 +359,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         Float f = Float.parseFloat(strprize);
         pos.setProductPrize(f);
         pos.setProductQntity(1);
-//        count = pos.getProductQntity();
-//        System.out.println("RAM:$$**"+count);
 
-//        Quantity_i = pos.getProductQntity();
-//        count = Quantity_i;
-//        System.out.println("RAM:$$**"+count);
 
         ImageView imgProduct;
         Bitmap bm;
