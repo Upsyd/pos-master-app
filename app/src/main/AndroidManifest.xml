@@ -182,6 +182,9 @@
         <activity
             android:name="com.odoo.addons.pos.Order"
             android:windowSoftInputMode="adjustPan" />
+       <activity
+            android:name="com.odoo.addons.pos.Categories"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

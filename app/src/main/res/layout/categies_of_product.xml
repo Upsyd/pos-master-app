@@ -9,14 +9,22 @@
         android:layout_width="282dp"
         android:layout_height="wrap_content"
         android:text="Category"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+         android:textStyle="bold"
+        android:gravity="center"
         android:id="@+id/category_name"
         android:layout_weight="0.90" />
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/forword_img"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/ic_forword"
-       />
+        android:layout_weight="0.15" />-->
 
 </LinearLayout>

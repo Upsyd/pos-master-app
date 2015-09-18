@@ -1,6 +1,10 @@
 package com.odoo.addons.pos;
 
 import android.app.Activity;
+
+
+import android.app.Fragment;
+
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +17,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -27,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -41,6 +48,8 @@ import com.odoo.addons.pos.models.ProductTemplate;
 
 
 import com.odoo.core.orm.ODataRow;
+import com.odoo.core.orm.OModel;
+import com.odoo.core.orm.OValues;
 import com.odoo.core.orm.annotation.Odoo;
 import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.support.addons.fragment.BaseFragment;
@@ -57,6 +66,7 @@ import com.odoo.core.utils.OFragmentUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +80,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     public static final String KEY = Product.class.getSimpleName();
     public static final String EXTRA_KEY_TYPE = "extra_key_type";
     public static final int REQUEST_CODE_CART = 1;
+    public static final int REQUEST_CODE_CATEGORY= 2;
     private View mView;
     ActionBar mActionBar;
     private String mCurFilter = null;
@@ -86,10 +97,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     public int listViewClickCounter = 0;
     TextView cartItems;
     ImageView pro_img;
-
-
-
-
+    public Button categoryName;
+    int id1;
 
     static int mNotifCount = 0;
 
@@ -114,9 +123,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                 .setIcon(R.drawable.ic_pos_icon2)
                 .setExtra(extra(Type.Product))
                 .setInstance(new Product()));
-
-
-        return items;
+                    return items;
     }
 
     @Override
@@ -134,6 +141,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         setHasSyncStatusObserver(KEY, this, db());
+
         return inflater.inflate(R.layout.product_list, container, false);
 
     }
@@ -150,6 +158,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         gv.setAdapter(listAdapter);
         listAdapter.setOnViewBindListener(this);
         gv.setOnItemClickListener(this);
+        categoryName = (Button) mView.findViewById(R.id.categoryButton);
+
         gv.setFastScrollAlwaysVisible(false);
         myList = new ArrayList<PosOrder>();
         setHasSyncStatusObserver(KEY, this, db());
@@ -198,36 +208,52 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         OControls.setText(view, R.id.posprice, row.getFloat("list_price").toString());
 
 
+
     }
 
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle data) {
+       /* id1 = getActivity().getArguments().getInt("CategoryId",0);
+        System.out.println("Id="+id1);*/
         String where = "";
         List<String> args = new ArrayList<>();
-        switch (mType) {
-            case Product:
-                where = "_is_active = ?";
-                // where = " = ?";
-                break;
+        //Bundle args1 = this.getArguments();
+       // System.out.println("data="+args1);
+
+        if(id1==0) {
+            where = "_is_active = ?";
+            args.add("true");
+        }else /*iint
+         ("pos_categ_id".equals(id1))*/ {
+            // int i=0;
+            where += "pos_categ_id = ?";
+            args.add(id1 + "");
+            System.out.println("category=");
 
         }
-        args.add("true");
-        if (mCurFilter != null) {
-            where += " and name like ? ";
-            args.add(mCurFilter + "%");
+
+     // }else
+           /* where="pos_categ_id = ?";
+          args.add(id1,"");*/
+       // }
+        //if()
+          if (mCurFilter != null) {
+                where += " and name like ? ";
+                args.add(mCurFilter + "%");
+            }
+            //String a=String.valueOf( "pos_categ_id".equals(count));
+            //String selection =String.valueOf ((args.size() > 0) ? where : );
+       // String selection="pos_categ_id=?";
+           // String[] projection=new String[]{"pos_categ_id"};
+            String[] selectionArgs = (args.size() > 0) ? args.toArray(new String[args.size()]) : null;
+            return new CursorLoader(getActivity(), db().uri(),
+                 null, where, selectionArgs,"pos_categ_id");
+
         }
-        String selection = (args.size() > 0) ? where : null;
-        String[] selectionArgs = (args.size() > 0) ? args.toArray(new String[args.size()]) : null;
-        return new CursorLoader(getActivity(), db().uri(),
-                null, selection, selectionArgs, "name");
 
-        ///        return new CursorLoader(getActivity(), db().uri(), null, null, null, null);
-
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         listAdapter.changeCursor(data);
         if (data.getCount() > 0) {
             new Handler().postDelayed(new Runnable() {
@@ -260,8 +286,24 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             }
 
         }
-    }
 
+        categoryName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getActivity(),Categories.class);
+                startActivityForResult(i, REQUEST_CODE_CATEGORY);
+
+            //  loadActivity(null);
+               /* FragmentManager fm=getFragmentManager();
+                FragmentTransaction ft=fm.beginTransaction();
+                Categories categories=new Categories();
+
+               ft.replace(R.id.fragment_container,categories).commit();
+*/
+
+            }
+        });
+    }
     @Override
     public void onRefresh() {
         if (inNetwork()) {
@@ -297,18 +339,19 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
-
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CART) {
             // Extract name value from result extras
+          /*  Bundle bundle = data.getExtras();
+            id1= bundle.getInt("Category Id");
+            //id1=data.getIntExtra("Category Id",0);
+            System.out.println("IdCat="+ id1);*/
 
-
-//            count = data.getIntExtra("items_count", 0);
-//            cartItems.setText(count + "");
- //           System.out.println("New counter value:" + count);
+           /* count = data.getIntExtra("items_count", 0);
+            cartItems.setText(count + "");
+            System.out.println("New counter value:" + count);*/
               count = 0;
               myList = (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
               for ( int i = 0; i < myList.size(); i++ ) {
@@ -316,13 +359,15 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                 count += posOrder.getProductQntity();
                 System.out.println("Update value of cart:-"+count);
 
-
-
-
-
             }
             cartItems.setText(count +" ");
 
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CATEGORY) {
+            Bundle bundle = data.getExtras();
+            id1= bundle.getInt("IdCategory");
+            //id1=data.getIntExtra("Category Id",0);
+            System.out.println("IdCat="+ id1);
         }
 
     }
@@ -350,7 +395,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         product_price = (TextView) view.findViewById(R.id.posprice);
 
 
-
         pos.setProductId(row.getInt(OColumn.ROW_ID));
 
 
@@ -359,6 +403,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         Float f = Float.parseFloat(strprize);
         pos.setProductPrize(f);
         pos.setProductQntity(1);
+
 
 
         ImageView imgProduct;

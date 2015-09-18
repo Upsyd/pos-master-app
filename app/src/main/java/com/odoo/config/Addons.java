@@ -20,6 +20,7 @@
 package com.odoo.config;
 
 import com.odoo.addons.customers.Customers;
+import com.odoo.addons.pos.Categories;
 import com.odoo.addons.pos.PosUserSession;
 import com.odoo.addons.pos.Product;
 import com.odoo.core.support.addons.AddonsHelper;
@@ -33,7 +34,8 @@ public class Addons extends AddonsHelper {
      * Ex.:
      * OAddon partners = new OAddon(Partners.class).setDefault();
      */
-//    OAddon customers = new OAddon(Customers.class).setDefault();
+    //OAddon customers = new OAddon(Customers.class).setDefault();
+
     //OAddon pos = new OAddon(Categories.class);
     OAddon session = new OAddon(PosUserSession.class).setDefault();
 //    OAddon product = new OAddon(Product.class).setDefault();
