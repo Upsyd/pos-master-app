@@ -4,29 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/control_focused">
-
     <LinearLayout
         android:id="@+id/data_list_container"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/product_no_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
-
             <include layout="@layout/base_no_items_view" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:background="@color/android_white"
+            android:textColor="@color/android_grey_dark"
+            android:text="Categories"
+            android:id="@+id/categoryButton" />
+
+
+
+        <LinearLayout
+            android:id="@+id/categoryLayout"
+             android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:background="@color/android_grey_dark"
+            android:visibility="gone"
+         android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category Text"
+            android:textSize="20dp"
+            android:textColor="@color/android_white"
+            android:visibility="gone"
+            android:gravity="left|center"
+            android:id="@+id/txtCategory" />
+        <ImageButton
+            android:id="@+id/btnCategoryCancel"
+           android:background="@drawable/ic_cancel"
+            android:layout_width="25dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_height="25dp" />
+        </LinearLayout>
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
             android:layout_margin="@dimen/default_8dp">
-
             <GridView
                 android:id="@+id/gridView1"
                 android:layout_width="fill_parent"

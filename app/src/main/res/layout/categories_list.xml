@@ -31,7 +31,7 @@
         android:textStyle="bold"
         android:textColor="@color/android_white"
         android:gravity="center"
-        android:background="@color/orange_button"
+        android:background="@color/android_grey_dark"
         android:id="@+id/select_category" />
 
     <ListView

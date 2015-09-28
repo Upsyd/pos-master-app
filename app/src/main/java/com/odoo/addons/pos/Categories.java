@@ -3,15 +3,14 @@ package com.odoo.addons.pos;
 import android.annotation.TargetApi;
 import android.app.Activity;
 
-import android.app.Fragment;
+
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -91,9 +90,8 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
        /* view.setEnabled(false);
         view.setOnClickListener(null);*/
         list.setFastScrollAlwaysVisible(false);
-     adapter = new OCursorListAdapter(Categories.this, null, R.layout.categies_of_product);
+        adapter = new OCursorListAdapter(Categories.this, null, R.layout.categies_of_product);
         adapter.setOnViewBindListener(this);
-
         System.out.println("View="+view);
         list.setAdapter(adapter);
         System.out.println("Create");
@@ -106,16 +104,22 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ODataRow row = OCursorUtils.toDatarow((Cursor)adapter.getItem(i));
                int id1=row.getInt("_id");
+                String name=row.getString("name");
+                System.out.println("CategoryName="+name);
                 System.out.println("Id="+ id1);
                 Intent intn=getIntent();
                 intn.putExtra("IdCategory", id1);
+                intn.putExtra("categoryname",name);
                 setResult(Activity.RESULT_OK, intn);
                 System.out.println("value of count: " + id1);
+                Product product=new Product();
+               FragmentTransaction transaction = getFragmentManager().beginTransaction();
+               // onBackPressed();
+             //getFragmentManager().popBackStack();
+                                /*transaction.addToBackStack(null);
+                transaction.commit();*/
+              //  getFragmentManager().popBackStack();
                 finish();
-
-
-
-
 
             }
         });
@@ -150,7 +154,6 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
         String where = "";
         System.out.println("Loader Create");
         List<String> args = new ArrayList<>();
-
         switch (mType) {
             case Categories:
                 where = "name";
@@ -194,8 +197,6 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
                 }
             }, 500);
 
-
-
         }
     }
 
@@ -215,6 +216,7 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
             data = row.getPrimaryBundleData();
 
         }
+
     }
 
 } /*BaseFragment implements ISyncStatusObserverListener,SwipeRefreshLayout.OnRefreshListener,LoaderManager.LoaderCallbacks<Cursor>, OCursorListAdapter.OnViewBindListener

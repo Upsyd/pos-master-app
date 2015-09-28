@@ -35,7 +35,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,15 +82,19 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     public static final String KEY = Product.class.getSimpleName();
     public static final String EXTRA_KEY_TYPE = "extra_key_type";
     public static final int REQUEST_CODE_CART = 1;
-    public static final int REQUEST_CODE_CATEGORY= 2;
+    public static final int REQUEST_CODE_CATEGORY = 2;
     private View mView;
     ActionBar mActionBar;
+    TextView textCategory;
     private String mCurFilter = null;
     private boolean syncRequested = false;
     private OCursorListAdapter listAdapter;
     private GridView gv = null;
+    ImageButton btnCategoryCancel;
+    String name;
+    LinearLayout categoryLayout;
     private ArrayList<PosOrder> myList;
-   // PosOrder posOrder;
+    // PosOrder posOrder;
     int counter = 0;
     TextView cart;
     TextView hotlist_icon;
@@ -99,7 +105,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     ImageView pro_img;
     public Button categoryName;
     int id1;
-
     static int mNotifCount = 0;
 
 
@@ -123,14 +128,13 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
                 .setIcon(R.drawable.ic_pos_icon2)
                 .setExtra(extra(Type.Product))
                 .setInstance(new Product()));
-                    return items;
+        return items;
     }
 
     @Override
     public Class<ProductTemplate> database() {
         return ProductTemplate.class;
     }
-
     public Bundle extra(Type type) {
         Bundle extra = new Bundle();
         extra.putString(EXTRA_KEY_TYPE, type.toString());
@@ -141,7 +145,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         setHasSyncStatusObserver(KEY, this, db());
-
         return inflater.inflate(R.layout.product_list, container, false);
 
     }
@@ -149,17 +152,18 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setHasSwipeRefreshView(view, R.id.swipe_container, this);
         mView = view;
         mType = Type.Product;
+        btnCategoryCancel = (ImageButton) view.findViewById(R.id.btnCategoryCancel);
+        categoryLayout=(LinearLayout)view.findViewById(R.id.categoryLayout);
         gv = (GridView) mView.findViewById(R.id.gridView1);
         listAdapter = new OCursorListAdapter(getActivity(), null, R.layout.product_custom_list);
         gv.setAdapter(listAdapter);
         listAdapter.setOnViewBindListener(this);
         gv.setOnItemClickListener(this);
         categoryName = (Button) mView.findViewById(R.id.categoryButton);
-
+        textCategory = (TextView) mView.findViewById(R.id.txtCategory);
         gv.setFastScrollAlwaysVisible(false);
         myList = new ArrayList<PosOrder>();
         setHasSyncStatusObserver(KEY, this, db());
@@ -177,19 +181,16 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             public void onClick(View view) {
 
                 Intent intent = new Intent(getActivity(), Order.class);
-//                    intent.putExtra("i",myList);
-
+//              intent.putExtra("i",myList);
                 Bundle mBundle = new Bundle();
                 mBundle.putSerializable("cart_details", myList);
                 mBundle.putInt("items_count", count);
                 intent.putExtras(mBundle);
                 startActivityForResult(intent, REQUEST_CODE_CART);
-               //  Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity(), " Click Cart", Toast.LENGTH_LONG).show();
 //
             }
         });
-
-
     }
 
     @Override
@@ -201,14 +202,9 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         } else {
             img = BitmapUtils.getBitmapImage(getActivity(), row.getString("image"));
         }
-
-
         OControls.setImage(view, R.id.productimag, img);
         OControls.setText(view, R.id.posname, row.getString("name"));
         OControls.setText(view, R.id.posprice, row.getFloat("list_price").toString());
-
-
-
     }
 
 
@@ -219,12 +215,12 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         String where = "";
         List<String> args = new ArrayList<>();
         //Bundle args1 = this.getArguments();
-       // System.out.println("data="+args1);
+        // System.out.println("data="+args1);
 
-        if(id1==0) {
+        if (id1 == 0) {
             where = "_is_active = ?";
             args.add("true");
-        }else /*iint
+        } else /*iint
          ("pos_categ_id".equals(id1))*/ {
             // int i=0;
             where += "pos_categ_id = ?";
@@ -233,27 +229,27 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
         }
 
-     // }else
+        // }else
            /* where="pos_categ_id = ?";
           args.add(id1,"");*/
-       // }
+        // }
         //if()
-          if (mCurFilter != null) {
-                where += " and name like ? ";
-                args.add(mCurFilter + "%");
-            }
-            //String a=String.valueOf( "pos_categ_id".equals(count));
-            //String selection =String.valueOf ((args.size() > 0) ? where : );
-       // String selection="pos_categ_id=?";
-           // String[] projection=new String[]{"pos_categ_id"};
-            String[] selectionArgs = (args.size() > 0) ? args.toArray(new String[args.size()]) : null;
-            return new CursorLoader(getActivity(), db().uri(),
-                 null, where, selectionArgs,"pos_categ_id");
-
+        if (mCurFilter != null) {
+            where += " and name like ? ";
+            args.add(mCurFilter + "%");
         }
+        //String a=String.valueOf( "pos_categ_id".equals(count));
+        //String selection =String.valueOf ((args.size() > 0) ? where : );
+        // String selection="pos_categ_id=?";
+        // String[] projection=new String[]{"pos_categ_id"};
+        String[] selectionArgs = (args.size() > 0) ? args.toArray(new String[args.size()]) : null;
+        return new CursorLoader(getActivity(), db().uri(),
+                null, where, selectionArgs, "pos_categ_id");
 
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         listAdapter.changeCursor(data);
         if (data.getCount() > 0) {
             new Handler().postDelayed(new Runnable() {
@@ -290,10 +286,9 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         categoryName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getActivity(),Categories.class);
+                Intent i = new Intent(getActivity(), Categories.class);
                 startActivityForResult(i, REQUEST_CODE_CATEGORY);
-
-            //  loadActivity(null);
+                //  loadActivity(null);
                /* FragmentManager fm=getFragmentManager();
                 FragmentTransaction ft=fm.beginTransaction();
                 Categories categories=new Categories();
@@ -304,6 +299,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             }
         });
     }
+
     @Override
     public void onRefresh() {
         if (inNetwork()) {
@@ -339,8 +335,10 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         // REQUEST_CODE is defined above
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CART) {
             // Extract name value from result extras
@@ -352,30 +350,43 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
            /* count = data.getIntExtra("items_count", 0);
             cartItems.setText(count + "");
             System.out.println("New counter value:" + count);*/
-              count = 0;
-              myList = (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
-              for ( int i = 0; i < myList.size(); i++ ) {
+            count = 0;
+            myList = (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
+            for (int i = 0; i < myList.size(); i++) {
                 PosOrder posOrder = myList.get(i);
                 count += posOrder.getProductQntity();
-                System.out.println("Update value of cart:-"+count);
+                System.out.println("Update value of cart:-" + count);
 
             }
-            cartItems.setText(count +" ");
+            cartItems.setText(count + " ");
 
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CATEGORY) {
             Bundle bundle = data.getExtras();
-            id1= bundle.getInt("IdCategory");
+            name = bundle.getString("categoryname");
+            System.out.println("categoryname=" + name);
+            id1 = bundle.getInt("IdCategory");
             //id1=data.getIntExtra("Category Id",0);
-            System.out.println("IdCat="+ id1);
-        }
+            System.out.println("IdCat=" + id1);
+            categoryLayout.setVisibility(View.VISIBLE);
+            textCategory.setVisibility(View.VISIBLE);
+            btnCategoryCancel.setVisibility(View.VISIBLE);
+            btnCategoryCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Product product=new Product();
+                    FragmentManager fm=getFragmentManager();
+                  fm.beginTransaction().addToBackStack(null).replace(R.id.fragment_container,product).commit();
 
+                }
+            });
+        }
+        textCategory.setText(name);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         ODataRow row = OCursorUtils.toDatarow((Cursor) listAdapter.getItem(position));
 //        loadActivity(row);
         // Toast.makeText(getActivity()," Select
@@ -390,14 +401,11 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         PosOrder pos = new PosOrder();
         TextView product_name, product_price;
 
-
         product_name = (TextView) view.findViewById(R.id.posname);
         product_price = (TextView) view.findViewById(R.id.posprice);
 
 
         pos.setProductId(row.getInt(OColumn.ROW_ID));
-
-
         pos.setProductName(product_name.getText().toString());
         String strprize = product_price.getText().toString();
         Float f = Float.parseFloat(strprize);
@@ -423,10 +431,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         Toast toast = Toast.makeText(getActivity(),
                 "Item " + (position + 1),
                 Toast.LENGTH_SHORT);
-
-
         cartItems.setText(count + "");
-
         boolean isFound = false;
         for (int i = 0; i < myList.size(); i++) {
             PosOrder posListItem = myList.get(i);
@@ -444,8 +449,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
 
         }
-
-
     }
 
 
@@ -455,8 +458,6 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         menu.clear();
 
         getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
-
-
         setHasSearchView(this, menu, R.id.menu_partner_search);
 
     }
