@@ -23,6 +23,7 @@
            android:background="@color/android_white"
             android:textColor="@color/android_grey_dark"
             android:text="Categories"
+            android:textStyle="bold"
             android:id="@+id/categoryButton" />
 
 

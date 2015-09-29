@@ -362,7 +362,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
 
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CATEGORY) {
-            Bundle bundle = data.getExtras();
+            final Bundle bundle = data.getExtras();
             name = bundle.getString("categoryname");
             System.out.println("categoryname=" + name);
             id1 = bundle.getInt("IdCategory");
@@ -371,17 +371,41 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             categoryLayout.setVisibility(View.VISIBLE);
             textCategory.setVisibility(View.VISIBLE);
             btnCategoryCancel.setVisibility(View.VISIBLE);
-            btnCategoryCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Product product=new Product();
-                    FragmentManager fm=getFragmentManager();
-                  fm.beginTransaction().addToBackStack(null).replace(R.id.fragment_container,product).commit();
 
-                }
-            });
         }
         textCategory.setText(name);
+        btnCategoryCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                getParentFragment();
+                id1 = 0;
+                getLoaderManager().restartLoader(0, null, Product.this);
+                categoryLayout.setVisibility(View.GONE);
+                textCategory.setVisibility(View.INVISIBLE);
+                btnCategoryCancel.setVisibility(View.INVISIBLE);
+                   /* Product product=new Product();
+                    FragmentManager fm=getFragmentManager();
+                    FragmentTransaction ft=fm.beginTransaction();
+
+                    ft.addToBackStack(null).replace(R.id.fragment_container,product);
+                    //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);.
+                   ft .commit();*/
+
+               /*   OFragmentUtils fragment=new OFragmentUtils((OdooActivity)getActivity(),null);
+                   ((OdooActivity) getActivity()).loadFragment(product,null,bundle);*/
+
+
+
+
+
+
+                //  fm.beginTransaction().addToBackStack(null).replace(R.id.fragment_container,product).commit();
+                // fm.beginTransaction().addToBackStack(null).add(R.id.fragment_container,product).commit();
+
+                // fm.beginTransaction().addToBackStack(null).commit();
+                // fm.beginTransaction().addToBackStack(null).replace(R.id.fragment_container,product).commit();
+            }
+        });
     }
 
 
