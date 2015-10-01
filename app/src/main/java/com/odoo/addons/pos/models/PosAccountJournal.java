@@ -32,8 +32,8 @@ public class PosAccountJournal  extends OModel {
     OColumn allow_date = new OColumn("Check Date in Period", OBoolean.class);
     OColumn create_date = new OColumn("Creation on", ODateTime.class);
     OColumn create_uid = new OColumn("Created by", ResUsers.class, OColumn.RelationType.ManyToOne);
- //   OColumn amount_authorized_diff = new OColumn("Amount Authorized Difference", account.analytic.journal.class, OColumn.RelationType.ManyToOne);
-   // OColumn analytic_journal_id = new OColumn("Analytic Journal", account.analytic.journal.class, OColumn.RelationType.ManyToOne);
+   OColumn amount_authorized_diff = new OColumn("Amount Authorized Difference", AccountAnaliticJournal.class, OColumn.RelationType.ManyToOne);
+  //  OColumn analytic_journal_id = new OColumn("Analytic Journal", account.analytic.journal.class, OColumn.RelationType.ManyToOne);
    // OColumn cashbox_line_ids= new OColumn("CashBox", account.journal.cashbox.line.class, OColumn.RelationType.OneToMany);
     OColumn cash_control = new OColumn("Cash Control", OBoolean.class);
     OColumn centralisation= new OColumn("Centralized Counterpart", OBoolean.class);
@@ -54,7 +54,7 @@ public class PosAccountJournal  extends OModel {
     OColumn name = new OColumn("Journal Name", OVarchar.class);
    OColumn profit_account_id = new OColumn("Profit Account",AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn self_checkout_payment_method = new OColumn("Self Checkout Payment Method", OBoolean.class);
-//    OColumn sequence_id = new OColumn("Entry Sequence", ir.sequence.class, OColumn.RelationType.ManyToOne);
+    OColumn sequence_id = new OColumn("Entry Sequence", IrSequence.class, OColumn.RelationType.ManyToOne);
     OColumn type = new OColumn("Type", OSelection.class);
  // OColumn type_control_ids = new OColumn("Type Controls",account.account.type.class, OColumn.RelationType.ManyToMany);
     OColumn update_posted = new OColumn("Allow Cancelling Entries", OBoolean.class);

@@ -35,17 +35,17 @@ public class PosOrder extends OModel {
     OColumn date_order = new OColumn("Order Date", ODateTime.class);
     OColumn id = new OColumn("Id", OInteger.class);
   OColumn invoice_id = new OColumn("Invoice",AccountInvoice.class, OColumn.RelationType.ManyToOne);
-   // OColumn lines = new OColumn("Order Lines", PosOrderLine.class, OColumn.RelationType.OneToMany);
-//    OColumn location_id = new OColumn("Location",StockLocation.class, OColumn.RelationType.ManyToOne);
+    OColumn lines = new OColumn("Order Lines", PosOrderLine.class, OColumn.RelationType.OneToMany);
+   OColumn location_id = new OColumn("Location",StockLocation.class, OColumn.RelationType.ManyToOne);
     OColumn name = new OColumn("Order Ref", OVarchar.class);
     OColumn nb_print = new OColumn("Number of Prints", OInteger.class);
     OColumn note = new OColumn("Internal Notes", OText.class);
     OColumn partner_id = new OColumn("Customer", ResPartner.class, OColumn.RelationType.ManyToOne);
-  //  OColumn picking_id = new OColumn("Picking",StockPicking.class, OColumn.RelationType.ManyToOne);
-//    OColumn picking_type_id = new OColumn("Picking Type", StockPickingType.class, OColumn.RelationType.ManyToOne);
+    OColumn picking_id = new OColumn("Picking",StockPicking.class, OColumn.RelationType.ManyToOne);
+    OColumn picking_type_id = new OColumn("Picking Type", StockPickingType.class, OColumn.RelationType.ManyToOne);
     OColumn pos_refrence = new OColumn("Receipt Ref", OVarchar.class);
    OColumn priselist_id = new OColumn("Pricelist",ProductPricelist.class, OColumn.RelationType.ManyToOne);
-   // OColumn sale_journal = new OColumn("Sale Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn sale_journal = new OColumn("Sale Journal",PosAccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn sequence_no = new OColumn("Sequence Number", OInteger.class);
    OColumn session_id = new OColumn("Session", PosSession.class, OColumn.RelationType.ManyToOne);
     OColumn state= new OColumn("Status", OSelection.class);
@@ -57,7 +57,6 @@ public class PosOrder extends OModel {
     public PosOrder(Context context, OUser user) {
         super(context, "pos.order", user);
     }
-
     /*public static ODataRow getOrder(Context context) {
         posOrder order = new posOrder(context, null);
         int row_id = order.selectRowId(Integer.parseInt(order.getUser().getCompany_id()));

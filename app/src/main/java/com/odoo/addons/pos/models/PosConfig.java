@@ -52,13 +52,13 @@ public class PosConfig extends OModel {
     OColumn journal_id = new OColumn("Sale Journal", PosAccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn journal_ids = new OColumn("Available Payment Methods", PosAccountJournal.class, OColumn.RelationType.ManyToMany);
     OColumn name = new OColumn("Point of Sale Name", OVarchar.class);
-   // OColumn picking_type_id = new OColumn("Picking Type", stock.picking.type.class, OColumn.RelationType.ManyToOne);
+   OColumn picking_type_id = new OColumn("Picking Type",StockPicking.class, OColumn.RelationType.ManyToOne);
     OColumn pricelist_id = new OColumn("Pricelist", ProductPricelist.class, OColumn.RelationType.ManyToOne);
   //  OColumn printer_ids = new OColumn("Order Printers", restaurant.printer.class, OColumn.RelationType.ManyToMany);
      OColumn proxy_ip = new OColumn("IP Address", OVarchar.class);
     OColumn receipt_footer = new OColumn("Receipt Footer", OText.class);
     OColumn receipt_header = new OColumn("Receipt Header", OText.class);
- //   OColumn sequence_id = new OColumn("Order IDs Sequence", IrSquence.class, OColumn.RelationType.ManyToOne);
+    OColumn sequence_id = new OColumn("Order IDs Sequence", IrSequence.class, OColumn.RelationType.ManyToOne);
     OColumn session_ids = new OColumn("Sessions", PosSession.class, OColumn.RelationType.OneToMany);
     OColumn stock_location_id = new OColumn("Stock Location", StockLocation.class, OColumn.RelationType.ManyToOne);
     OColumn state = new OColumn("Status", OSelection.class);
