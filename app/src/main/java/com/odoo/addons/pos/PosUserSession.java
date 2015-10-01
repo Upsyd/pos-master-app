@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.odoo.App;
@@ -108,13 +109,18 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
         mView = view;
         mApp = (App) getActivity().getApplicationContext();
 
-
-        mActionBar = ((OdooActivity)getActivity()).getSupportActionBar();
-        if(mActionBar != null){
-//            mActionBar.getCustomView().setVisibility(View.INVISIBLE);
-            mActionBar.setHomeButtonEnabled(true);
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        ActionBar actionBar = ((OdooActivity) getActivity()).getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.action_bar_pos);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView actionbarTitle = (TextView) actionBar.getCustomView().findViewById(R.id.title);
+        actionbarTitle.setText("POS");
+//        mActionBar = ((OdooActivity)getActivity()).getSupportActionBar();
+//        if(mActionBar != null){
+////            mActionBar.getCustomView().setVisibility(View.INVISIBLE);
+//            mActionBar.setHomeButtonEnabled(true);
+//            mActionBar.setDisplayHomeAsUpEnabled(true);
+//        }
         setHasSyncStatusObserver(KEY, this, db());
         getLoaderManager().initLoader(0, null, this);
         //initMenuBar();
@@ -325,7 +331,8 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
+        //inflater.inflate(R.menu.menu_partners, menu);
+      //  getActivity().getMenuInflater().inflate(R.menu.menu_partner_product, menu);
 //        RelativeLayout badgeLayout = (RelativeLayout)menu.findItem(R.id.shopping_cart).getActionView();
 //        badgeLayout.setActivated(true);
 //        TextView tv = (TextView) badgeLayout.findViewById(R.id.actionbar_notifcation_textview);
@@ -367,6 +374,8 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
 //                default:
 
         // }
+        switch (item.getItemId()) {
+        }
         return super.onOptionsItemSelected(item);
     }
 

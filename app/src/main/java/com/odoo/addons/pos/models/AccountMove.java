@@ -31,12 +31,12 @@ public class AccountMove extends OModel {
     OColumn create_uid = new OColumn("Created by",ResUsers.class, OColumn.RelationType.ManyToOne);
     OColumn date = new OColumn("Date",ODate.class);
     OColumn id = new OColumn("Id",OInteger.class);
-    //OColumn journal_id = new OColumn("Journal",AccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn journal_id = new OColumn("Journal",PosAccountJournal.class, OColumn.RelationType.ManyToOne);
    // OColumn line_id = new OColumn("Entries",AccountMoveLine.class, OColumn.RelationType.OneToMany);
     OColumn name = new OColumn("Number",OVarchar.class);
     OColumn narration = new OColumn("Internal Note",OText.class);
     OColumn partner_id = new OColumn("Partner",ResPartner.class, OColumn.RelationType.ManyToOne);
-    //OColumn period_id = new OColumn("Period",AccountPeriod.class, OColumn.RelationType.ManyToOne);
+    OColumn period_id = new OColumn("Period",AccountPeriod.class, OColumn.RelationType.ManyToOne);
     OColumn ref = new OColumn("Reference",OVarchar.class);
     OColumn to_check = new OColumn("To Review",OBoolean.class);
     OColumn write_date= new OColumn("Last Updated on",ODateTime.class);

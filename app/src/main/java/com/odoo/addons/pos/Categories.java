@@ -47,6 +47,7 @@ import com.odoo.core.support.drawer.ODrawerItem;
 import com.odoo.core.support.list.OCursorListAdapter;
 import com.odoo.core.support.sync.SyncUtils;
 import com.odoo.core.utils.IntentUtils;
+import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OControls;
 import com.odoo.core.utils.OCursorUtils;
 import com.odoo.core.utils.OFragmentUtils;
@@ -83,6 +84,14 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories_list);
+        OActionBarUtils.setActionBar(this, true);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setHomeButtonEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle("Select Category");
+        }
+
         poscategory = new PosCategory(this, null);
         view=  this.findViewById(android.R.id.content);
 
@@ -109,7 +118,7 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
                 System.out.println("Id="+ id1);
                 Intent intn=getIntent();
                 intn.putExtra("IdCategory", id1);
-                intn.putExtra("categoryname",name);
+               intn.putExtra("categoryname",name);
                 setResult(Activity.RESULT_OK, intn);
                 System.out.println("value of count: " + id1);
                 Product product=new Product();
@@ -131,6 +140,15 @@ public class Categories extends AppCompatActivity implements ISyncStatusObserver
 
         }
         getSupportLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

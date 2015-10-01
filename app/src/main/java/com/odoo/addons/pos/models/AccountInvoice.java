@@ -26,7 +26,7 @@ import com.odoo.core.support.OUser;
 public class AccountInvoice extends OModel {
     public static final String TAG =AccountInvoice.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_invoice";
- //OColumn account_id= new OColumn("Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn account_id= new OColumn("Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn amount_tax = new OColumn("Tax", OFloat.class);
     OColumn amount_total = new OColumn("Total", OFloat.class);
     OColumn amount_untaxed= new OColumn("Subtotal", OFloat.class);
@@ -43,14 +43,14 @@ public class AccountInvoice extends OModel {
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn internal_number= new OColumn("Invoice Number", OVarchar.class);
    // OColumn invoice_line = new OColumn("Invoice Lines", AccountInvoiceLine.class, OColumn.RelationType.OneToMany);
-   // OColumn journal_id = new OColumn("Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn journal_id = new OColumn("Journal", PosAccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn message_follower_ids= new OColumn("Followers", ResPartner.class, OColumn.RelationType.ManyToMany);
     //OColumn message_ids = new OColumn("Messages",MailMessege.class, OColumn.RelationType.OneToMany);
     OColumn message_is_follower = new OColumn("Is a Follower", OBoolean.class);
     OColumn message_last_post = new OColumn("Last Message Date", ODateTime.class);
     OColumn message_summary = new OColumn("Summary", OText.class);
     OColumn message_unread = new OColumn("Unread Messages", OBoolean.class);
-   // OColumn move_id = new OColumn("Journal Entry", AccountMove.class, OColumn.RelationType.ManyToOne);
+    OColumn move_id = new OColumn("Journal Entry", AccountMove.class, OColumn.RelationType.ManyToOne);
     OColumn move_name = new OColumn("Journal Entry", OVarchar.class);
     OColumn name = new OColumn("Reference/Description", OVarchar.class);
     OColumn number = new OColumn("Number", OVarchar.class);
@@ -59,7 +59,7 @@ public class AccountInvoice extends OModel {
     OColumn partner_id = new OColumn("Partner", ResPartner.class, OColumn.RelationType.ManyToOne);
    // OColumn payment_term = new OColumn("Payment Terms", AccountPaymentTerms.class, OColumn.RelationType.ManyToOne);
     OColumn paypal_url = new OColumn("Paypal Url", OVarchar.class);
-    //OColumn period_id = new OColumn("Force Period", AccountPeriod.class, OColumn.RelationType.ManyToOne);
+    OColumn period_id = new OColumn("Force Period", AccountPeriod.class, OColumn.RelationType.ManyToOne);
     OColumn portal_payment_options= new OColumn("Portal Payment Options", OHtml.class);
     OColumn reconciled = new OColumn("Paid/Reconciled", OBoolean.class);
     OColumn reference = new OColumn("invoice Reference", OVarchar.class);

@@ -24,15 +24,15 @@
 
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Select Category"
-        android:textStyle="bold"
-        android:textColor="@color/android_white"
-        android:gravity="center"
-        android:background="@color/android_grey_dark"
-        android:id="@+id/select_category" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:text="Select Category"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/android_white"-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/android_grey_dark"-->
+        <!--android:id="@+id/select_category" />-->
 
     <ListView
         android:layout_width="match_parent"
