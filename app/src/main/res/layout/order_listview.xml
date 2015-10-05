@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/android_white"
             android:gravity="center"
-            android:text="Payment"
+            android:text="CheckOut"
             android:layout_weight="1"/>
         </LinearLayout>
 </LinearLayout>
