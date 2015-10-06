@@ -1,6 +1,5 @@
 package com.odoo.addons.pos;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,7 +14,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,22 +22,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.odoo.OdooActivity;
 import com.odoo.R;
-import com.odoo.addons.pos.Order;
-import com.odoo.addons.pos.PosOrder;
 import com.odoo.addons.pos.models.ProductTemplate;
 import com.odoo.base.addons.ir.feature.OFileManager;
 import com.odoo.core.orm.ODataRow;
 import com.odoo.core.orm.fields.OColumn;
-import com.odoo.core.support.OUser;
 import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
 import com.odoo.core.support.addons.fragment.ISyncStatusObserverListener;
-import com.odoo.core.support.drawer.ODrawerItem;
 import com.odoo.core.support.list.OCursorListAdapter;
 import com.odoo.core.support.sync.SyncUtils;
 import com.odoo.core.utils.BitmapUtils;
-import com.odoo.core.utils.IntentUtils;
 import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OControls;
 import com.odoo.core.utils.OCursorUtils;
@@ -65,8 +57,8 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
     private boolean syncRequested = false;
     private OCursorListAdapter listAdapter;
     private GridView gv = null;
-    private ArrayList<PosOrder> myList;
-    PosOrder posOrder;
+    private ArrayList<CartItem> myList;
+    CartItem posOrder;
     int counter = 0;
     TextView cart;
     TextView hotlist_icon;
@@ -178,7 +170,7 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
         listAdapter.setOnViewBindListener(this);
         gv.setOnItemClickListener(this);
         gv.setFastScrollAlwaysVisible(false);
-        myList = new ArrayList<PosOrder>();
+        myList = new ArrayList<CartItem>();
         //producttemp = new ProductTemplate(getActivity(),null);
         //setHasFloatingButton(view, R.id.fabButton, gv, this);        android:id="@+id/ic_cart"
 
@@ -323,16 +315,16 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
 
 //    public void showOrder() {
 //
-//        myList = new ArrayList<PosOrder>();
-//       // final PosOrder pos = (PosOrder) getApplicationContext();
-//        com.odoo.addons.pos.PosOrder pos = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos1 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos2 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos3 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos4 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos5 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos6 = new com.odoo.addons.pos.PosOrder();
-//        com.odoo.addons.pos.PosOrder pos7 = new com.odoo.addons.pos.PosOrder();
+//        myList = new ArrayList<CartItem>();
+//       // final CartItem pos = (CartItem) getApplicationContext();
+//        com.odoo.addons.pos.CartItem pos = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos1 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos2 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos3 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos4 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos5 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos6 = new com.odoo.addons.pos.CartItem();
+//        com.odoo.addons.pos.CartItem pos7 = new com.odoo.addons.pos.CartItem();
 //
 //
 //        pos.setProductName("Mobile");
@@ -379,7 +371,7 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
 //    }
 
 
-    // final PosOrder finalRowItem = posOrder;
+    // final CartItem finalRowItem = posOrder;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -398,12 +390,12 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
         TextView product_name, product_price;
         //product_id;
         // final ViewHolder viewHolderFinal = holder;
-        //final PosOrder finalRowItem = myList;
+        //final CartItem finalRowItem = myList;
 
         product_name = (TextView) view.findViewById(R.id.posname);
         product_price = (TextView) view.findViewById(R.id.posprice);
         // product_id =  (TextView)view.findViewById(R.id.posid);
-        PosOrder pos = new PosOrder();
+        CartItem pos = new CartItem();
         // pos.setProductId(product_id.getText().toString());
         //String strid = product_id.getText().toString();
         //  Integer nt=Integer.parseInt(strid);
@@ -439,7 +431,7 @@ public class ProductList extends AppCompatActivity implements ISyncStatusObserve
 //
         boolean isFound = false;
         for (int i = 0; i < myList.size(); i++) {
-            PosOrder posListItem = myList.get(i);
+            CartItem posListItem = myList.get(i);
             if (posListItem.getProductId() == pos.getProductId()) {
                 posListItem.setProductQntity(posListItem.getProductQntity() + 1);
 

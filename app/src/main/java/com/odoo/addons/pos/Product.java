@@ -3,28 +3,18 @@ package com.odoo.addons.pos;
 import android.app.Activity;
 
 
-import android.app.Fragment;
-
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,21 +28,16 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.odoo.OdooActivity;
 import com.odoo.R;
-import com.odoo.addons.pos.models.PosCategory;
 
 import com.odoo.addons.pos.models.ProductTemplate;
 
 
 import com.odoo.core.orm.ODataRow;
-import com.odoo.core.orm.OModel;
-import com.odoo.core.orm.OValues;
-import com.odoo.core.orm.annotation.Odoo;
 import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.support.addons.fragment.BaseFragment;
 import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
@@ -60,15 +45,10 @@ import com.odoo.core.support.addons.fragment.ISyncStatusObserverListener;
 import com.odoo.core.support.drawer.ODrawerItem;
 import com.odoo.core.support.list.OCursorListAdapter;
 import com.odoo.core.utils.BitmapUtils;
-import com.odoo.core.utils.IntentUtils;
-import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OControls;
 import com.odoo.core.utils.OCursorUtils;
-import com.odoo.core.utils.OFragmentUtils;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Field;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,8 +73,8 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
     ImageButton btnCategoryCancel;
     String name;
     LinearLayout categoryLayout;
-    private ArrayList<PosOrder> myList;
-    // PosOrder posOrder;
+    private ArrayList<CartItem> myList;
+    // CartItem posOrder;
     int counter = 0;
     TextView cart;
     TextView hotlist_icon;
@@ -165,7 +145,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         categoryName = (Button) mView.findViewById(R.id.categoryButton);
         textCategory = (TextView) mView.findViewById(R.id.txtCategory);
         gv.setFastScrollAlwaysVisible(false);
-        myList = new ArrayList<PosOrder>();
+        myList = new ArrayList<CartItem>();
         setHasSyncStatusObserver(KEY, this, db());
         getLoaderManager().initLoader(0, null, this);
         ActionBar actionBar = ((OdooActivity) getActivity()).getSupportActionBar();
@@ -351,9 +331,9 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
             cartItems.setText(count + "");
             System.out.println("New counter value:" + count);*/
             count = 0;
-            myList = (ArrayList<PosOrder>) data.getSerializableExtra("cart_details");
+            myList = (ArrayList<CartItem>) data.getSerializableExtra("cart_details");
             for (int i = 0; i < myList.size(); i++) {
-                PosOrder posOrder = myList.get(i);
+                CartItem posOrder = myList.get(i);
                 count += posOrder.getProductQntity();
                 System.out.println("Update value of cart:-" + count);
 
@@ -422,7 +402,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         //Toast.makeText(getActivity()," Select row"+row, Toast.LENGTH_LONG).show();
 //        System.out.println("Parent ==" + row);
 
-        PosOrder pos = new PosOrder();
+        CartItem pos = new CartItem();
         TextView product_name, product_price;
 
         product_name = (TextView) view.findViewById(R.id.posname);
@@ -458,7 +438,7 @@ public class Product extends BaseFragment implements ISyncStatusObserverListener
         cartItems.setText(count + "");
         boolean isFound = false;
         for (int i = 0; i < myList.size(); i++) {
-            PosOrder posListItem = myList.get(i);
+            CartItem posListItem = myList.get(i);
             if (posListItem.getProductId() == pos.getProductId()) {
                 posListItem.setProductQntity(posListItem.getProductQntity() + 1);
                 System.out.println("item found.");

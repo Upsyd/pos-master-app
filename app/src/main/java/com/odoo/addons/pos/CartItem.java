@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by Harshad on 8/10/2015.
  */
-public class PosOrder implements Serializable {
+public class CartItem implements Serializable {
     public int getProductId() {
         return productId;
     }

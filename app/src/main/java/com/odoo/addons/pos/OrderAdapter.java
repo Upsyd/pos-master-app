@@ -1,33 +1,24 @@
 package com.odoo.addons.pos;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.odoo.R;
 
-import org.w3c.dom.Text;
-
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
 
 /**
  * Created by Harshad on 8/13/2015.
  */
-public class OrderAdapter  extends ArrayAdapter<PosOrder> {
-    private List<PosOrder> orderItem;
+public class OrderAdapter  extends ArrayAdapter<CartItem> {
+    private List<CartItem> orderItem;
 
     private Context context;
 
@@ -35,7 +26,7 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
 
 
     public OrderAdapter(Context context, int textViewResourceId,
-                        List<PosOrder> orderItem) {
+                        List<CartItem> orderItem) {
         super(context, textViewResourceId, orderItem);
         this.context = context;
         this.orderItem = orderItem;
@@ -56,7 +47,7 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
         public View getView(int position, View view, ViewGroup parent) {
 
             final ViewHolder holder;
-            PosOrder posOrder = orderItem.get(position);
+            CartItem posOrder = orderItem.get(position);
             float Discount = (posOrder.getProductPrize() * posOrder.getDiscount() / 100);
             float netPrice = ((posOrder.getProductPrize() - Discount));
             float productTotalAmount = posOrder.getProductQntity() * netPrice;
@@ -100,7 +91,7 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        PosOrder pos = (PosOrder) holder.PrdctQuantity.getTag();
+                        CartItem pos = (CartItem) holder.PrdctQuantity.getTag();
                         System.out.println("Quantity =" + pos.getProductQntity());
                         //  TextView     productTotal=(TextView)view.findViewById(R.id.NetPrize);
                         String Quantity = s.toString();
@@ -141,7 +132,7 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        PosOrder pos = (PosOrder) holder.PrdctPrize.getTag();
+                        CartItem pos = (CartItem) holder.PrdctPrize.getTag();
                         String Price = holder.PrdctPrize.getText().toString();
                         System.out.println("Qunt" + Price);
                         if (Price.matches("")) {
@@ -176,7 +167,7 @@ public class OrderAdapter  extends ArrayAdapter<PosOrder> {
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        PosOrder pos = (PosOrder) holder.PrdctDiscount.getTag();
+                        CartItem pos = (CartItem) holder.PrdctDiscount.getTag();
                         String discount1 = holder.PrdctDiscount.getText().toString();
                         System.out.println("Qunt" + discount1);
                         if (discount1.matches("")) {

@@ -1,5 +1,5 @@
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
     android:accountType="com.odoo.auth"
-    android:contentAuthority="com.bi.pos.core.provider.content.sync.product_template"
+    android:contentAuthority="com.bi.pos.core.provider.content.sync.pos_category"
     android:supportsUploading="true"
     android:userVisible="true" />

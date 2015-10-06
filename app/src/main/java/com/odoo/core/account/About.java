@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +38,7 @@ import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OPreferenceManager;
 import com.odoo.datas.OConstants;
 
-public class About extends ActionBarActivity implements View.OnClickListener {
+public class About extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = About.class.getSimpleName();
     public final static String DEVELOPER_MODE = "developer_mode";
     private Handler handler = null;
@@ -51,7 +51,7 @@ public class About extends ActionBarActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_about);
         OActionBarUtils.setActionBar(this, true);
-        setTitle("");
+        setTitle("About Us");
         findViewById(R.id.abtus_header).setOnClickListener(this);
         TextView versionName, aboutLine2, aboutLine3, aboutLine4;
         versionName = (TextView) findViewById(R.id.txvVersionName);
@@ -63,8 +63,8 @@ public class About extends ActionBarActivity implements View.OnClickListener {
                     getPackageName(), 0).versionName;
             String versionCode = packageManager.getPackageInfo(
                     getPackageName(), 0).versionCode + "";
-            versionName.setText(getResources()
-                    .getString(R.string.label_version) + " " + version + " (" + versionCode + ")");
+//            versionName.setText(getResources().getString(R.string.label_version) + " " + version + " (" + versionCode + ")");
+            versionName.setText(getResources().getString(R.string.label_version) + " " + version );
 
             // setting link in textView
             aboutLine2 = (TextView) findViewById(R.id.line2);

@@ -53,8 +53,8 @@ public class StockPickingType extends OModel {
     public StockPickingType(Context context, OUser user) {
         super(context,"stock.picking.type", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }

@@ -3,6 +3,7 @@ package com.odoo.addons.pos.models;
 import android.content.Context;
 import android.net.Uri;
 
+import com.odoo.App;
 import com.odoo.base.addons.res.ResPartner;
 import com.odoo.core.orm.OModel;
 import com.odoo.core.orm.fields.OColumn;
@@ -25,7 +26,7 @@ public class PosCategory extends OModel {
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.pos_category";
 
 
-//    OColumn child_id = new OColumn("Children Categories", PosCategory.class, OColumn.RelationType.OneToMany); //OVarchar.class).setSize(100);
+    OColumn child_id = new OColumn("Children Categories", PosCategory.class, OColumn.RelationType.OneToMany); //OVarchar.class).setSize(100);
     OColumn complete_name = new OColumn("complete_name", OVarchar.class);
     OColumn create_date = new OColumn("Created on", ODateTime.class);
     OColumn create_uid = new OColumn("Created by", ResPartner.class, OColumn.RelationType.ManyToOne);
@@ -42,9 +43,9 @@ public class PosCategory extends OModel {
 
     public PosCategory(Context context, OUser user) {
         super(context, "pos.category", user);}
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }
 

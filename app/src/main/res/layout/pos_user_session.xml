@@ -32,7 +32,8 @@
                     android:background="@drawable/pos_session_button"
                     android:text="@string/pos_session_new"
                     android:textColor="@color/android_white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btnResumeSession"
@@ -42,7 +43,9 @@
                     android:background="@drawable/pos_session_button"
                     android:text="@string/pos_session_resume"
                     android:textColor="@color/android_white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/btnCloseSession"
@@ -53,7 +56,9 @@
                     android:backgroundTint="@color/theme_primary"
                     android:text="@string/pos_session_close"
                     android:textColor="@color/android_white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

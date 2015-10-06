@@ -27,18 +27,13 @@ import com.odoo.core.orm.ODataRow;
 import com.odoo.core.orm.OModel;
 import com.odoo.core.orm.OValues;
 import com.odoo.core.support.addons.fragment.BaseFragment;
-import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
 import com.odoo.core.support.addons.fragment.ISyncStatusObserverListener;
 import com.odoo.core.support.drawer.ODrawerItem;
 import com.odoo.core.support.list.OCursorListAdapter;
-import com.odoo.core.utils.OActionBarUtils;
 import com.odoo.core.utils.OFragmentUtils;
-import com.odoo.core.utils.OdooRecordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import odoo.helper.OArguments;
 
 /**
  * Created by My on 8/12/2015.
@@ -54,8 +49,8 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
     private String mCurFilter = null;
     private boolean syncRequested = false;
     //    private OCursorListAdapter listAdapter;
-//    private ArrayList<PosOrder> myList;
-    PosOrder posOrder;
+//    private ArrayList<CartItem> myList;
+    CartItem posOrder;
     App mApp;
 
     static int mNotifCount = 0;
@@ -179,7 +174,7 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
         Button btnNewSession = (Button) mView.findViewById(R.id.btnNewSession);
         Button btnResumeSession = (Button) mView.findViewById(R.id.btnResumeSession);
         Button btnCloseSession = (Button) mView.findViewById(R.id.btnCloseSession);
-        checkPOSSession();
+//        checkPOSSession();
 
         if (data != null && data.getCount() > 0) {
 //            new Handler().postDelayed(new Runnable() {
@@ -300,10 +295,12 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
 
     private void checkPOSSession() {
         PosSessionOpening posSessionOpening = new PosSessionOpening(getActivity(), null);
-//        List<ODataRow> sessionData =  posSession.select(new String[]{"name"}, "user_id = ?", new String[]{user().toString()});
+//PosSession posSession = new PosSession(getActivity(),null);
+//        List<ODataRow> sessionDataList =  posSession.select(new String[]{"name"}, null, null);
 //        ODataRow sessionData = posSessionOpening.browse(new String[]{"pos_state_str"}, "user_id = ?", new String[]{posSessionOpening.getUser().getUserId().toString()});
-        ODataRow sessionData = posSessionOpening.browse(new String[]{"pos_state_str"}, null, null);
-        if (sessionData != null && sessionData.size() > 0) {
+        List<ODataRow> sessionDataList = posSessionOpening.select(new String[]{"pos_state_str"}, null, null);
+        if (sessionDataList != null && sessionDataList.size() > 0) {
+        ODataRow sessionData = sessionDataList.get(0);
             System.out.println("Resume Session: "+sessionData.getString("pos_state_str"));
             Toast.makeText(getActivity(), "Resume Session: "+sessionData.getString("pos_state_str"), Toast.LENGTH_SHORT).show();
         } else {

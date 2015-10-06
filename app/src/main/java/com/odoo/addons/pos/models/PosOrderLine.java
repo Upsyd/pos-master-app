@@ -4,11 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.odoo.base.addons.res.ResCompany;
-import com.odoo.base.addons.res.ResPartner;
 import com.odoo.base.addons.res.ResUsers;
 import com.odoo.core.orm.OModel;
 import com.odoo.core.orm.fields.OColumn;
-import com.odoo.core.orm.fields.types.OBlob;
 import com.odoo.core.orm.fields.types.ODateTime;
 import com.odoo.core.orm.fields.types.OFloat;
 import com.odoo.core.orm.fields.types.OVarchar;
@@ -38,20 +36,12 @@ public class PosOrderLine extends OModel {
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class,OColumn.RelationType.ManyToOne);
  // ********************* Requird ProductProduct ***************//
-   OColumn product_id = new OColumn("Product", PosProductProduct.class,OColumn.RelationType.ManyToOne);
-
-
-
-
-
+   OColumn product_id = new OColumn("Product", ProductProduct.class,OColumn.RelationType.ManyToOne);
 
     public PosOrderLine(Context context, OUser user) {
         super(context, "pos.order.line", user);
     }
 
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+
 }
 

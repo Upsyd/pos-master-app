@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -43,7 +43,7 @@ import odoo.listeners.IOdooInstanceListener;
 import odoo.listeners.IOdooLoginCallback;
 import odoo.listeners.OdooError;
 
-public class OdooLogin extends ActionBarActivity implements View.OnClickListener,
+public class OdooLogin extends AppCompatActivity implements View.OnClickListener,
         View.OnFocusChangeListener, OdooInstancesSelectorDialog.OnInstanceSelectListener,
         OdooUserLoginSelectorDialog.IUserLoginSelectListener, IOdooConnectionListener, IOdooLoginCallback {
 
@@ -91,6 +91,7 @@ public class OdooLogin extends ActionBarActivity implements View.OnClickListener
         mLoginProcessStatus = (TextView) findViewById(R.id.login_process_status);
         mTermsCondition = (TextView) findViewById(R.id.termsCondition);
         mTermsCondition.setMovementMethod(LinkMovementMethod.getInstance());
+        findViewById(R.id.btnLogin).setEnabled(false);
         findViewById(R.id.btnLogin).setOnClickListener(this);
         findViewById(R.id.forgot_password).setOnClickListener(this);
         findViewById(R.id.create_account).setOnClickListener(this);
@@ -138,20 +139,21 @@ public class OdooLogin extends ActionBarActivity implements View.OnClickListener
 
     private void toggleSelfHostedURL() {
         TextView txvAddSelfHosted = (TextView) findViewById(R.id.txvAddSelfHosted);
-        if (!mSelfHostedURL) {
+//        if (!mSelfHostedURL) {
             mSelfHostedURL = true;
             findViewById(R.id.layoutSelfHosted).setVisibility(View.VISIBLE);
             edtSelfHosted.setOnFocusChangeListener(this);
             edtSelfHosted.requestFocus();
             txvAddSelfHosted.setText(R.string.label_login_with_odoo);
-        } else {
-            findViewById(R.id.layoutBorderDB).setVisibility(View.GONE);
-            findViewById(R.id.layoutDatabase).setVisibility(View.GONE);
-            findViewById(R.id.layoutSelfHosted).setVisibility(View.GONE);
-            mSelfHostedURL = false;
-            txvAddSelfHosted.setText(R.string.label_add_self_hosted_url);
-            edtSelfHosted.setText("");
-        }
+//        } else {
+//            findViewById(R.id.layoutBorderDB).setVisibility(View.GONE);
+//            findViewById(R.id.layoutDatabase).setVisibility(View.GONE);
+//            findViewById(R.id.layoutSelfHosted).setVisibility(View.GONE);
+//            mSelfHostedURL = false;
+//            txvAddSelfHosted.setText(R.string.label_add_self_hosted_url);
+//            edtSelfHosted.setText("");
+//        }
+
     }
 
     @Override
@@ -255,6 +257,7 @@ public class OdooLogin extends ActionBarActivity implements View.OnClickListener
             databases.add(0, OResource.string(this, R.string.label_select_database));
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, databases);
             databaseSpinner.setAdapter(adapter);
+            findViewById(R.id.btnLogin).setEnabled(true);
         } else {
             databaseSpinner = null;
             findViewById(R.id.layoutBorderDB).setVisibility(View.GONE);

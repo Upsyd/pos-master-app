@@ -1,10 +1,8 @@
 package com.odoo.addons.pos.models;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.net.Uri;
 
-import com.odoo.addons.pos.*;
 import com.odoo.base.addons.res.ResCompany;
 import com.odoo.base.addons.res.ResCurrency;
 import com.odoo.base.addons.res.ResPartner;
@@ -38,7 +36,7 @@ public class AccountBankStatementLine extends OModel {
     OColumn date = new OColumn("Date", ODate.class);
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn journal_entry_id = new OColumn("Journal Entry", AccountMove.class, OColumn.RelationType.ManyToOne);
-    OColumn journal_id = new OColumn("Journal", PosAccountJournal.class,OColumn.RelationType.ManyToOne);
+    OColumn journal_id = new OColumn("Journal", AccountJournal.class,OColumn.RelationType.ManyToOne);
     OColumn name = new OColumn("Communication", OVarchar.class);
     OColumn note = new OColumn("Notes", OText.class);
     OColumn partner_id = new OColumn("Partner", ResPartner.class, OColumn.RelationType.ManyToOne);
@@ -59,10 +57,10 @@ public class AccountBankStatementLine extends OModel {
     public AccountBankStatementLine(Context context,OUser user) {
         super(context,"account.bank.statement.line", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 
 }
 

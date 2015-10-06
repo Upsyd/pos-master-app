@@ -331,8 +331,12 @@ public class OSyncAdapter extends AbstractThreadedSyncAdapter {
             } else {
                 // FIXME: Need to check again. Not working properly
                 //showSignInErrorNotification(context, user);
-                Toast.makeText(context, OResource.string(context, R.string.toast_something_gone_wrong),
-                        Toast.LENGTH_LONG).show();
+                try {
+                    Toast.makeText(context, OResource.string(context, R.string.toast_something_gone_wrong),
+                            Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+                    System.out.println("Exception @createOdooInstance()--"+e.getMessage());
+                }
             }
         }
         return odoo;

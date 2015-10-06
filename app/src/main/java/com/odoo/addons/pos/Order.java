@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,9 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tagmanager.Container;
 import com.odoo.R;
 import com.odoo.core.utils.OActionBarUtils;
 
@@ -41,9 +38,9 @@ public class Order extends AppCompatActivity {
     public TextView tvPrize;
     TextView grandTotalPrize;
     private Context context;
-    PosOrder po;
+    CartItem po;
     public TextView amount;
-    ArrayList<PosOrder> array;
+    ArrayList<CartItem> array;
     float prizevalue;
     ListView l;
     TextView total;
@@ -77,8 +74,8 @@ public class Order extends AppCompatActivity {
         etPrdctDiscount = (EditText) findViewById(R.id.discount);
         tvPrize = (TextView) findViewById(R.id.NetPrize);
         Imageproduct = (ImageView) findViewById(R.id.productImage);
-//        array = new ArrayList<PosOrder>();
-        array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
+//        array = new ArrayList<CartItem>();
+        array = (ArrayList<CartItem>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
         l.setAdapter(adapter);
         l.setDividerHeight(0);
@@ -133,7 +130,7 @@ public class Order extends AppCompatActivity {
         float grandTotal = 0.0f;
 
         for (int i = 0; i < adapter.getCount(); i++) {
-            PosOrder pos = adapter.getItem(i);
+            CartItem pos = adapter.getItem(i);
             float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
             float netPrice = ((pos.getProductPrize() - Discount));
             float productTotalAmount = pos.getProductQntity() * netPrice;
@@ -142,8 +139,8 @@ public class Order extends AppCompatActivity {
         grandTotalPrize.setText(grandTotal + "");
     }
 
-    public class OrderAdapter extends ArrayAdapter<PosOrder> {
-        private List<PosOrder> orderItem;
+    public class OrderAdapter extends ArrayAdapter<CartItem> {
+        private List<CartItem> orderItem;
 
         private Context context;
 
@@ -151,7 +148,7 @@ public class Order extends AppCompatActivity {
 
 
         public OrderAdapter(Context context, int textViewResourceId,
-                            List<PosOrder> orderItem) {
+                            List<CartItem> orderItem) {
             super(context, textViewResourceId, orderItem);
             this.context = context;
             this.orderItem = orderItem;
@@ -174,7 +171,7 @@ public class Order extends AppCompatActivity {
 
             final ViewHolder holder;
             holder = new ViewHolder();
-            PosOrder posOrder = orderItem.get(position);
+            CartItem posOrder = orderItem.get(position);
             float Discount = (posOrder.getProductPrize() * posOrder.getDiscount() / 100);
             float netPrice = ((posOrder.getProductPrize() - Discount));
             float productTotalAmount = posOrder.getProductQntity() * netPrice;
@@ -231,7 +228,7 @@ public class Order extends AppCompatActivity {
                     alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            PosOrder ps = (PosOrder) holder.ImgDlt.getTag();
+                            CartItem ps = (CartItem) holder.ImgDlt.getTag();
                             count = (count - ps.productQntity);
                             System.out.println("this value: " + count);
                             orderItem.remove(ps);
@@ -266,7 +263,7 @@ public class Order extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    PosOrder pos = (PosOrder) holder.PrdctQuantity.getTag();
+                    CartItem pos = (CartItem) holder.PrdctQuantity.getTag();
                     System.out.println("Quantity =" + pos.getProductQntity());
                      String Quantity = s.toString();
 
@@ -308,7 +305,7 @@ public class Order extends AppCompatActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    PosOrder pos = (PosOrder) holder.PrdctPrize.getTag();
+                    CartItem pos = (CartItem) holder.PrdctPrize.getTag();
                     String Price = holder.PrdctPrize.getText().toString();
                     System.out.println("Qunt" + Price);
                     if (Price.matches("")) {
@@ -344,7 +341,7 @@ public class Order extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    PosOrder pos = (PosOrder) holder.PrdctDiscount.getTag();
+                    CartItem pos = (CartItem) holder.PrdctDiscount.getTag();
                     String discount1 = holder.PrdctDiscount.getText().toString();
                     System.out.println("Qunt" + discount1);
                     if (discount1.matches("")) {

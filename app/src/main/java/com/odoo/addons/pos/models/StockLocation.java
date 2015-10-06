@@ -26,7 +26,6 @@ public class StockLocation extends OModel {
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.stock_location";
 
 
-
     OColumn active = new OColumn("Active", OBoolean.class);
     OColumn company_id = new OColumn("Company", ResCompany.class, OColumn.RelationType.ManyToOne);
     OColumn create_date = new OColumn("Creation on", ODateTime.class);
@@ -42,29 +41,24 @@ public class StockLocation extends OModel {
     OColumn posx = new OColumn("Corridor (X)", OInteger.class);
     OColumn posy = new OColumn("Shelves (Y)", OInteger.class);
     OColumn posz = new OColumn("Height (Z)", OInteger.class);
-//    OColumn putaway_strategy_id = new OColumn("Put Away Strategy", product.putaway.class,OColumn.RelationType.ManyToOne);
+    //    OColumn putaway_strategy_id = new OColumn("Put Away Strategy", product.putaway.class,OColumn.RelationType.ManyToOne);
 //    OColumn removal_strategy_id = new OColumn("Removal Strategy", product.removal.class,OColumn.RelationType.ManyToOne);
-     OColumn scrap_location = new OColumn("Is a Scrap Location?", OBoolean.class);
+    OColumn scrap_location = new OColumn("Is a Scrap Location?", OBoolean.class);
     OColumn usage = new OColumn("Location Type", OSelection.class);
-   OColumn valuation_in_account_id= new OColumn("Stock Valuation Account (Incoming)", AccountAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn valuation_in_account_id = new OColumn("Stock Valuation Account (Incoming)", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn valuation_out_account_id = new OColumn("Stock Valuation Account (Outgoing)", AccountAccount.class, OColumn.RelationType.ManyToOne);
-     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
-    OColumn write_uid = new OColumn("Last Updated by", ResUsers.class,OColumn.RelationType.ManyToOne);
+    OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
+    OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
     OColumn id = new OColumn("ID", Integer.class);
-
-
-
-
-
 
 
     public StockLocation(Context context, OUser user) {
         super(context, "stock.location", user);
     }
 
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }
 

@@ -37,18 +37,9 @@ public class AccountPeriod  extends OModel {
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class,OColumn.RelationType.ManyToOne);
 
-
-
-
-
-
     public AccountPeriod(Context context, OUser user) {
         super(context, "account.period", user);
     }
 
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
 }
 

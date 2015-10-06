@@ -22,7 +22,6 @@ public class AccountAnaliticJournal extends OModel {
     public static final String TAG =AccountAnaliticJournal.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_analytic_journal";
 
-
     OColumn active = new OColumn("Active",OBoolean.class);
     OColumn code = new OColumn("Journal Code",OVarchar.class);
     OColumn company_id = new OColumn("Company",ResCompany.class, OColumn.RelationType.ManyToOne);
@@ -37,10 +36,6 @@ public class AccountAnaliticJournal extends OModel {
 
     public AccountAnaliticJournal(Context context, OUser user) {
         super(context,"account.analytic.journal", user);
-    }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
     }
 
 }

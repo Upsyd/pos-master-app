@@ -122,21 +122,21 @@
             android:authorities="com.bi.pos.core.provider.content.sync.pos_category"
             android:label="Pos Categories"
             android:multiprocess="true" />
-        <service android:name=".addons.pos.services.CategoriesSyncService"
-            android:exported="true"
-            android:process=":sync_categories">
-            <intent-filter>
-                <action android:name="android.content.SyncAdapter" />
-            </intent-filter>
+        <!--<service android:name=".addons.pos.services.CategoriesSyncService"-->
+            <!--android:exported="true"-->
+            <!--android:process=":sync_categories">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.content.SyncAdapter" />-->
+            <!--</intent-filter>-->
 
-            <meta-data
-                android:name="android.content.SyncAdapter"
-                android:resource="@xml/categories_sync_adapter" />
-        </service>
+            <!--<meta-data-->
+                <!--android:name="android.content.SyncAdapter"-->
+                <!--android:resource="@xml/categories_sync_adapter" />-->
+        <!--</service>-->
 
         <!-- For Session // -->
         <provider
-            android:name="com.odoo.addons.pos.providers.PosSessionProvider"
+            android:name="com.odoo.addons.pos.providers.PosSessionOpeningProvider"
             android:authorities="com.bi.pos.core.provider.content.sync.pos_session_opening"
             android:label="Pos Session"
             android:multiprocess="true" />
@@ -171,6 +171,40 @@
                 android:resource="@xml/product_sync_adapter" />
         </service>
 
+        <provider
+            android:name="com.odoo.addons.pos.providers.ProductProductProvider"
+            android:authorities="com.bi.pos.core.provider.content.sync.product_product"
+            android:label="Products"
+            android:multiprocess="true" />
+
+        <provider
+            android:name="com.odoo.addons.pos.providers.PosOrderProvider"
+            android:authorities="com.bi.pos.core.provider.content.sync.pos_order"
+            android:label="Pos Order"
+            android:multiprocess="true" />
+        <service android:name=".addons.pos.services.PosOrderSyncService"
+            android:exported="true"
+            android:process=":sync_orders">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/posorder_sync_adapter" />
+        </service>
+
+        <!--<provider-->
+            <!--android:name="com.odoo.addons.pos.providers.PosSessionProvider"-->
+            <!--android:authorities="com.bi.pos.core.provider.content.sync.pos_session"-->
+            <!--android:label="Pos Session"-->
+            <!--android:multiprocess="true" />-->
+
+        <!--<provider-->
+            <!--android:name="com.odoo.addons.pos.providers.ProductProductProvider"-->
+            <!--android:authorities="com.bi.pos.core.provider.content.sync.product_product"-->
+            <!--android:label="Pos Products"-->
+            <!--android:multiprocess="true" />-->
 
         <activity
             android:name="com.odoo.addons.customers.CustomerDetails"

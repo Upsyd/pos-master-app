@@ -1,37 +1,25 @@
 package com.odoo.addons.pos.providers;
 
-import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.net.Uri;
 
-import com.odoo.addons.pos.models.PosSession;
 import com.odoo.addons.pos.models.PosSessionOpening;
-import com.odoo.core.orm.ODataRow;
-import com.odoo.core.orm.OModel;
-import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.orm.provider.BaseModelProvider;
-import com.odoo.core.support.OdooFields;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import odoo.helper.ODomain;
 
 /**
  * Created by My on 7/22/2015.
  */
-public class PosSessionProvider extends BaseModelProvider {
-    public static final String TAG = PosSessionProvider.class.getSimpleName();
+public class PosSessionOpeningProvider extends BaseModelProvider {
+    public static final String TAG = PosSessionOpeningProvider.class.getSimpleName();
 
     @Override
     public String authority() {
-        return PosSession.AUTHORITY;
+        return PosSessionOpening.AUTHORITY;
     }
 //
 //    @Override
 //    public void setModel(Uri uri) {
 //        super.setModel(uri);
-//        mModel = new PosSession(getContext(), getUser(uri));
+//        mModel = new PosSessionOpening(getContext(), getUser(uri));
 //    }
 
 //    @Override

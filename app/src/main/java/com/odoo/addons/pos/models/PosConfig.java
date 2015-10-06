@@ -5,14 +5,11 @@ import android.net.Uri;
 
 import com.odoo.base.addons.res.ResCompany;
 import com.odoo.base.addons.res.ResCurrency;
-import com.odoo.base.addons.res.ResPartner;
 import com.odoo.base.addons.res.ResUsers;
 import com.odoo.core.orm.OModel;
 import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.orm.fields.types.OBoolean;
-import com.odoo.core.orm.fields.types.ODate;
 import com.odoo.core.orm.fields.types.ODateTime;
-import com.odoo.core.orm.fields.types.OFloat;
 import com.odoo.core.orm.fields.types.OInteger;
 import com.odoo.core.orm.fields.types.OSelection;
 import com.odoo.core.orm.fields.types.OText;
@@ -49,13 +46,13 @@ public class PosConfig extends OModel {
     OColumn iface_scan_via_proxy = new OColumn("Scan via Proxy", OBoolean.class);
     OColumn iface_self_checkout = new OColumn("Self Checkout Mode", OBoolean.class);
     OColumn iface_splitbill = new OColumn("Bill Splitting", OBoolean.class);
-    OColumn journal_id = new OColumn("Sale Journal", PosAccountJournal.class, OColumn.RelationType.ManyToOne);
-    OColumn journal_ids = new OColumn("Available Payment Methods", PosAccountJournal.class, OColumn.RelationType.ManyToMany);
+    OColumn journal_id = new OColumn("Sale Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn journal_ids = new OColumn("Available Payment Methods", AccountJournal.class, OColumn.RelationType.ManyToMany);
     OColumn name = new OColumn("Point of Sale Name", OVarchar.class);
-   OColumn picking_type_id = new OColumn("Picking Type",StockPicking.class, OColumn.RelationType.ManyToOne);
+    OColumn picking_type_id = new OColumn("Picking Type", StockPicking.class, OColumn.RelationType.ManyToOne);
     OColumn pricelist_id = new OColumn("Pricelist", ProductPricelist.class, OColumn.RelationType.ManyToOne);
-  //  OColumn printer_ids = new OColumn("Order Printers", restaurant.printer.class, OColumn.RelationType.ManyToMany);
-     OColumn proxy_ip = new OColumn("IP Address", OVarchar.class);
+    //  OColumn printer_ids = new OColumn("Order Printers", restaurant.printer.class, OColumn.RelationType.ManyToMany);
+    OColumn proxy_ip = new OColumn("IP Address", OVarchar.class);
     OColumn receipt_footer = new OColumn("Receipt Footer", OText.class);
     OColumn receipt_header = new OColumn("Receipt Header", OText.class);
     OColumn sequence_id = new OColumn("Order IDs Sequence", IrSequence.class, OColumn.RelationType.ManyToOne);
@@ -67,18 +64,14 @@ public class PosConfig extends OModel {
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
 
 
-
-
-
-
-
-    public PosConfig(Context context,OUser user) {
-        super(context,"pos.config", user);
+    public PosConfig(Context context, OUser user) {
+        super(context, "pos.config", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 
 }
 

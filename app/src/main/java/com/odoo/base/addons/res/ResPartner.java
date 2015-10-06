@@ -38,8 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResPartner extends OModel {
-    public static final String AUTHORITY = App.APPLICATION_ID +
-            ".core.provider.content.sync.res_partner";
+    public static final String AUTHORITY = App.APPLICATION_ID + ".core.provider.content.sync.res_partner";
 
     OColumn name = new OColumn("Name", OVarchar.class).setSize(100).setRequired();
     OColumn is_company = new OColumn("Is Company", OBoolean.class).setDefaultValue(false);

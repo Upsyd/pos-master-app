@@ -21,7 +21,10 @@ package com.odoo.base.addons;
 
 import android.content.Context;
 
+import com.odoo.addons.pos.models.AccountAccount;
 import com.odoo.addons.pos.models.PosCategory;
+import com.odoo.addons.pos.models.PosConfig;
+import com.odoo.addons.pos.models.PosOrder;
 import com.odoo.addons.pos.models.ProductTemplate;
 import com.odoo.base.addons.ir.IrAttachment;
 import com.odoo.base.addons.ir.IrModel;
@@ -50,6 +53,10 @@ public class BaseModels {
         models.add(new MailMessage(context, user));
         models.add(new PosCategory(context, user));
         models.add(new ProductTemplate(context, user));
+        models.add(new PosOrder(context, user));
+        models.add(new AccountAccount(context,user));
+        models.add(new PosConfig(context,user));
+
         return models;
     }
 }

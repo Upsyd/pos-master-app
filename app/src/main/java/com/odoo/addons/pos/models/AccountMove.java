@@ -13,7 +13,6 @@ import com.odoo.core.orm.fields.types.ODate;
 import com.odoo.core.orm.fields.types.ODateTime;
 import com.odoo.core.orm.fields.types.OFloat;
 import com.odoo.core.orm.fields.types.OInteger;
-import com.odoo.core.orm.fields.types.OSelection;
 import com.odoo.core.orm.fields.types.OText;
 import com.odoo.core.orm.fields.types.OVarchar;
 import com.odoo.core.support.OUser;
@@ -31,7 +30,7 @@ public class AccountMove extends OModel {
     OColumn create_uid = new OColumn("Created by",ResUsers.class, OColumn.RelationType.ManyToOne);
     OColumn date = new OColumn("Date",ODate.class);
     OColumn id = new OColumn("Id",OInteger.class);
-    OColumn journal_id = new OColumn("Journal",PosAccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn journal_id = new OColumn("Journal",AccountJournal.class, OColumn.RelationType.ManyToOne);
    // OColumn line_id = new OColumn("Entries",AccountMoveLine.class, OColumn.RelationType.OneToMany);
     OColumn name = new OColumn("Number",OVarchar.class);
     OColumn narration = new OColumn("Internal Note",OText.class);
@@ -44,8 +43,5 @@ public class AccountMove extends OModel {
 
     public AccountMove(Context context, OUser user) {
         super(context, "account.move", user);}
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+
 }

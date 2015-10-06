@@ -24,7 +24,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +44,7 @@ import java.util.List;
 
 import odoo.controls.ExpandableListControl;
 
-public class ManageAccounts extends ActionBarActivity implements View.OnClickListener,
+public class ManageAccounts extends AppCompatActivity implements View.OnClickListener,
         ExpandableListControl.ExpandableListAdapterGetViewListener {
 
     private List<Object> accounts = new ArrayList<>();

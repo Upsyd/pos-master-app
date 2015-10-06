@@ -3,6 +3,7 @@ package com.odoo.addons.pos.models;
 import android.content.Context;
 import android.net.Uri;
 
+import com.odoo.App;
 import com.odoo.base.addons.res.ResUsers;
 import com.odoo.addons.pos.models.PosOrder;
 import com.odoo.core.orm.OModel;
@@ -26,7 +27,7 @@ public class PosSessionOpening extends OModel {
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn name = new OColumn("Name", OVarchar.class);
     OColumn pos_session_name = new OColumn("Name", OVarchar.class);
-    OColumn pos_session_username = new OColumn("Name", OVarchar.class);
+    OColumn pos_session_username = new OColumn("Username", OVarchar.class);
     OColumn pos_state = new OColumn("Session Status", OSelection.class);
     OColumn pos_state_str = new OColumn("Status", OVarchar.class);
     OColumn pos_config_id = new OColumn("Point of Sale", PosOrder.class, OColumn.RelationType.ManyToOne);

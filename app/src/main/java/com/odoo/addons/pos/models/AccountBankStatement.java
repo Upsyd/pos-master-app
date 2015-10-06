@@ -3,6 +3,7 @@ package com.odoo.addons.pos.models;
 import android.content.Context;
 import android.net.Uri;
 
+import com.odoo.base.addons.mail.MailMessage;
 import com.odoo.base.addons.res.ResCompany;
 import com.odoo.base.addons.res.ResCurrency;
 import com.odoo.base.addons.res.ResPartner;
@@ -38,8 +39,8 @@ public class AccountBankStatement extends OModel {
     OColumn balance_end_real = new OColumn("Ending Balance", OFloat.class);
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn balance_start = new OColumn("Starting Balance", OFloat.class);
-    OColumn journal_id = new OColumn("Journal", PosAccountJournal.class, OColumn.RelationType.ManyToOne);
-    OColumn cash_control = new OColumn("Cash control", PosAccountJournal.class);
+    OColumn journal_id = new OColumn("Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn cash_control = new OColumn("Cash control", AccountJournal.class);
     OColumn closing_date = new OColumn("Closed On", ODateTime.class);
    // OColumn closing_details_ids = new OColumn("Closing Cashbox Lines", account.cashbox.line.class, OColumn.RelationType.OneToMany);
     OColumn date = new OColumn("Date", ODate.class);
@@ -48,7 +49,7 @@ public class AccountBankStatement extends OModel {
     OColumn last_closing_balance = new OColumn("Last Closing Balance", OFloat.class);
     OColumn line_ids = new OColumn("Statement lines", AccountBankStatementLine.class, OColumn.RelationType.OneToMany);
     OColumn message_follower_ids= new OColumn("Followers", ResPartner.class, OColumn.RelationType.ManyToMany);
-    //OColumn message_ids = new OColumn("Messages",MailMessege.class, OColumn.RelationType.OneToMany);
+    OColumn message_ids = new OColumn("Messages",MailMessage.class, OColumn.RelationType.OneToMany);
     OColumn message_is_follower = new OColumn("Is a Follower", OBoolean.class);
     OColumn message_last_post = new OColumn("Last Message Date", ODateTime.class);
     OColumn message_summary = new OColumn("Summary", OText.class);
@@ -73,10 +74,10 @@ public class AccountBankStatement extends OModel {
     public AccountBankStatement(Context context,OUser user) {
         super(context,"account.bank.statement", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 
 }
 

@@ -22,7 +22,7 @@ import com.odoo.core.support.OUser;
 /**
  * Created by My on 10/1/2015.
  */
-public class AccountAccount  extends OModel {
+public class AccountAccount extends OModel {
     public static final String TAG = AccountAccount.class.getSimpleName();
 
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_account";
@@ -39,40 +39,31 @@ public class AccountAccount  extends OModel {
     OColumn currency_id = new OColumn("Secondary Currency", ResCurrency.class, OColumn.RelationType.ManyToOne);
     OColumn currency_mode = new OColumn("Outgoing Currencies Rate", OSelection.class);
     OColumn debit = new OColumn("Debit", OFloat.class);
-     OColumn company_id = new OColumn("Company", ResCompany.class, OColumn.RelationType.ManyToOne);
+    OColumn company_id = new OColumn("Company", ResCompany.class, OColumn.RelationType.ManyToOne);
     OColumn create_date = new OColumn("Created on", ODateTime.class);
     OColumn create_uid = new OColumn("Created by", ResUsers.class, OColumn.RelationType.ManyToOne);
-   OColumn level = new OColumn("Level", OInteger.class);
+    OColumn level = new OColumn("Level", OInteger.class);
     OColumn id = new OColumn("ID", OInteger.class);
- //   OColumn financial_report_ids = new OColumn("Financial Reports", account.financial.report.class, OColumn.RelationType.ManyToMany);
+    //   OColumn financial_report_ids = new OColumn("Financial Reports", account.financial.report.class, OColumn.RelationType.ManyToMany);
     OColumn foreign_balance = new OColumn("Foreign Balance", OFloat.class);
     OColumn name = new OColumn("Name", OVarchar.class);
     OColumn note = new OColumn("Internal Notes", OText.class);
     OColumn exchange_rate = new OColumn("Exchange Rate", OFloat.class);
-    OColumn  parent_id = new OColumn("Parent", AccountAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn parent_id = new OColumn("Parent", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn parent_left = new OColumn("Parent Left", OInteger.class);
     OColumn parent_right = new OColumn("Parent Right", OInteger.class);
     OColumn reconcile = new OColumn("Allow Reconciliation", OBoolean.class);
     OColumn shortcut = new OColumn("Shortcut", OVarchar.class);
-   // OColumn tax_ids = new OColumn("Default Taxes", AccountTax.class, OColumn.RelationType.ManyToMany);
-   // OColumn  user_type = new OColumn("Account Type", account.account.type.class, OColumn.RelationType.ManyToOne);
+    // OColumn tax_ids = new OColumn("Default Taxes", AccountTax.class, OColumn.RelationType.ManyToMany);
+    // OColumn  user_type = new OColumn("Account Type", account.account.type.class, OColumn.RelationType.ManyToOne);
     OColumn type = new OColumn("Internal Type", OSelection.class);
     OColumn unrealized_gain_loss = new OColumn("Unrealized Gain or Loss", OFloat.class);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
 
 
-
-
-
-
-
-    public AccountAccount(Context context,OUser user) {
-        super(context,"account.account", user);
-    }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
+    public AccountAccount(Context context, OUser user) {
+        super(context, "account.account", user);
     }
 
 }

@@ -3,7 +3,7 @@ package com.odoo.addons.pos.models;
 import android.content.Context;
 import android.net.Uri;
 
-import com.odoo.base.addons.res.ResCompany;
+import com.odoo.base.addons.mail.MailMessage;
 import com.odoo.base.addons.res.ResPartner;
 import com.odoo.base.addons.res.ResUsers;
 import com.odoo.core.orm.OModel;
@@ -20,9 +20,9 @@ import com.odoo.core.support.OUser;
 /**
  * Created by My on 9/29/2015.
  */
-public class PosProductProduct extends OModel {
+public class ProductProduct extends OModel {
 
-    public static final String TAG = PosProductProduct.class.getSimpleName();
+    public static final String TAG = ProductProduct.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.product_product";
 
 
@@ -45,7 +45,7 @@ public class PosProductProduct extends OModel {
     OColumn location_id = new OColumn("Location", StockLocation.class, OColumn.RelationType.ManyToOne);
     OColumn lst_price = new OColumn("Public Price", OFloat.class);
     OColumn message_follower_ids = new OColumn("Followers", ResPartner.class, OColumn.RelationType.ManyToMany);
-   // OColumn message_ids = new OColumn("Messages", mail.message.class, OColumn.RelationType.OneToMany);
+    OColumn message_ids = new OColumn("Messages", MailMessage.class, OColumn.RelationType.OneToMany);
     OColumn message_is_follower = new OColumn("Is a Follower", OBoolean.class);
     OColumn message_last_post = new OColumn("Last Message Date", ODateTime.class);
     OColumn message_summary = new OColumn("Summary", OText.class);
@@ -74,14 +74,14 @@ public class PosProductProduct extends OModel {
 
 
 
-    public PosProductProduct(Context context, OUser user) {
+    public ProductProduct(Context context, OUser user) {
         super(context, "product.product", user);
     }
 
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }
 
 

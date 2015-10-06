@@ -22,25 +22,26 @@ public class ProductPricelist extends OModel {
     public static final String TAG = ProductPricelist.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.product_pricelist";
 
-    OColumn active=new OColumn("Active",OBoolean.class);
-    OColumn code=new OColumn("Promotional Code",OVarchar.class);
-    OColumn company_id=new OColumn("Company",ResCompany.class,OColumn.RelationType.ManyToOne);
-    OColumn create_date=new OColumn("Created on",ODateTime.class);
-    OColumn create_uid=new OColumn("Created by", ResUsers.class,OColumn.RelationType.ManyToOne);
-    OColumn currency_id=new OColumn("Currency", ResCurrency.class,OColumn.RelationType.ManyToOne);
-    OColumn id=new OColumn("ID",OInteger.class);
-    OColumn name=new OColumn("Pricelist Name",OVarchar.class);
-    OColumn type=new OColumn("Pricelist Type",OSelection.class);
-   // OColumn version_id=new OColumn("Pricelist Versions",ProductPricelistVersion.class,OColumn.RelationType.OneToMany);
-   OColumn write_date=new OColumn("Last Updated on",ODateTime.class);
-    OColumn write_uid=new OColumn("Last Updated by", ResUsers.class,OColumn.RelationType.ManyToOne);
+    OColumn active = new OColumn("Active", OBoolean.class);
+    OColumn code = new OColumn("Promotional Code", OVarchar.class);
+    OColumn company_id = new OColumn("Company", ResCompany.class, OColumn.RelationType.ManyToOne);
+    OColumn create_date = new OColumn("Created on", ODateTime.class);
+    OColumn create_uid = new OColumn("Created by", ResUsers.class, OColumn.RelationType.ManyToOne);
+    OColumn currency_id = new OColumn("Currency", ResCurrency.class, OColumn.RelationType.ManyToOne);
+    OColumn id = new OColumn("ID", OInteger.class);
+    OColumn name = new OColumn("Pricelist Name", OVarchar.class);
+    OColumn type = new OColumn("Pricelist Type", OSelection.class);
+    // OColumn version_id=new OColumn("Pricelist Versions",ProductPricelistVersion.class,OColumn.RelationType.OneToMany);
+    OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
+    OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
 
     public ProductPricelist(Context context, OUser user) {
-        super(context,"product.pricelist", user);
+        super(context, "product.pricelist", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }
 

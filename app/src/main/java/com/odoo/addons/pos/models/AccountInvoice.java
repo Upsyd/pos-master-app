@@ -3,6 +3,7 @@ package com.odoo.addons.pos.models;
 import android.content.Context;
 import android.net.Uri;
 
+import com.odoo.base.addons.mail.MailMessage;
 import com.odoo.base.addons.res.ResCompany;
 import com.odoo.base.addons.res.ResCurrency;
 import com.odoo.base.addons.res.ResPartner;
@@ -43,9 +44,9 @@ public class AccountInvoice extends OModel {
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn internal_number= new OColumn("Invoice Number", OVarchar.class);
    // OColumn invoice_line = new OColumn("Invoice Lines", AccountInvoiceLine.class, OColumn.RelationType.OneToMany);
-    OColumn journal_id = new OColumn("Journal", PosAccountJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn journal_id = new OColumn("Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn message_follower_ids= new OColumn("Followers", ResPartner.class, OColumn.RelationType.ManyToMany);
-    //OColumn message_ids = new OColumn("Messages",MailMessege.class, OColumn.RelationType.OneToMany);
+    OColumn message_ids = new OColumn("Messages",MailMessage.class, OColumn.RelationType.OneToMany);
     OColumn message_is_follower = new OColumn("Is a Follower", OBoolean.class);
     OColumn message_last_post = new OColumn("Last Message Date", ODateTime.class);
     OColumn message_summary = new OColumn("Summary", OText.class);
@@ -82,10 +83,10 @@ public class AccountInvoice extends OModel {
     public AccountInvoice(Context context,OUser user) {
         super(context,"account.invoice", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 
 
 }

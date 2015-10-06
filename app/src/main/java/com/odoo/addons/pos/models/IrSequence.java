@@ -41,8 +41,9 @@ public class IrSequence extends OModel {
     public IrSequence(Context context, OUser user) {
         super(context,"ir.sequence", user);
     }
-    @Override
-    public Uri uri() {
-        return buildURI(AUTHORITY);
-    }
+
+//    @Override
+//    public Uri uri() {
+//        return buildURI(AUTHORITY);
+//    }
 }
