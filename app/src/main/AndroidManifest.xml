@@ -213,6 +213,8 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name="com.odoo.addons.pos.ProductList"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.odoo.addons.pos.PosPaymentTypes"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="com.odoo.addons.pos.Order"
             android:windowSoftInputMode="adjustPan" />
