@@ -19,5 +19,5 @@
     <string name="delete_messege">"Are you sure you want to delete?"</string>
     <string name="cart_items">"Cart Items"</string>
     <string name="title_payment">Payment List</string>
-    <string name="Payment_types">Payment Types</string>
+    <string name="payment_types">Payment Types</string>
 </resources>

@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.odoo.R;
 import com.odoo.core.utils.OActionBarUtils;
@@ -39,7 +40,7 @@ public class Order extends AppCompatActivity {
     TextView grandTotalPrize;
     private Context context;
     CartItem po;
-    public TextView amount;
+    public TextView amount,Defulttext;
     ArrayList<CartItem> array;
     float prizevalue;
     ListView l;
@@ -49,14 +50,15 @@ public class Order extends AppCompatActivity {
     public EditText etPrdctDiscount;
     public ImageView Imageproduct;
     Button btnContinueShop;
+    Button btnCheckout;
     int count;
+   //App app;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_listview);
-
         OActionBarUtils.setActionBar(this, true);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
@@ -64,19 +66,28 @@ public class Order extends AppCompatActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle(R.string.cart_items);
         }
-
         l = (ListView) findViewById(R.id.list_order);
-        tvPrdctname = (TextView) findViewById(R.id.productName);
+        Defulttext = (TextView) findViewById(R.id.notitem);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
+        tvPrdctname = (TextView) findViewById(R.id.productName);
         etPrdctQumtity = (EditText) findViewById(R.id.prdctQuantity);
         btnContinueShop = (Button) findViewById(R.id.btnContinue);
         etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
         etPrdctDiscount = (EditText) findViewById(R.id.discount);
         tvPrize = (TextView) findViewById(R.id.NetPrize);
         Imageproduct = (ImageView) findViewById(R.id.productImage);
+        btnCheckout = (Button)findViewById(R.id.btnPayment);
 //        array = new ArrayList<CartItem>();
         array = (ArrayList<CartItem>) getIntent().getSerializableExtra("cart_details");
         adapter = new OrderAdapter(this, R.layout.order_single_row, array);
+        if(array.size()==0){
+            Defulttext.setVisibility(View.VISIBLE);
+
+
+        }
+        else{
+            Defulttext.setVisibility(View.INVISIBLE);
+        }
         l.setAdapter(adapter);
         l.setDividerHeight(0);
         Bundle mBundle = getIntent().getExtras();
@@ -97,6 +108,22 @@ public class Order extends AppCompatActivity {
 
         final TextView tax = (TextView) findViewById(R.id.taxesTotal);
         tax.setText("0.0");
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String passingdata = grandTotalPrize.getText().toString();
+                Intent intent= new Intent(getApplicationContext(),PosPaymentTypes.class);
+                Bundle b = new Bundle();
+                b.putString("Key", passingdata);
+                intent.putExtras(b);
+                startActivity(intent);
+                Toast.makeText(getApplication(),"No Way", Toast.LENGTH_LONG)
+                      .show();
+
+            }
+        });
 
     }
 
@@ -121,8 +148,13 @@ public class Order extends AppCompatActivity {
         System.out.println("value of count: " + count);
         finish();
 
-
     }
+//    public void Total(){
+//        PosPayment totalpayment = new PosPayment();
+//        grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
+//
+//    }
+
 
 
     public void NetAmount() {
@@ -230,6 +262,9 @@ public class Order extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             CartItem ps = (CartItem) holder.ImgDlt.getTag();
                             count = (count - ps.productQntity);
+                            if(count == 0 ) {
+                                Defulttext.setVisibility(View.VISIBLE);
+                            }
                             System.out.println("this value: " + count);
                             orderItem.remove(ps);
                             adapter.notifyDataSetChanged();
@@ -376,6 +411,7 @@ public class Order extends AppCompatActivity {
     public void onBackPressed() {
         // do something on back.
         finalcartvalue();
+
    }
 
 }

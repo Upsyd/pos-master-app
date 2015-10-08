@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
+    android:layout_height="match_parent"
+    >
+        <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,20 +17,39 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         app:theme="@style/ToolBarTheme" />
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+
+        <FrameLayout
             android:id="@+id/frame"
-            android:layout_width="fill_parent" android:layout_height="wrap_content">
+            android:layout_width="fill_parent" android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            >
             <ListView android:id="@+id/list_order"
-                android:layout_height="fill_parent" android:layout_width="fill_parent" />
+                android:layout_height="wrap_content" android:layout_width="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notitem"
+                android:text="Cart Is Empty"
+                android:textSize="34dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="visible"/>
 
 
 
         </FrameLayout>
+
+
     </LinearLayout>
     <View style="@style/ViewSeparator" />
 
@@ -72,7 +92,6 @@
 
             <ImageView
                 android:id="@+id/currency1"
-
                 android:layout_width="15dp"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_indian_rupee"
@@ -97,7 +116,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-
                 android:text="Taxes:"
                 android:textStyle="bold"
                 android:textColor="@color/drawer_text_color"

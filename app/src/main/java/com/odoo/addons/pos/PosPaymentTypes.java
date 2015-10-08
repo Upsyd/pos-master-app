@@ -7,6 +7,8 @@ import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +51,7 @@ public class PosPaymentTypes extends AppCompatActivity {
     Button Invoice;
     Spinner spnPayment;
 
-    TextView Paymentname;
+    TextView Paymentname,Totalpay,Defultitem;
     private String[] payment = {"Payment Types", "Cash", "Bank"};
 
 
@@ -57,17 +59,32 @@ public class PosPaymentTypes extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_listview);
+        OActionBarUtils.setActionBar(this, true);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setHomeButtonEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle(R.string.title_payment);
+        }
         pay_amount = (ListView) findViewById(R.id.list_payment);
+
         //array = new ArrayList<PosPayment>();
-        array = new ArrayList<PosPayment>();
+        Defultitem = (TextView) findViewById(R.id.notitem);
+         Defultitem.setVisibility(View.VISIBLE);
+        Bundle b = getIntent().getExtras();
+        String receivingdata = b.getString("Key");//getStringExtra("Key");
+         Totalpay = (TextView) findViewById(R.id.grandpayTotal);
+        Totalpay.setText(receivingdata);
         Paymentname = (TextView) findViewById(R.id.payname);
         Invoice = (Button) findViewById(R.id.btnInvoice);
         spnPayment = (Spinner) findViewById(R.id.btnPay);
+        array = new ArrayList<PosPayment>();
         System.out.println("Activity created");
         adapter_state = new ArrayAdapter<String>(PosPaymentTypes.this, android.R.layout.simple_spinner_item, payment);
         adapter_state.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spnPayment.setAdapter(adapter_state);
         adapter = new PosPaymentAdapter(PosPaymentTypes.this,R.layout.payment_single_row,array);
+
 
 
         // spnPayment.setSelection(1);
@@ -77,19 +94,24 @@ public class PosPaymentTypes extends AppCompatActivity {
             @Override
                     Invoice.setVisibility(View.VISIBLE);*/
 
-
+      // Defultitem.setVisibility(View.GONE);
        spnPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+               //Defultitem.setVisibility(View.INVISIBLE);
                 boolean selectionControl = true;
                // spnPayment.setSelection(0);
             if(i==0){
 
             }else {
 
+                Defultitem.setVisibility(View.GONE);
+               // Defultitem.setVisibility(View.INVISIBLE);
 
     String selPayment = (String) spnPayment.getSelectedItem();
+
+
 
                spnPayment.setSelection(0);
 
@@ -157,6 +179,32 @@ public class PosPaymentTypes extends AppCompatActivity {
 */
     }
 
+//    public void  TotalPayment(){
+//        float  grandpayTotal = 0.0f;
+//
+//        for (int i = 0; i < adapter.getCount(); i++) {
+//            PosPayment pospay = adapter.getItem(i);
+//            //   float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+//            //   float netPrice = ((pos.getProductPrize(Discount));
+//             float productTotalAmount = pospay.getPaymentAmount();
+//            grandpayTotal += productTotalAmount ;
+//            System.out.println("Value of Total:="+grandpayTotal);
+//        }
+//        Totalpay.setText( grandpayTotal+ "");
+//
+//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     public class PosPaymentAdapter extends ArrayAdapter<PosPayment>  {
         private Context context;
          ViewHolder holder;
@@ -182,7 +230,14 @@ public class PosPaymentTypes extends AppCompatActivity {
             holder = new ViewHolder();
             PosPayment payment1 = payment.get(position);
             System.out.println("Inside Get View");
-            Toast.makeText(PosPaymentTypes.this,"Get View", Toast.LENGTH_SHORT).show();
+         // Toast.makeText(PosPaymentTypes.this,"Get View", Toast.LENGTH_SHORT).show();
+//            float payAmount = payment1.getPaymentAmount();
+//            payment1.setPaymentAmount(payAmount);
+            float productTotalAmount  = payment1.getPaymentAmount();
+            payment1.setPaymentAmount(productTotalAmount);
+
+
+
 
             if (view == null) {
 
@@ -206,11 +261,80 @@ public class PosPaymentTypes extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     PosPayment payment2=(PosPayment)holder.paymentCancel.getTag();
+//                    if(pay_amount.getCheckedItemCount() == 0  )
+//                    {
+//                        Defultitem.setVisibility(View.VISIBLE);
+//                    }
                     payment.remove(payment2);
                     adapter.notifyDataSetChanged();
                     pay_amount.setAdapter(adapter);
+                    if(pay_amount.getCheckedItemCount() == 0  )
+                    {
+                        Defultitem.setVisibility(View.VISIBLE);
+                    }
+//                    TotalPayment();
                     System.out.println("Delete Click Event");
-                    Toast.makeText(PosPaymentTypes.this,"Delete", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(PosPaymentTypes.this,"Delete", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            holder.PaymentAmount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                    PosPayment paytotal = (PosPayment) holder.PaymentAmount.getTag();
+                    String Price = holder.PaymentAmount.getText().toString();
+                  //  System.out.println("Total =" + paytotal.getPaymentAmount());
+                   // String Total = charSequence.toString();
+                   // CartItem pos = (CartItem) holder.PrdctPrize.getTag();
+                 //   String Price = holder.PrdctPrize.getText().toString();
+                    System.out.println("Qunt" + Price);
+                    if (Price.matches("")) {
+                        paytotal.setPaymentAmount(0);
+
+                    } else {
+                        paytotal.setPaymentAmount(Float.valueOf(Price));
+                       // float productTotalAmount  = paytotal.getPaymentAmount();
+                       // paytotal.setPaymentAmount(productTotalAmount);
+
+                        // float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+                       // float netPrice = ((pos.getProductPrize() - Discount));
+
+                     //   pos.setNetAmount(productTotalAmount);
+                       //System.out.println(paytotal.getPaymentAmount() + "Price:---");
+                       // holder.PaymentAmount.setText(String.valueOf(productTotalAmount));
+                      //  holder.PrdctName.setText(pos.getProductName());
+                        //TotalPayment();
+                    }
+
+                }
+
+
+
+//                    if (Total.matches("")) {
+//                       paytotal.setPaymentAmount (0);
+//
+//                    } else {
+//                        paytotal.setPaymentAmount(Integer.valueOf(Total));
+//                       // float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
+//                       // float netPrice = ((pos.getProductPrize() - Discount));
+//                        float productTotalAmount = paytotal.getPaymentAmount();
+//                        paytotal.setPaymentAmount(productTotalAmount);
+//                        System.out.println(paytotal.getPaymentAmount() + "Price");
+//                        holder.PaymentAmount.setText(String.valueOf(productTotalAmount));
+//                        TotalPayment();
+//
+//                    }
+
+
+
+
+                @Override
+                public void afterTextChanged(Editable editable) {
 
                 }
             });
