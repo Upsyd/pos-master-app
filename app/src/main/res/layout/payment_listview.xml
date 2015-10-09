@@ -23,14 +23,16 @@
         android:layout_height="0dp">
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/frame"
-            android:layout_width="fill_parent" android:layout_height="wrap_content">
+            android:layout_width="fill_parent" android:layout_height="fill_parent">
             <ListView android:id="@+id/list_payment"
                 android:layout_height="fill_parent" android:layout_width="fill_parent" />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="74dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/notitem"
-                android:text="NO Item Found"
+                android:text="Select Payment Type"
+                android:textStyle="bold"
+                android:padding="5dp"
                 android:textSize="34dp"
                 android:gravity="center"
                 android:layout_gravity="center"

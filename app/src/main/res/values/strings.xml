@@ -18,6 +18,6 @@
     <string name="pos_session_close">Close Session</string>
     <string name="delete_messege">"Are you sure you want to delete?"</string>
     <string name="cart_items">"Cart Items"</string>
-    <string name="title_payment">Payment List</string>
+    <string name="title_payment">Payment</string>
     <string name="payment_types">Payment Types</string>
 </resources>

@@ -268,7 +268,7 @@ public class PosPaymentTypes extends AppCompatActivity {
                     payment.remove(payment2);
                     adapter.notifyDataSetChanged();
                     pay_amount.setAdapter(adapter);
-                    if(pay_amount.getCheckedItemCount() == 0  )
+                    if(pay_amount.getCount()== 0  )
                     {
                         Defultitem.setVisibility(View.VISIBLE);
                     }
