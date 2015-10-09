@@ -52,13 +52,13 @@ public class Order extends AppCompatActivity {
     Button btnContinueShop;
     Button btnCheckout;
     int count;
-   //App app;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_listview);
+
         OActionBarUtils.setActionBar(this, true);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
@@ -66,6 +66,7 @@ public class Order extends AppCompatActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle(R.string.cart_items);
         }
+
         l = (ListView) findViewById(R.id.list_order);
         Defulttext = (TextView) findViewById(R.id.notitem);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
@@ -148,13 +149,8 @@ public class Order extends AppCompatActivity {
         System.out.println("value of count: " + count);
         finish();
 
-    }
-//    public void Total(){
-//        PosPayment totalpayment = new PosPayment();
-//        grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
-//
-//    }
 
+    }
 
 
     public void NetAmount() {
@@ -411,7 +407,6 @@ public class Order extends AppCompatActivity {
     public void onBackPressed() {
         // do something on back.
         finalcartvalue();
-
    }
 
 }

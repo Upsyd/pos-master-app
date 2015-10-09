@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.odoo.App;
 import com.odoo.R;
+import com.odoo.addons.pos.models.AccountJournal;
+import com.odoo.core.orm.ODataRow;
 import com.odoo.core.orm.fields.OColumn;
 import com.odoo.core.utils.OActionBarUtils;
 
@@ -40,19 +42,21 @@ import javax.xml.datatype.Duration;
  */
 public class PosPaymentTypes extends AppCompatActivity {
     private static final String TAG = PosPaymentTypes.class.getName();
-     public PosPaymentAdapter adapter;
-    ListView pay_amount;
-    ArrayAdapter<String> adapter_state;
-    //ArrayList<PosPayment> array;
+    public PosPaymentAdapter posPaymentlistAdapter;
+    ListView listPaymentTypes;
+    TextView Totalpay;
+    String paymentMethod;
+    TextView Defultitem;
+    ArrayAdapter<String> spinnerAdapter;
     PosPayment posPayment;
-    ArrayList<PosPayment> array;
-    App app;
-   // ArrayAdapter<String> adapter;
-    Button Invoice;
+    ArrayList<PosPayment> arrayListPaymentType;
+    String selPayment;
+    ArrayList<String> ArraylistSpinner;
+    Button btnInvoice;
+    String Payamount;
     Spinner spnPayment;
-
-    TextView Paymentname,Totalpay,Defultitem;
-    private String[] payment = {"Payment Types", "Cash", "Bank"};
+    TextView Paymentname;
+    EditText PaymentAMount;
 
 
     @Override
@@ -66,347 +70,153 @@ public class PosPaymentTypes extends AppCompatActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle(R.string.title_payment);
         }
-        pay_amount = (ListView) findViewById(R.id.list_payment);
-
-        //array = new ArrayList<PosPayment>();
+        listPaymentTypes = (ListView) findViewById(R.id.list_payment);
         Defultitem = (TextView) findViewById(R.id.notitem);
-         Defultitem.setVisibility(View.VISIBLE);
-        Bundle b = getIntent().getExtras();
-        String receivingdata = b.getString("Key");//getStringExtra("Key");
-         Totalpay = (TextView) findViewById(R.id.grandpayTotal);
+        Defultitem.setVisibility(View.VISIBLE);
+        Bundle bundle = getIntent().getExtras();
+        String receivingdata = bundle.getString("Key");//getStringExtra("Key");
+        Totalpay = (TextView) findViewById(R.id.grandpayTotal);
         Totalpay.setText(receivingdata);
         Paymentname = (TextView) findViewById(R.id.payname);
-        Invoice = (Button) findViewById(R.id.btnInvoice);
+        PaymentAMount = (EditText) findViewById(R.id.payAmount);
+        btnInvoice = (Button) findViewById(R.id.btnInvoice);
         spnPayment = (Spinner) findViewById(R.id.btnPay);
-        array = new ArrayList<PosPayment>();
-        System.out.println("Activity created");
-        adapter_state = new ArrayAdapter<String>(PosPaymentTypes.this, android.R.layout.simple_spinner_item, payment);
-        adapter_state.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spnPayment.setAdapter(adapter_state);
-        adapter = new PosPaymentAdapter(PosPaymentTypes.this,R.layout.payment_single_row,array);
+        arrayListPaymentType = new ArrayList<PosPayment>();
+        posPaymentlistAdapter = new PosPaymentAdapter(PosPaymentTypes.this, R.layout.payment_single_row, arrayListPaymentType);
+        Select();
 
-
-
-        // spnPayment.setSelection(1);
-
-
-        /*Payment.setVisibility(View.VISIBLE);
-            @Override
-                    Invoice.setVisibility(View.VISIBLE);*/
-
-      // Defultitem.setVisibility(View.GONE);
-       spnPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               //Defultitem.setVisibility(View.INVISIBLE);
-                boolean selectionControl = true;
-               // spnPayment.setSelection(0);
-            if(i==0){
+                if (i != 0) {
 
-            }else {
-
-                Defultitem.setVisibility(View.GONE);
-               // Defultitem.setVisibility(View.INVISIBLE);
-
-    String selPayment = (String) spnPayment.getSelectedItem();
-
-
-
-               spnPayment.setSelection(0);
-
-     PosPayment posPayment1 = new PosPayment();
-     posPayment1.setPaymentType(selPayment);
-        array.add(posPayment1);
-                pay_amount.setAdapter(adapter);
-
-}
+                    String selPayment = spnPayment.getSelectedItem().toString();
+                    PosPayment posPayment = new PosPayment();
+                    spnPayment.setSelection(0);
+                    posPayment.setPaymentType(selPayment);
+                    arrayListPaymentType.add(posPayment);
+                    listPaymentTypes.setAdapter(posPaymentlistAdapter);
+                   posPaymentlistAdapter.notifyDataSetChanged();
+                }
 
             }
 
+            @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-        /*app = (App) getApplicationContext();
-        OActionBarUtils.setActionBar(this, true);
-        ActionBar actionbar = getSupportActionBar();
-        if (actionbar != null) {
-            actionbar.setHomeButtonEnabled(true);
-            actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setTitle(R.string.title_payment);
-        }
-*/
-
-//        tvPrdctname = (TextView) findViewById(R.id.productName);
-//        grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
-
-      /*  final Bundle bundle = new Bundle();
-        bundle.putString("PaymentMethod", "Cash");*/
-
-//        etPrdctPrize = (EditText) findViewById(R.id.prdctPrize);
-//        etPrdctDiscount = (EditText) findViewById(R.id.discount);
-//        tvPrize = (TextView) findViewById(R.id.NetPrize);
-//        Imageproduct = (ImageView) findViewById(R.id.productImage);
-        // array = new ArrayList<PosPayment>();
-        //   array = (ArrayList<PosOrder>) getIntent().getSerializableExtra("cart_details");
-        /*adapter = new PosPaymentAdapter(this, R.layout.payment_single_row, array);
-        pay_amount.setAdapter(adapter);*/
-        //pay_amount.setDividerHeight(0);
-
-     /*  spnPayment.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               // for (int i = 0; i < adapter.getCount(); i++) {
-
-
-               *//* posPayment = new PosPayment();
-                TextView Payname;
-                EditText Payamount;
-                Payname = (TextView) view.findViewById(R.id.payname);
-                Payamount = (EditText) view.findViewById(R.id.payAmount);
-                //  posPayment.setPaymentId(row.getInt(OColumn.ROW_ID));
-                posPayment.setPaymentType("Cash");
-                String strpayamt = Payamount.getText().toString();
-                Float f = Float.parseFloat(strpayamt);
-                posPayment.setPaymentAmount(f);
-                array.add(posPayment);
-*//*
-               pay_amount.setAdapter(adapter);
-           }
-
-       });
-*/
     }
 
-//    public void  TotalPayment(){
-//        float  grandpayTotal = 0.0f;
-//
-//        for (int i = 0; i < adapter.getCount(); i++) {
-//            PosPayment pospay = adapter.getItem(i);
-//            //   float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-//            //   float netPrice = ((pos.getProductPrize(Discount));
-//             float productTotalAmount = pospay.getPaymentAmount();
-//            grandpayTotal += productTotalAmount ;
-//            System.out.println("Value of Total:="+grandpayTotal);
-//        }
-//        Totalpay.setText( grandpayTotal+ "");
-//
-//    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+    public Boolean Select() {
+        AccountJournal posAccountJournal = new AccountJournal(PosPaymentTypes.this, null);
+        List<ODataRow> list = posAccountJournal.select();
+        for (int i = 0; i < list.size(); i++) {
+            ODataRow row = list.get(i);
+            paymentMethod = row.getString("name");
+            ArraylistSpinner = new ArrayList<String>();
+            ArraylistSpinner.add("Payment Types");
+            ArraylistSpinner.add(paymentMethod);
 
         }
-        return super.onOptionsItemSelected(item);
+        String[] arrayPayment = ArraylistSpinner.toArray(new String[ArraylistSpinner.size()]);
+        System.out.println("Array=" + arrayPayment);
+        ArrayAdapter aa = new ArrayAdapter(PosPaymentTypes.this, android.R.layout.simple_spinner_item, arrayPayment);
+        System.out.println("Adapter=" + aa);
+        aa.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spnPayment.setAdapter(aa);
+        return true;
     }
 
 
 
-    public class PosPaymentAdapter extends ArrayAdapter<PosPayment>  {
-        private Context context;
-         ViewHolder holder;
-        private List<PosPayment> payment;
+public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
+    private Context context;
+    ViewHolder holder;
+    private List<PosPayment> listPayment;
 
-        public PosPaymentAdapter(Context context, int textViewResourceId,
-                                 List<PosPayment> payment) {
-            super(context, textViewResourceId, payment);
-            this.context = context;
-            this.payment = payment;
+    public PosPaymentAdapter(Context context, int textViewResourceId,
+                             List<PosPayment> payment) {
+        super(context, textViewResourceId, payment);
+        this.context = context;
+        this.listPayment = payment;
 
+    }
+
+    public class ViewHolder {
+        TextView PaymentType;
+        EditText PaymentAmount;
+        ImageButton paymentCancel;
+
+    }
+
+    public View getView(int position, View view, ViewGroup parent) {
+        holder = new ViewHolder();
+        PosPayment listPosPayment = listPayment.get(position);
+
+        if (view == null) {
+
+            LayoutInflater vi = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = vi.inflate(R.layout.payment_single_row, null);
         }
 
-        public class ViewHolder {
-            TextView Paymenttypa;
-            EditText PaymentAmount;
-            ImageButton paymentCancel;
 
-        }
+        holder.PaymentType = (TextView) view.findViewById(R.id.payname);
+        holder.PaymentType.setTag(listPosPayment);
+        holder.PaymentType.setText(listPosPayment.getPaymentType());
 
-        public View getView(int position, View view, ViewGroup parent) {
+        holder.PaymentAmount = (EditText) view.findViewById(R.id.payAmount);
+        holder.PaymentAmount.setTag(listPosPayment);
+        holder.PaymentAmount.setText(listPosPayment.getPaymentAmount() + "");
 
-            holder = new ViewHolder();
-            PosPayment payment1 = payment.get(position);
-            System.out.println("Inside Get View");
-         // Toast.makeText(PosPaymentTypes.this,"Get View", Toast.LENGTH_SHORT).show();
-//            float payAmount = payment1.getPaymentAmount();
-//            payment1.setPaymentAmount(payAmount);
-            float productTotalAmount  = payment1.getPaymentAmount();
-            payment1.setPaymentAmount(productTotalAmount);
+        holder.paymentCancel = (ImageButton) view.findViewById(R.id.imgBtnCancel);
+        holder.paymentCancel.setFocusable(false);
+        holder.paymentCancel.setTag(listPosPayment);
 
+        holder.paymentCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PosPayment payment2 = (PosPayment) holder.paymentCancel.getTag();
+                listPayment.remove(payment2);
+                posPaymentlistAdapter.notifyDataSetChanged();
+                listPaymentTypes.setAdapter(posPaymentlistAdapter);
 
+            }
+        });
 
+        holder.PaymentAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
-            if (view == null) {
-
-                LayoutInflater vi = (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = vi.inflate(R.layout.payment_single_row, null);
             }
 
-
-                holder.Paymenttypa = (TextView) view.findViewById(R.id.payname);
-                holder.Paymenttypa.setTag(payment1);
-
-                holder.PaymentAmount = (EditText) view.findViewById(R.id.payAmount);
-                holder.PaymentAmount.setTag(payment1);
-
-                holder.paymentCancel = (ImageButton) view.findViewById(R.id.imgBtnCancel);
-                holder.paymentCancel.setFocusable(false);
-                holder.paymentCancel.setTag(payment1);
-
-            holder.paymentCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PosPayment payment2=(PosPayment)holder.paymentCancel.getTag();
-//                    if(pay_amount.getCheckedItemCount() == 0  )
-//                    {
-//                        Defultitem.setVisibility(View.VISIBLE);
-//                    }
-                    payment.remove(payment2);
-                    adapter.notifyDataSetChanged();
-                    pay_amount.setAdapter(adapter);
-                    if(pay_amount.getCount()== 0  )
-                    {
-                        Defultitem.setVisibility(View.VISIBLE);
-                    }
-//                    TotalPayment();
-                    System.out.println("Delete Click Event");
-                  //  Toast.makeText(PosPaymentTypes.this,"Delete", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-            holder.PaymentAmount.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                    PosPayment paytotal = (PosPayment) holder.PaymentAmount.getTag();
-                    String Price = holder.PaymentAmount.getText().toString();
-                  //  System.out.println("Total =" + paytotal.getPaymentAmount());
-                   // String Total = charSequence.toString();
-                   // CartItem pos = (CartItem) holder.PrdctPrize.getTag();
-                 //   String Price = holder.PrdctPrize.getText().toString();
-                    System.out.println("Qunt" + Price);
-                    if (Price.matches("")) {
-                        paytotal.setPaymentAmount(0);
-
-                    } else {
-                        paytotal.setPaymentAmount(Float.valueOf(Price));
-                       // float productTotalAmount  = paytotal.getPaymentAmount();
-                       // paytotal.setPaymentAmount(productTotalAmount);
-
-                        // float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-                       // float netPrice = ((pos.getProductPrize() - Discount));
-
-                     //   pos.setNetAmount(productTotalAmount);
-                       //System.out.println(paytotal.getPaymentAmount() + "Price:---");
-                       // holder.PaymentAmount.setText(String.valueOf(productTotalAmount));
-                      //  holder.PrdctName.setText(pos.getProductName());
-                        //TotalPayment();
-                    }
-
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                PosPayment payment = (PosPayment) holder.PaymentAmount.getTag();
+                Payamount = charSequence.toString();
+                if (Payamount.matches("")) {
+                    payment.setPaymentAmount(0);
+                } else {
+                    payment.setPaymentAmount(Float.valueOf(Payamount));
                 }
 
 
+            }
 
-//                    if (Total.matches("")) {
-//                       paytotal.setPaymentAmount (0);
-//
-//                    } else {
-//                        paytotal.setPaymentAmount(Integer.valueOf(Total));
-//                       // float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
-//                       // float netPrice = ((pos.getProductPrize() - Discount));
-//                        float productTotalAmount = paytotal.getPaymentAmount();
-//                        paytotal.setPaymentAmount(productTotalAmount);
-//                        System.out.println(paytotal.getPaymentAmount() + "Price");
-//                        holder.PaymentAmount.setText(String.valueOf(productTotalAmount));
-//                        TotalPayment();
-//
-//                    }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
-
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-
-
-
-
-            /*posPayment.getPaymentType();
-            posPayment.getPaymentAmount();*/
-            // edtAmount.setText(edtAmount.getText().toString());
-            return view;
-
-
-        }
+        return view;
 
 
     }
 }
 
-  /*  @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-           finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-   /* public class PosPaymentAdapter  extends ArrayAdapter<PosPayment> {
-        private List<PosPayment> paymentstype;
-        private Context context;
+}
 
-        public PosPaymentAdapter(Context context, int textViewResourceId,
-                                 List<PosPayment> paymentstype) {
-            super(context, textViewResourceId, paymentstype);
-            this.context = context;
-            this.paymentstype = paymentstype;
-
-        }
-        public class ViewHolder {
-
-            TextView payment_type;
-            EditText payment_amount;
-
-        }
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-
-            ViewHolder holder;
-            holder = new ViewHolder();
-//            PosPayment pospay;
-            posPayment = paymentstype.get(position);
-            if (view == null) {
-
-                LayoutInflater vi = (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = vi.inflate(R.layout.payment_single_row, null);
-            }
-            holder.payment_amount = (EditText) view.findViewById(R.id.payAmount);
-            holder.payment_amount.setTag(posPayment);
-            holder.payment_amount.setText("10000");
-            //holder.payment_amount.setText(String.valueOf(posPayment.getPaymentAmount()));
-            holder.payment_type = (TextView) view.findViewById(R.id.payname);
-            holder.payment_amount.setTag(posPayment);
-           // holder.payment_type.setText(posPayment.getPaymentType());
-            holder.payment_amount.setText("Cash");
-           // view.setTag(holder);
-          //  PosPayment pospy = (PosPayment) holder.payment_amount.getTag();
-          //  PosPayment pospyt = (PosPayment) holder.payment_type.getTag();
-
-            return view;
-        }
-    }*/
-
-
-//}

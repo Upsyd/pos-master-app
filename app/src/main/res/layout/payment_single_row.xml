@@ -42,6 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:selectAllOnFocus="true"
         android:id="@+id/payAmount"
         android:layout_gravity="right" />
 </LinearLayout>
