@@ -39,11 +39,11 @@ public class Order extends AppCompatActivity {
     public TextView tvPrize;
     TextView grandTotalPrize;
     private Context context;
-    CartItem po;
-    public TextView amount,Defulttext;
-    ArrayList<CartItem> array;
+    CartItem cartItem;
+    public TextView tvAmount,Defulttext;
+    ArrayList<CartItem> arrayList;
     float prizevalue;
-    ListView l;
+    ListView orderList;
     TextView total;
     public EditText etPrdctQumtity;
     public EditText etPrdctPrize;
@@ -67,7 +67,7 @@ public class Order extends AppCompatActivity {
             actionbar.setTitle(R.string.cart_items);
         }
 
-        l = (ListView) findViewById(R.id.list_order);
+        orderList = (ListView) findViewById(R.id.list_order);
         Defulttext = (TextView) findViewById(R.id.notitem);
         grandTotalPrize = (TextView) findViewById(R.id.grandTotal);
         tvPrdctname = (TextView) findViewById(R.id.productName);
@@ -78,10 +78,9 @@ public class Order extends AppCompatActivity {
         tvPrize = (TextView) findViewById(R.id.NetPrize);
         Imageproduct = (ImageView) findViewById(R.id.productImage);
         btnCheckout = (Button)findViewById(R.id.btnPayment);
-//        array = new ArrayList<CartItem>();
-        array = (ArrayList<CartItem>) getIntent().getSerializableExtra("cart_details");
-        adapter = new OrderAdapter(this, R.layout.order_single_row, array);
-        if(array.size()==0){
+        arrayList = (ArrayList<CartItem>) getIntent().getSerializableExtra("cart_details");
+        adapter = new OrderAdapter(this, R.layout.order_single_row, arrayList);
+        if(arrayList.size()==0){
             Defulttext.setVisibility(View.VISIBLE);
 
 
@@ -89,13 +88,10 @@ public class Order extends AppCompatActivity {
         else{
             Defulttext.setVisibility(View.INVISIBLE);
         }
-        l.setAdapter(adapter);
-        l.setDividerHeight(0);
+        orderList.setAdapter(adapter);
+        orderList.setDividerHeight(0);
         Bundle mBundle = getIntent().getExtras();
         count = mBundle.getInt("items_count");
-
-        System.out.println("Total Selected Item:  " + count);
-
 
         btnContinueShop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +99,6 @@ public class Order extends AppCompatActivity {
                 finalcartvalue();
             }
         });
-
-
         NetAmount();
 
         final TextView tax = (TextView) findViewById(R.id.taxesTotal);
@@ -113,7 +107,6 @@ public class Order extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String passingdata = grandTotalPrize.getText().toString();
                 Intent intent= new Intent(getApplicationContext(),PosPaymentTypes.class);
                 Bundle b = new Bundle();
@@ -139,24 +132,16 @@ public class Order extends AppCompatActivity {
     private void finalcartvalue() {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("cart_details", array);
-        System.out.println("Delete this:" + array);
+        bundle.putSerializable("cart_details", arrayList);
         Intent data = getIntent();
-        // Pass relevant data back as a result
-
         data.putExtra("items_count", count);
         setResult(Activity.RESULT_OK, data);
-        System.out.println("value of count: " + count);
         finish();
-
-
     }
 
 
     public void NetAmount() {
-
         float grandTotal = 0.0f;
-
         for (int i = 0; i < adapter.getCount(); i++) {
             CartItem pos = adapter.getItem(i);
             float Discount = (pos.getProductPrize() * pos.getDiscount() / 100);
@@ -169,11 +154,7 @@ public class Order extends AppCompatActivity {
 
     public class OrderAdapter extends ArrayAdapter<CartItem> {
         private List<CartItem> orderItem;
-
         private Context context;
-
-        TextView Rs;
-
 
         public OrderAdapter(Context context, int textViewResourceId,
                             List<CartItem> orderItem) {
@@ -246,10 +227,7 @@ public class Order extends AppCompatActivity {
 
                 @Override
                 public void onClick(View view) {
-//
-
-
-                    AlertDialog.Builder alert = new AlertDialog.Builder(
+          AlertDialog.Builder alert = new AlertDialog.Builder(
                             Order.this);
                     alert.setTitle("Delete");
                     alert.setMessage(R.string.delete_messege);
@@ -264,7 +242,7 @@ public class Order extends AppCompatActivity {
                             System.out.println("this value: " + count);
                             orderItem.remove(ps);
                             adapter.notifyDataSetChanged();
-                            l.setAdapter(adapter);
+                            orderList.setAdapter(adapter);
                             NetAmount();
 
 
@@ -283,7 +261,6 @@ public class Order extends AppCompatActivity {
                 }
             });
 
-
             holder.PrdctQuantity.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -295,7 +272,7 @@ public class Order extends AppCompatActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     CartItem pos = (CartItem) holder.PrdctQuantity.getTag();
-                    System.out.println("Quantity =" + pos.getProductQntity());
+
                      String Quantity = s.toString();
 
 
@@ -308,7 +285,7 @@ public class Order extends AppCompatActivity {
                         float netPrice = ((pos.getProductPrize() - Discount));
                         float productTotalAmount = pos.getProductQntity() * netPrice;
                         pos.setNetAmount(productTotalAmount);
-                        System.out.println(pos.getNetAmount() + "Price");
+
                         holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
                         holder.PrdctName.setText(pos.getProductName());
                         NetAmount();
@@ -338,8 +315,7 @@ public class Order extends AppCompatActivity {
 
                     CartItem pos = (CartItem) holder.PrdctPrize.getTag();
                     String Price = holder.PrdctPrize.getText().toString();
-                    System.out.println("Qunt" + Price);
-                    if (Price.matches("")) {
+                        if (Price.matches("")) {
                         pos.setProductPrize(0);
 
                     } else {
@@ -348,7 +324,7 @@ public class Order extends AppCompatActivity {
                         float netPrice = ((pos.getProductPrize() - Discount));
                         float productTotalAmount = pos.getProductQntity() * netPrice;
                         pos.setNetAmount(productTotalAmount);
-                        System.out.println(pos.getNetAmount() + "Price");
+
                         holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
                         holder.PrdctName.setText(pos.getProductName());
                         NetAmount();
@@ -374,7 +350,7 @@ public class Order extends AppCompatActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     CartItem pos = (CartItem) holder.PrdctDiscount.getTag();
                     String discount1 = holder.PrdctDiscount.getText().toString();
-                    System.out.println("Qunt" + discount1);
+
                     if (discount1.matches("")) {
                         pos.setDiscount(0);
 
@@ -384,7 +360,7 @@ public class Order extends AppCompatActivity {
                         float netPrice = ((pos.getProductPrize() - Discount));
                         float productTotalAmount = pos.getProductQntity() * netPrice;
                         pos.setNetAmount(productTotalAmount);
-                        System.out.println(pos.getNetAmount() + "Price");
+
                         holder.PrdctNetAmount.setText(String.valueOf(productTotalAmount));
                         holder.PrdctName.setText(pos.getProductName());
                         NetAmount();
@@ -405,7 +381,7 @@ public class Order extends AppCompatActivity {
 }
     @Override
     public void onBackPressed() {
-        // do something on back.
+
         finalcartvalue();
    }
 

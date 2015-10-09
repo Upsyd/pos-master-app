@@ -44,19 +44,19 @@ public class PosPaymentTypes extends AppCompatActivity {
     private static final String TAG = PosPaymentTypes.class.getName();
     public PosPaymentAdapter posPaymentlistAdapter;
     ListView listPaymentTypes;
-    TextView Totalpay;
+    TextView totalPay;
     String paymentMethod;
-    TextView Defultitem;
+    TextView defulTitem;
     ArrayAdapter<String> spinnerAdapter;
     PosPayment posPayment;
     ArrayList<PosPayment> arrayListPaymentType;
     String selPayment;
-    ArrayList<String> ArraylistSpinner;
+    ArrayList<String> arrayListSpinner;
     Button btnInvoice;
-    String Payamount;
-    Spinner spnPayment;
-    TextView Paymentname;
-    EditText PaymentAMount;
+    String payAmount;
+    Spinner spinnerPayment;
+    TextView paymentName;
+    EditText paymentAMount;
 
 
     @Override
@@ -71,29 +71,29 @@ public class PosPaymentTypes extends AppCompatActivity {
             actionbar.setTitle(R.string.title_payment);
         }
         listPaymentTypes = (ListView) findViewById(R.id.list_payment);
-        Defultitem = (TextView) findViewById(R.id.notitem);
-        Defultitem.setVisibility(View.VISIBLE);
+        defulTitem = (TextView) findViewById(R.id.notitem);
+        defulTitem.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
-        String receivingdata = bundle.getString("Key");//getStringExtra("Key");
-        Totalpay = (TextView) findViewById(R.id.grandpayTotal);
-        Totalpay.setText(receivingdata);
-        Paymentname = (TextView) findViewById(R.id.payname);
-        PaymentAMount = (EditText) findViewById(R.id.payAmount);
+        String receivingdata = bundle.getString("Key");
+        totalPay = (TextView) findViewById(R.id.grandpayTotal);
+        totalPay.setText(receivingdata);
+        paymentName = (TextView) findViewById(R.id.payname);
+        paymentAMount = (EditText) findViewById(R.id.payAmount);
         btnInvoice = (Button) findViewById(R.id.btnInvoice);
-        spnPayment = (Spinner) findViewById(R.id.btnPay);
+        spinnerPayment = (Spinner) findViewById(R.id.btnPay);
         arrayListPaymentType = new ArrayList<PosPayment>();
         posPaymentlistAdapter = new PosPaymentAdapter(PosPaymentTypes.this, R.layout.payment_single_row, arrayListPaymentType);
         Select();
 
-        spnPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
 
-                    String selPayment = spnPayment.getSelectedItem().toString();
+                    String selPayment = spinnerPayment.getSelectedItem().toString();
                     PosPayment posPayment = new PosPayment();
-                    spnPayment.setSelection(0);
+                    spinnerPayment.setSelection(0);
                     posPayment.setPaymentType(selPayment);
                     arrayListPaymentType.add(posPayment);
                     listPaymentTypes.setAdapter(posPaymentlistAdapter);
@@ -115,17 +115,17 @@ public class PosPaymentTypes extends AppCompatActivity {
         for (int i = 0; i < list.size(); i++) {
             ODataRow row = list.get(i);
             paymentMethod = row.getString("name");
-            ArraylistSpinner = new ArrayList<String>();
-            ArraylistSpinner.add("Payment Types");
-            ArraylistSpinner.add(paymentMethod);
+            arrayListSpinner = new ArrayList<String>();
+            arrayListSpinner.add("Payment Types");
+            arrayListSpinner.add(paymentMethod);
 
         }
-        String[] arrayPayment = ArraylistSpinner.toArray(new String[ArraylistSpinner.size()]);
-        System.out.println("Array=" + arrayPayment);
+        String[] arrayPayment = arrayListSpinner.toArray(new String[arrayListSpinner.size()]);
+
         ArrayAdapter aa = new ArrayAdapter(PosPaymentTypes.this, android.R.layout.simple_spinner_item, arrayPayment);
-        System.out.println("Adapter=" + aa);
+
         aa.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spnPayment.setAdapter(aa);
+       spinnerPayment.setAdapter(aa);
         return true;
     }
 
@@ -195,11 +195,11 @@ public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 PosPayment payment = (PosPayment) holder.PaymentAmount.getTag();
-                Payamount = charSequence.toString();
-                if (Payamount.matches("")) {
+               payAmount = charSequence.toString();
+                if (payAmount.matches("")) {
                     payment.setPaymentAmount(0);
                 } else {
-                    payment.setPaymentAmount(Float.valueOf(Payamount));
+                    payment.setPaymentAmount(Float.valueOf(payAmount));
                 }
 
 
