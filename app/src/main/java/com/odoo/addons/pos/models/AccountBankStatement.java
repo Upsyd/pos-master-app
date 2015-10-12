@@ -42,9 +42,9 @@ public class AccountBankStatement extends OModel {
     OColumn journal_id = new OColumn("Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn cash_control = new OColumn("Cash control", AccountJournal.class);
     OColumn closing_date = new OColumn("Closed On", ODateTime.class);
-   // OColumn closing_details_ids = new OColumn("Closing Cashbox Lines", account.cashbox.line.class, OColumn.RelationType.OneToMany);
+    OColumn closing_details_ids = new OColumn("Closing Cashbox Lines", AccountCashboxLine.class, OColumn.RelationType.OneToMany);
     OColumn date = new OColumn("Date", ODate.class);
-   // OColumn details_ids = new OColumn("CashBox Lines", account.cashbox.line.class, OColumn.RelationType.OneToMany);
+    OColumn details_ids = new OColumn("CashBox Lines", AccountCashboxLine.class, OColumn.RelationType.OneToMany);
     OColumn difference = new OColumn("Difference", OFloat.class);
     OColumn last_closing_balance = new OColumn("Last Closing Balance", OFloat.class);
     OColumn line_ids = new OColumn("Statement lines", AccountBankStatementLine.class, OColumn.RelationType.OneToMany);
@@ -54,9 +54,9 @@ public class AccountBankStatement extends OModel {
     OColumn message_last_post = new OColumn("Last Message Date", ODateTime.class);
     OColumn message_summary = new OColumn("Summary", OText.class);
     OColumn message_unread = new OColumn("Unread Messages", OBoolean.class);
-   // OColumn move_line_ids = new OColumn("Entry lines", account.move.line.class, OColumn.RelationType.OneToMany);
+    OColumn move_line_ids = new OColumn("Entry lines", AccountMoveLine.class, OColumn.RelationType.OneToMany);
     OColumn name = new OColumn("Reference", OVarchar.class);
-   // OColumn opening_details_ids = new OColumn("Opening Cashbox Lines", account.cashbox.line.class, OColumn.RelationType.OneToMany);
+    OColumn opening_details_ids = new OColumn("Opening Cashbox Lines", AccountCashboxLine.class, OColumn.RelationType.OneToMany);
     OColumn period_id = new OColumn("Period", AccountPeriod.class, OColumn.RelationType.ManyToOne);
     OColumn pos_session_id = new OColumn("unknown", PosSession.class);
     OColumn state = new OColumn("Status", OSelection.class);

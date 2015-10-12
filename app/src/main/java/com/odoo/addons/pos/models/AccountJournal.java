@@ -1,7 +1,6 @@
 package com.odoo.addons.pos.models;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.odoo.base.addons.res.ResCompany;
 import com.odoo.base.addons.res.ResCurrency;
@@ -28,8 +27,8 @@ public class AccountJournal extends OModel {
     OColumn allow_date = new OColumn("Check Date in Period", OBoolean.class);
     OColumn create_date = new OColumn("Creation on", ODateTime.class);
     OColumn create_uid = new OColumn("Created by", ResUsers.class, OColumn.RelationType.ManyToOne);
-   OColumn amount_authorized_diff = new OColumn("Amount Authorized Difference", AccountAnaliticJournal.class, OColumn.RelationType.ManyToOne);
-    OColumn analytic_journal_id = new OColumn("Analytic Journal", AccountAnaliticJournal.class, OColumn.RelationType.ManyToOne);
+   OColumn amount_authorized_diff = new OColumn("Amount Authorized Difference", AccountAnalyticJournal.class, OColumn.RelationType.ManyToOne);
+    OColumn analytic_journal_id = new OColumn("Analytic Journal", AccountAnalyticJournal.class, OColumn.RelationType.ManyToOne);
    // OColumn cashbox_line_ids= new OColumn("CashBox", account.journal.cashbox.line.class, OColumn.RelationType.OneToMany);
     OColumn cash_control = new OColumn("Cash Control", OBoolean.class);
     OColumn centralisation= new OColumn("Centralized Counterpart", OBoolean.class);
@@ -52,7 +51,7 @@ public class AccountJournal extends OModel {
     OColumn self_checkout_payment_method = new OColumn("Self Checkout Payment Method", OBoolean.class);
     OColumn sequence_id = new OColumn("Entry Sequence", IrSequence.class, OColumn.RelationType.ManyToOne);
     OColumn type = new OColumn("Type", OSelection.class);
- // OColumn type_control_ids = new OColumn("Type Controls",account.account.type.class, OColumn.RelationType.ManyToMany);
+  OColumn type_control_ids = new OColumn("Type Controls",AccountAccountType.class, OColumn.RelationType.ManyToMany);
     OColumn update_posted = new OColumn("Allow Cancelling Entries", OBoolean.class);
     OColumn user_id = new OColumn("User", ResUsers.class, OColumn.RelationType.ManyToOne);
     OColumn with_last_closing_balance = new OColumn("Opening With Last Closing Balance", OBoolean.class);

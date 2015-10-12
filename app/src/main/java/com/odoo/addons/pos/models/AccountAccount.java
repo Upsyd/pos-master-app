@@ -54,8 +54,8 @@ public class AccountAccount extends OModel {
     OColumn parent_right = new OColumn("Parent Right", OInteger.class);
     OColumn reconcile = new OColumn("Allow Reconciliation", OBoolean.class);
     OColumn shortcut = new OColumn("Shortcut", OVarchar.class);
-    // OColumn tax_ids = new OColumn("Default Taxes", AccountTax.class, OColumn.RelationType.ManyToMany);
-    // OColumn  user_type = new OColumn("Account Type", account.account.type.class, OColumn.RelationType.ManyToOne);
+     OColumn tax_ids = new OColumn("Default Taxes", AccountTax.class, OColumn.RelationType.ManyToMany);
+     OColumn  user_type = new OColumn("Account Type", AccountAccountType.class, OColumn.RelationType.ManyToOne);
     OColumn type = new OColumn("Internal Type", OSelection.class);
     OColumn unrealized_gain_loss = new OColumn("Unrealized Gain or Loss", OFloat.class);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);

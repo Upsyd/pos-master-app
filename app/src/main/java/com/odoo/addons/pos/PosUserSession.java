@@ -148,13 +148,14 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
         List<String> args = new ArrayList<>();
         switch (mType) {
             case Session:
-                where = "_is_active = ?";
+                where = "_is_active = ? AND user_id = ? AND pos_state = ? ";
                 // where = " = ?";
                 break;
 
         }
-//        args.add(user().getUserId().toString());
         args.add("true");
+        args.add(this.user().getUserId().toString());
+        args.add("opened");
 //        if (mCurFilter != null) {
 //            where += " and name like ? ";
 //            args.add(mCurFilter + "%");
@@ -297,12 +298,12 @@ public class PosUserSession extends BaseFragment implements ISyncStatusObserverL
         PosSessionOpening posSessionOpening = new PosSessionOpening(getActivity(), null);
 //PosSession posSession = new PosSession(getActivity(),null);
 //        List<ODataRow> sessionDataList =  posSession.select(new String[]{"name"}, null, null);
-//        ODataRow sessionData = posSessionOpening.browse(new String[]{"pos_state_str"}, "user_id = ?", new String[]{posSessionOpening.getUser().getUserId().toString()});
-        List<ODataRow> sessionDataList = posSessionOpening.select(new String[]{"pos_state_str"}, null, null);
+//        ODataRow sessionData = posSessionOpening.browse(new String[]{"pos_state"}, "user_id = ?", new String[]{posSessionOpening.getUser().getUserId().toString()});
+        List<ODataRow> sessionDataList = posSessionOpening.select(new String[]{"pos_state"}, "write_uid = ?", new String[]{posSessionOpening.getUser().getUserId().toString()});
         if (sessionDataList != null && sessionDataList.size() > 0) {
         ODataRow sessionData = sessionDataList.get(0);
-            System.out.println("Resume Session: "+sessionData.getString("pos_state_str"));
-            Toast.makeText(getActivity(), "Resume Session: "+sessionData.getString("pos_state_str"), Toast.LENGTH_SHORT).show();
+            System.out.println("Resume Session: "+sessionData.getString("pos_state"));
+            Toast.makeText(getActivity(), "Resume Session: "+sessionData.getString("pos_state"), Toast.LENGTH_SHORT).show();
         } else {
             System.out.println("New Session");
             Toast.makeText(getActivity(), "New Session..", Toast.LENGTH_SHORT).show();

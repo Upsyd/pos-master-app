@@ -22,7 +22,7 @@ import com.odoo.core.support.OUser;
 public class StockMove extends OModel {
     public static final String TAG = StockMove.class.getSimpleName();
 
-    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.stock.move";
+    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.stock_move";
 
     OColumn availability = new OColumn("Quantity Available", OFloat.class);
     OColumn backorder_id = new OColumn("Back Order of", StockPicking.class, OColumn.RelationType.ManyToOne);
@@ -75,25 +75,9 @@ public class StockMove extends OModel {
     OColumn split_from = new OColumn("Move Split From", StockMove.class, OColumn.RelationType.ManyToOne);
     OColumn state = new OColumn("Status", OSelection.class);
     OColumn string_availability_info = new OColumn("Availability", OText.class);
-    //OColumn warehouse_id = new OColumn("Warehouse", StockWherehouse.class, OColumn.RelationType.ManyToOne);
+    //OColumn warehouse_id = new OColumn("Warehouse", StockWarehouse.class, OColumn.RelationType.ManyToOne);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public StockMove(Context context, OUser user) {
         super(context,"stock.move", user);

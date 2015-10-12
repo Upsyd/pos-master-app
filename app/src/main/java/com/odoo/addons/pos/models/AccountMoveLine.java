@@ -31,8 +31,8 @@ public class AccountMoveLine  extends OModel {
     OColumn amount_currency = new OColumn("Amount Currency", OFloat.class);
     OColumn amount_residual = new OColumn("Residual Amount", OFloat.class);
     OColumn amount_residual_currency = new OColumn("Residual Amount in Currency", OFloat.class);
-    //OColumn analytic_account_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
-  //  OColumn analytic_lines = new OColumn("Analytic lines", AccountAnalyticLine.class, OColumn.RelationType.OneToMany);
+    OColumn analytic_account_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn analytic_lines = new OColumn("Analytic lines", AccountAnalyticLine.class, OColumn.RelationType.OneToMany);
     OColumn balance = new OColumn("balance", OFloat.class);
     OColumn blocked = new OColumn("No Follow-up", OBoolean.class);
     OColumn centralisation = new OColumn("centralisation", OSelection.class);

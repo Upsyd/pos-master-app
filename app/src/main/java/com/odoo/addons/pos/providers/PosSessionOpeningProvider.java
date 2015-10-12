@@ -15,7 +15,7 @@ public class PosSessionOpeningProvider extends BaseModelProvider {
     public String authority() {
         return PosSessionOpening.AUTHORITY;
     }
-//
+
 //    @Override
 //    public void setModel(Uri uri) {
 //        super.setModel(uri);

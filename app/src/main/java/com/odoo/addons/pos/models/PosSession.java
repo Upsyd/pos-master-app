@@ -1,7 +1,6 @@
 package com.odoo.addons.pos.models;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.odoo.base.addons.res.ResCurrency;
 import com.odoo.base.addons.res.ResUsers;
@@ -37,11 +36,11 @@ public class PosSession extends OModel {
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn config_id = new OColumn("Point of Sale", PosOrder.class, OColumn.RelationType.ManyToOne);
     OColumn currency_id = new OColumn("Currency", ResCurrency.class, OColumn.RelationType.ManyToOne);
-//    OColumn details_ids = new OColumn("Cash Control", AccountCashboxLine.class, OColumn.RelationType.ManyToOne);
+    OColumn details_ids = new OColumn("Cash Control", AccountCashboxLine.class, OColumn.RelationType.ManyToOne);
     OColumn journal_ids = new OColumn("Available Payment Methods", AccountJournal.class, OColumn.RelationType.ManyToMany);
     OColumn login_number = new OColumn("Login Sequence Number", OInteger.class);
     OColumn name = new OColumn("Name", OVarchar.class);
-//    OColumn opening_details_ids = new OColumn("Opening Cash Control", AccountCashboxLine.class, OColumn.RelationType.OneToMany);
+    OColumn opening_details_ids = new OColumn("Opening Cash Control", AccountCashboxLine.class, OColumn.RelationType.OneToMany);
     OColumn order_ids = new OColumn("Orders", PosOrder.class, OColumn.RelationType.OneToMany);
     OColumn sequence_number = new OColumn("Order Sequence Number", OInteger.class);
     OColumn start_at = new OColumn("Opening Date", ODateTime.class);

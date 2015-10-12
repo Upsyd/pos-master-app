@@ -39,7 +39,7 @@ public class AccountAnalyticLine  extends OModel {
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn name = new OColumn("Description", OVarchar.class);
     OColumn ref = new OColumn("Ref.", OVarchar.class);
-    OColumn product_id = new OColumn("Product", com.odoo.addons.pos.models.ProductProduct.class, OColumn.RelationType.ManyToOne);
+    OColumn product_id = new OColumn("Product", ProductProduct.class, OColumn.RelationType.ManyToOne);
     OColumn product_uom_id = new OColumn("Unit of Measure", ProductUom.class, OColumn.RelationType.ManyToOne);
     OColumn unit_amount = new OColumn("Quantity", OFloat.class);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);

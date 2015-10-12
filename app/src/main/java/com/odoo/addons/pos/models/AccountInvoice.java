@@ -40,10 +40,10 @@ public class AccountInvoice extends OModel {
     OColumn currency_id = new OColumn("Currency",ResCurrency.class, OColumn.RelationType.ManyToOne);
     OColumn date_due= new OColumn("Due Date", ODate.class);
     OColumn date_invoice = new OColumn("Invoice Date", ODate.class);
-   // OColumn fiscal_position = new OColumn("Fiscal Position",AccountFisacalPosition.class, OColumn.RelationType.ManyToOne);
+   // OColumn fiscal_position = new OColumn("Fiscal Position",AccountFiscalPosition.class, OColumn.RelationType.ManyToOne);
     OColumn id = new OColumn("ID", OInteger.class);
     OColumn internal_number= new OColumn("Invoice Number", OVarchar.class);
-   // OColumn invoice_line = new OColumn("Invoice Lines", AccountInvoiceLine.class, OColumn.RelationType.OneToMany);
+    OColumn invoice_line = new OColumn("Invoice Lines", AccountInvoiceLine.class, OColumn.RelationType.OneToMany);
     OColumn journal_id = new OColumn("Journal", AccountJournal.class, OColumn.RelationType.ManyToOne);
     OColumn message_follower_ids= new OColumn("Followers", ResPartner.class, OColumn.RelationType.ManyToMany);
     OColumn message_ids = new OColumn("Messages",MailMessage.class, OColumn.RelationType.OneToMany);
@@ -70,7 +70,7 @@ public class AccountInvoice extends OModel {
     OColumn sent = new OColumn("Sent", OBoolean.class);
     OColumn state = new OColumn("Status", OSelection.class);
     OColumn supplier_invoice_number = new OColumn("Supplier Invoice Number", OVarchar.class);
-    //OColumn tax_line = new OColumn("Tax Lines", AccountInvoiceTax.class, OColumn.RelationType.OneToMany);
+    OColumn tax_line = new OColumn("Tax Lines", AccountInvoiceTax.class, OColumn.RelationType.OneToMany);
     OColumn type = new OColumn("Type", OSelection.class);
     OColumn user_id = new OColumn("Salesperson", ResUsers.class, OColumn.RelationType.ManyToOne);
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);

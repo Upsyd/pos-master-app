@@ -44,6 +44,6 @@ public class ProductSyncService extends OSyncService implements ISyncFinishListe
 
     @Override
     public OSyncAdapter performNextSync(OUser user, SyncResult syncResult) {
-        return new OSyncAdapter(getApplicationContext(), PosConfig.class, ProductSyncService.this, true);
+        return new OSyncAdapter(getApplicationContext(), PosOrder.class, ProductSyncService.this, true);
     }
 }

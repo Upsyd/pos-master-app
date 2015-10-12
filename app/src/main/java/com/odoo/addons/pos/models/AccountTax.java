@@ -25,8 +25,8 @@ public class AccountTax  extends OModel {
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_tax";
 
     OColumn active = new OColumn("Active", OBoolean.class);
-   // OColumn account_analytic_collected_id = new OColumn("Invoice Tax Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
-   // OColumn account_analytic_paid_id = new OColumn("Refund Tax Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn account_analytic_collected_id = new OColumn("Invoice Tax Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn account_analytic_paid_id = new OColumn("Refund Tax Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
     OColumn account_collected_id= new OColumn("Invoice Tax Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn account_paid_id = new OColumn("Refund Tax Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn amount = new OColumn("Amount", OFloat.class);

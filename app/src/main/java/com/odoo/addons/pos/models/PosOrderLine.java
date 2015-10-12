@@ -22,7 +22,7 @@ public class PosOrderLine extends OModel {
 
 
     OColumn id = new OColumn("ID",Integer.class); //OVarchar.class).setSize(100);
-    OColumn name = new OColumn("Line No", OVarchar.class).setSize(100);
+    OColumn name = new OColumn("Line No", OVarchar.class);
     OColumn company_id = new OColumn("Company",  ResCompany.class,OColumn.RelationType.ManyToOne);
     OColumn discount = new OColumn("Discount (%)", OFloat.class);
     OColumn notice = new OColumn("Discount Notice", OVarchar.class);

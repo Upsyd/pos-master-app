@@ -21,7 +21,7 @@ import com.odoo.core.support.OUser;
 public class AccountInvoiceTax  extends OModel {
     public static final String TAG = AccountInvoiceTax.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_invoice_tax";
-    //OColumn account_analytic_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn account_analytic_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
     OColumn account_id = new OColumn("Tax Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
     OColumn amount = new OColumn("Amount", OFloat.class);
     OColumn base = new OColumn("base", OFloat.class);

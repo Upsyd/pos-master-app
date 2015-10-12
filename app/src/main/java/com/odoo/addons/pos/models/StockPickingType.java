@@ -43,7 +43,7 @@ public class StockPickingType extends OModel {
     OColumn return_picking_type_id = new OColumn("Picking Type for Returns",StockPickingType.class, OColumn.RelationType.ManyToOne);
     OColumn sequence = new OColumn("Sequence",OInteger.class);
     OColumn sequence_id = new OColumn("Reference Sequence",IrSequence.class, OColumn.RelationType.ManyToOne);
-    //OColumn warehouse_id= new OColumn("Warehouse",StockWhereHouse.class, OColumn.RelationType.ManyToOne);
+    //OColumn warehouse_id= new OColumn("Warehouse",StockWarehouse.class, OColumn.RelationType.ManyToOne);
     OColumn write_date = new OColumn("Last Updated on",ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by",ResUsers.class, OColumn.RelationType.ManyToOne);
 

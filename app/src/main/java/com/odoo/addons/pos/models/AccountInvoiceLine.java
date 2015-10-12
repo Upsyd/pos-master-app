@@ -26,7 +26,7 @@ import com.odoo.core.support.OUser;
 public class AccountInvoiceLine extends OModel {
     public static final String TAG =AccountInvoiceLine.class.getSimpleName();
     public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_invoice_line";
-    //OColumn account_analytic_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
+    OColumn account_analytic_id = new OColumn("Analytic Account", AccountAnalyticAccount.class, OColumn.RelationType.ManyToOne);
     OColumn account_id = new OColumn("Account", AccountAccount.class, OColumn.RelationType.ManyToOne);
 
     OColumn company_id= new OColumn("Company", ResCompany.class, OColumn.RelationType.ManyToOne);

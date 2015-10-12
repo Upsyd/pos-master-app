@@ -31,7 +31,7 @@ public class AccountMove extends OModel {
     OColumn date = new OColumn("Date",ODate.class);
     OColumn id = new OColumn("Id",OInteger.class);
     OColumn journal_id = new OColumn("Journal",AccountJournal.class, OColumn.RelationType.ManyToOne);
-   // OColumn line_id = new OColumn("Entries",AccountMoveLine.class, OColumn.RelationType.OneToMany);
+    OColumn line_id = new OColumn("Entries",AccountMoveLine.class, OColumn.RelationType.OneToMany);
     OColumn name = new OColumn("Number",OVarchar.class);
     OColumn narration = new OColumn("Internal Note",OText.class);
     OColumn partner_id = new OColumn("Partner",ResPartner.class, OColumn.RelationType.ManyToOne);

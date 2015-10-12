@@ -45,7 +45,7 @@ public class StockPicking extends OModel {
     OColumn message_summary = new OColumn("Summary", OText.class);
     OColumn message_unread = new OColumn("Unread Messages", OBoolean.class);
     OColumn min_date = new OColumn("Scheduled Date", ODateTime.class);
-    // OColumn move_lines = new OColumn("Internal Moves", stock.move.class,OColumn.RelationType.OneToMany);
+     OColumn move_lines = new OColumn("Internal Moves", StockMove.class,OColumn.RelationType.OneToMany);
     OColumn move_type = new OColumn("Delivery Method", OSelection.class);
     OColumn name = new OColumn("Reference", OVarchar.class);
     OColumn origin = new OColumn("Source Document", OVarchar.class);

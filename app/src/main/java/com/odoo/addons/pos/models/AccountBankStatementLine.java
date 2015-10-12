@@ -48,12 +48,6 @@ public class AccountBankStatementLine extends OModel {
     OColumn write_date = new OColumn("Last Updated on", ODateTime.class);
     OColumn write_uid = new OColumn("Last Updated by", ResUsers.class, OColumn.RelationType.ManyToOne);
 
-
-
-
-
-
-
     public AccountBankStatementLine(Context context,OUser user) {
         super(context,"account.bank.statement.line", user);
     }

@@ -17,7 +17,7 @@ import com.odoo.core.support.OUser;
 public class AccountCashboxLine  extends OModel{
     public static final String TAG = AccountCashboxLine.class.getSimpleName();
 
-    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account.cashbox.line";
+    public static final String AUTHORITY = "com.bi.pos.core.provider.content.sync.account_cashbox_line";
 
 
 
