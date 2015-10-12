@@ -55,7 +55,7 @@ public class PosPaymentTypes extends AppCompatActivity {
     Button btnInvoice;
     String payAmount;
     Spinner spinnerPayment;
-    TextView paymentName;
+    TextView paymentName, ramining, paid;
     EditText paymentAMount;
 
 
@@ -79,7 +79,9 @@ public class PosPaymentTypes extends AppCompatActivity {
         totalPay.setText(receivingdata);
         paymentName = (TextView) findViewById(R.id.payname);
         paymentAMount = (EditText) findViewById(R.id.payAmount);
-        btnInvoice = (Button) findViewById(R.id.btnInvoice);
+        ramining = (TextView) findViewById(R.id.remaining_tax);
+        ramining.setText(receivingdata);
+        paid = (TextView) findViewById(R.id.paid_tax);        btnInvoice = (Button) findViewById(R.id.btnInvoice);
         spinnerPayment = (Spinner) findViewById(R.id.btnPay);
         arrayListPaymentType = new ArrayList<PosPayment>();
         posPaymentlistAdapter = new PosPaymentAdapter(PosPaymentTypes.this, R.layout.payment_single_row, arrayListPaymentType);
@@ -91,13 +93,14 @@ public class PosPaymentTypes extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
 
+                    defulTitem.setVisibility(View.GONE);
                     String selPayment = spinnerPayment.getSelectedItem().toString();
                     PosPayment posPayment = new PosPayment();
                     spinnerPayment.setSelection(0);
                     posPayment.setPaymentType(selPayment);
                     arrayListPaymentType.add(posPayment);
                     listPaymentTypes.setAdapter(posPaymentlistAdapter);
-                   posPaymentlistAdapter.notifyDataSetChanged();
+                    posPaymentlistAdapter.notifyDataSetChanged();
                 }
 
             }
@@ -128,7 +131,38 @@ public class PosPaymentTypes extends AppCompatActivity {
        spinnerPayment.setAdapter(aa);
         return true;
     }
+    public void PaidRamingValue() {
 
+        float totalamount = Float.parseFloat(totalPay.getText().toString());
+        float firstInputValue = Float.parseFloat(paid.getText().toString());
+        float secondInputValue = Float.parseFloat(ramining.getText().toString());
+        secondInputValue = totalamount - firstInputValue;
+        ramining.setText(secondInputValue + "");
+    }
+
+
+
+    public void  TotalPayment() {
+
+        float getpaid = 0.0f;
+        for (int i = 0; i < posPaymentlistAdapter.getCount(); i++) {
+            PosPayment pospay = posPaymentlistAdapter.getItem(i);
+            getpaid += pospay.getPaymentAmount();
+
+            System.out.println("Value Of PAID:-"+getpaid);
+        }
+        paid.setText(getpaid+"");
+
+    }
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        if (item.getItemId() == android.R.id.home) {
+            PaidRamingValue();
+            finish();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
@@ -156,12 +190,14 @@ public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
         PosPayment listPosPayment = listPayment.get(position);
 
         if (view == null) {
-
             LayoutInflater vi = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(R.layout.payment_single_row, null);
         }
 
+    
+
+       
 
         holder.PaymentType = (TextView) view.findViewById(R.id.payname);
         holder.PaymentType.setTag(listPosPayment);
@@ -182,7 +218,15 @@ public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
                 listPayment.remove(payment2);
                 posPaymentlistAdapter.notifyDataSetChanged();
                 listPaymentTypes.setAdapter(posPaymentlistAdapter);
+                TotalPayment();
+                PaidRamingValue();
+                if (posPaymentlistAdapter.getCount() == 0) {
+                    defulTitem.setVisibility(View.VISIBLE);
+                }
 
+
+            
+      
             }
         });
 
@@ -200,7 +244,10 @@ public class PosPaymentAdapter extends ArrayAdapter<PosPayment> {
                     payment.setPaymentAmount(0);
                 } else {
                     payment.setPaymentAmount(Float.valueOf(payAmount));
+                    TotalPayment();
+                    PaidRamingValue();
                 }
+                
 
 
             }

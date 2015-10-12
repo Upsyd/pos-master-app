@@ -15,6 +15,16 @@
         android:paddingRight="@dimen/default_8dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         app:theme="@style/ToolBarTheme" />
+    <TextView
+    android:id="@+id/grandpayTotal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="0.00"
+    android:textSize="30dp"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,8 +34,18 @@
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/frame"
             android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <!--<TextView-->
+                <!--android:id="@+id/grandpayTotal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="0.0"-->
+                <!--android:textSize="30dp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="10dp"/>-->
             <ListView android:id="@+id/list_payment"
-                android:layout_height="fill_parent" android:layout_width="fill_parent" />
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
 
-                android:text="Total:"
+                android:text="Paid:"
                 android:gravity="center_vertical|left"
                 android:textStyle="bold"
                 android:minWidth="5dp"
@@ -70,7 +90,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/grandpayTotal"
+                android:id="@+id/paid_tax"
                 android:layout_width="wrap_content"
                 android:gravity="center_vertical"
                 android:text="0.0"
@@ -90,54 +110,52 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:background="@color/android_white"-->
-            <!--android:layout_height="wrap_content">-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/android_white"
+            android:layout_height="wrap_content">
 
-            <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Remaining:"
+                android:textStyle="bold"
+                android:textColor="@color/drawer_text_color"
 
-                <!--android:text="Taxes:"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textColor="@color/drawer_text_color"-->
+                android:gravity="center_vertical|left"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/remaining_tax"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:fontFamily="@string/font_normal"
+                android:text="0.0"
+                android:minWidth="5dp"
+                android:textColor="@color/android_grey_dark"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_height="match_parent" />
 
-                <!--android:gravity="center_vertical|left"-->
-                <!--android:textAppearance="?android:textAppearanceSmall"-->
-                <!--android:layout_height="match_parent" />-->
-            <!--<TextView-->
-                <!--android:id="@+id/taxesTotal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:fontFamily="@string/font_normal"-->
-                <!--android:text="0.0"-->
-                <!--android:minWidth="5dp"-->
-                <!--android:textColor="@color/android_grey_dark"-->
-                <!--android:textAppearance="?android:textAppearanceMedium"-->
-                <!--android:layout_height="match_parent" />-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/currency2"-->
-                <!--android:layout_width="15dp"-->
-                <!--android:tint="@color/drawer_text_color"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:src="@drawable/ic_indian_rupee"-->
-                <!--android:textColor="@color/android_grey_dark"-->
-                <!--android:layout_height="match_parent" />-->
-
+            <ImageView
+                android:id="@+id/currency2"
+                android:layout_width="15dp"
+                android:tint="@color/drawer_text_color"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_indian_rupee"
+                android:textColor="@color/android_grey_dark"
+                android:layout_height="match_parent" />
 
 
-        <!--</LinearLayout>-->
 
-    <!--</LinearLayout>-->
+        </LinearLayout>
 
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
